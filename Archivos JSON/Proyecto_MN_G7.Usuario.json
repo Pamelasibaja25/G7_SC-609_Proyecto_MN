@@ -1,0 +1,120 @@
+[{
+  "_id": 1,
+  "username": "pamela01",
+  "password": 12345,
+  "nombre": "Pamela Sibaja Torres",
+  "telefono": 85449635,
+  "activo": true,
+  "role": "admin",
+  "email": "psibaja70889@ufide.ac.cr"
+},
+{
+  "_id": 2,
+  "username": "manuel2",
+  "password": 12345,
+  "nombre": "Manuel Hernandez",
+  "telefono": 87462645,
+  "activo": true,
+  "role": "user",
+  "email": "manuel2@gmail.com"
+},
+{
+  "_id": 3,
+  "username": "marta3",
+  "password": 12346,
+  "nombre": "Marta Lopez",
+  "telefono": 87462646,
+  "activo": false,
+  "role": "user",
+  "email": "marta3@gmail.com"
+},
+{
+  "_id": 4,
+  "username": "luis4",
+  "password": 12347,
+  "nombre": "Luis Martinez",
+  "telefono": 87462647,
+  "activo": false,
+  "role": "user",
+  "email": "luis4@gmail.com"
+},
+{
+  "_id": 5,
+  "username": "monica05",
+  "password": 12348,
+  "nombre": "Monica Duarte",
+  "telefono": 87462648,
+  "activo": false,
+  "role": "user",
+  "email": "monica05@gmail.com"
+},
+{
+  "_id": 6,
+  "username": "jafet06",
+  "password": 12349,
+  "nombre": "Jafet Barquero Solano",
+  "telefono": 87462649,
+  "activo": true,
+  "role": "admin",
+  "email": "jbarquero60929@ufide.ac.cr"
+},
+{
+  "_id": 7,
+  "username": "gabriel07",
+  "password": 12350,
+  "nombre": "Gabriel Estefano Gutierrez Monge",
+  "telefono": 87462650,
+  "activo": true,
+  "role": "admin",
+  "email": "ggutierrez00078@ufide.ac.cr"
+},
+{
+  "_id": 8,
+  "username": "diego08",
+  "password": 12351,
+  "nombre": "Diego Alonso Salazar Artavia",
+  "telefono": 87462651,
+  "activo": true,
+  "role": "admin",
+  "email": "dsalazar40791@ufide.ac.cr"
+},
+{
+  "_id": 9,
+  "username": "david09",
+  "password": 12352,
+  "nombre": "David Nuñez",
+  "telefono": 87462652,
+  "activo": false,
+  "role": "user",
+  "email": "david09@gmail.com"
+},
+{
+  "_id": 10,
+  "username": "lurdes10",
+  "password": 12353,
+  "nombre": "Lurdes Perez",
+  "telefono": 87462653,
+  "activo": false,
+  "role": "user",
+  "email": "lurdes10@gmail.com"
+},
+{
+  "_id": 11,
+  "username": "lia11",
+  "password": 12354,
+  "nombre": "Lía Catalina Herrera",
+  "telefono": 87462654,
+  "activo": true,
+  "role": "user",
+  "email": "lia11@gmail.com"
+},
+{
+  "_id": 12,
+  "username": "liam12",
+  "password": 12355,
+  "nombre": "Liam Dimitri Azofeifa",
+  "telefono": 87462655,
+  "activo": true,
+  "role": "user",
+  "email": "liam12@gmail.com"
+}]

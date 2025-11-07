@@ -1,0 +1,13 @@
+﻿_id;username;password;nombre;telefono;activo;role;email
+1;pamela01;12345;Pamela Sibaja Torres;85449635;TRUE;admin;psibaja70889@ufide.ac.cr
+2;manuel2;12345;Manuel Hernandez;87462645;TRUE;user;manuel2@gmail.com
+3;marta3;12346;Marta Lopez;87462646;FALSE;user;marta3@gmail.com
+4;luis4;12347;Luis Martinez;87462647;FALSE;user;luis4@gmail.com
+5;monica05;12348;Monica Duarte;87462648;FALSE;user;monica05@gmail.com
+6;jafet06;12349;Jafet Barquero Solano;87462649;TRUE;admin;jbarquero60929@ufide.ac.cr
+7;gabriel07;12350;Gabriel Estefano Gutierrez Monge;87462650;TRUE;admin;ggutierrez00078@ufide.ac.cr
+8;diego08;12351;Diego Alonso Salazar Artavia;87462651;TRUE;admin;dsalazar40791@ufide.ac.cr
+9;david09;12352;David Nuñez;87462652;FALSE;user;david09@gmail.com
+10;lurdes10;12353;Lurdes Perez;87462653;FALSE;user;lurdes10@gmail.com
+11;lia11;12354;Lía Catalina Herrera;87462654;TRUE;user;lia11@gmail.com
+12;liam12;12355;Liam Dimitri Azofeifa;87462655;TRUE;user;liam12@gmail.com

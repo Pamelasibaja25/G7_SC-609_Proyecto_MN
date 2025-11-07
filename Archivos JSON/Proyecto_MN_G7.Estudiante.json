@@ -1,0 +1,120 @@
+[{
+  "_id": 1,
+  "id_escuela": 1,
+  "id_usuario": 11,
+  "cedula": 118377845,
+  "fecha_nacimiento": {
+    "$date": "2010-02-25T06:00:00.000Z"
+  },
+  "grado": "Primero"
+},
+{
+  "_id": 2,
+  "id_escuela": 2,
+  "id_usuario": 11,
+  "cedula": 118377845,
+  "fecha_nacimiento": {
+    "$date": "2010-02-25T06:00:00.000Z"
+  },
+  "grado": "Segundo"
+},
+{
+  "_id": 3,
+  "id_escuela": 3,
+  "id_usuario": 11,
+  "cedula": 118377845,
+  "fecha_nacimiento": {
+    "$date": "2010-02-25T06:00:00.000Z"
+  },
+  "grado": "Tercero"
+},
+{
+  "_id": 4,
+  "id_escuela": 4,
+  "id_usuario": 11,
+  "cedula": 118377845,
+  "fecha_nacimiento": {
+    "$date": "2010-02-25T06:00:00.000Z"
+  },
+  "grado": "Cuarto"
+},
+{
+  "_id": 5,
+  "id_escuela": 5,
+  "id_usuario": 11,
+  "cedula": 118377845,
+  "fecha_nacimiento": {
+    "$date": "2010-02-25T06:00:00.000Z"
+  },
+  "grado": "Quinto"
+},
+{
+  "_id": 6,
+  "id_escuela": 6,
+  "id_usuario": 11,
+  "cedula": 118377845,
+  "fecha_nacimiento": {
+    "$date": "2010-02-25T06:00:00.000Z"
+  },
+  "grado": "Sexto"
+},
+{
+  "_id": 7,
+  "id_escuela": 7,
+  "id_usuario": 12,
+  "cedula": 118748956,
+  "fecha_nacimiento": {
+    "$date": "2013-05-28T06:00:00.000Z"
+  },
+  "grado": "Primero"
+},
+{
+  "_id": 8,
+  "id_escuela": 8,
+  "id_usuario": 12,
+  "cedula": 118748956,
+  "fecha_nacimiento": {
+    "$date": "2013-05-28T06:00:00.000Z"
+  },
+  "grado": "Segundo"
+},
+{
+  "_id": 9,
+  "id_escuela": 9,
+  "id_usuario": 12,
+  "cedula": 118748956,
+  "fecha_nacimiento": {
+    "$date": "2013-05-28T06:00:00.000Z"
+  },
+  "grado": "Tercero"
+},
+{
+  "_id": 10,
+  "id_escuela": 10,
+  "id_usuario": 12,
+  "cedula": 118748956,
+  "fecha_nacimiento": {
+    "$date": "2013-05-28T06:00:00.000Z"
+  },
+  "grado": "Cuarto"
+},
+{
+  "_id": 11,
+  "id_escuela": 11,
+  "id_usuario": 12,
+  "cedula": 118748956,
+  "fecha_nacimiento": {
+    "$date": "2013-05-28T06:00:00.000Z"
+  },
+  "grado": "Quinto"
+},
+{
+  "_id": 12,
+  "id_escuela": 12,
+  "id_usuario": 12,
+  "cedula": 118748956,
+  "fecha_nacimiento": {
+    "$date": "2013-05-28T06:00:00.000Z"
+  },
+  "grado": "Sexto"
+}]

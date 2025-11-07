@@ -1,0 +1,60 @@
+[{
+  "_id": 1,
+  "nombre": "Academia de Tecnología Moderna",
+  "provincia": "Alajuela"
+},
+{
+  "_id": 2,
+  "nombre": "Centro Educativo San Agustín",
+  "provincia": "Alajuela"
+},
+{
+  "_id": 3,
+  "nombre": "Centro Educativo Santa Teresa",
+  "provincia": "Alajuela"
+},
+{
+  "_id": 4,
+  "nombre": "Escuela Tuetal Norte",
+  "provincia": "Alajuela"
+},
+{
+  "_id": 5,
+  "nombre": "Escuela de Turrúcares",
+  "provincia": "Alajuela"
+},
+{
+  "_id": 6,
+  "nombre": "Escuela General José de San Martín",
+  "provincia": "Alajuela"
+},
+{
+  "_id": 7,
+  "nombre": "Escuela Jesús Magdaleno Vargas Aguilar",
+  "provincia": "Alajuela"
+},
+{
+  "_id": 8,
+  "nombre": "Centro de Educación Especial de Grecia",
+  "provincia": "Alajuela"
+},
+{
+  "_id": 9,
+  "nombre": "Escuela Jacinto Paniagua",
+  "provincia": "Alajuela"
+},
+{
+  "_id": 10,
+  "nombre": "Escuela Juan Santamaría",
+  "provincia": "Alajuela"
+},
+{
+  "_id": 11,
+  "nombre": "Escuela Miguel Hidalgo Bastos",
+  "provincia": "Alajuela"
+},
+{
+  "_id": 12,
+  "nombre": "SAINT GREGORY SCHOOL",
+  "provincia": "Alajuela"
+}]

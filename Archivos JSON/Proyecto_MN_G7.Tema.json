@@ -1,0 +1,84 @@
+[{
+  "_id": 1,
+  "id_curso": 12,
+  "id_usuario": 11,
+  "nombre": "Identidad y comunidad",
+  "informacion": "Costumbres y tradiciones del cantón."
+},
+{
+  "_id": 2,
+  "id_curso": 12,
+  "id_usuario": 11,
+  "nombre": "Valores cívicos y convivencia",
+  "informacion": "Convivencia pacífica en el aula y la comunidad."
+},
+{
+  "_id": 3,
+  "id_curso": 12,
+  "id_usuario": 11,
+  "nombre": "Geografía básica",
+  "informacion": "Ubicación espacial y orientación (puntos cardinales)."
+},
+{
+  "_id": 4,
+  "id_curso": 12,
+  "id_usuario": 11,
+  "nombre": "Seguridad",
+  "informacion": "Seguridad vial y personal en espacios rurales y urbanos."
+},
+{
+  "_id": 5,
+  "id_curso": 12,
+  "id_usuario": 11,
+  "nombre": "Derechos y Deberes",
+  "informacion": "Normas de comportamiento en la escuela y el hogar."
+},
+{
+  "_id": 6,
+  "id_curso": 12,
+  "id_usuario": 11,
+  "nombre": "Símbolos patrios",
+  "informacion": "Identificación y significado de los símbolos nacionales"
+},
+{
+  "_id": 7,
+  "id_curso": 11,
+  "id_usuario": 12,
+  "nombre": "Introducción a la computadora",
+  "informacion": "Qué es, para qué sirve y sus utilidades básicas"
+},
+{
+  "_id": 8,
+  "id_curso": 11,
+  "id_usuario": 12,
+  "nombre": "Ventanas de Windows",
+  "informacion": "Familiarización con las ventanas, cómo abrirlas, cerrarlas y moverlas."
+},
+{
+  "_id": 9,
+  "id_curso": 11,
+  "id_usuario": 12,
+  "nombre": "El escritorio",
+  "informacion": "Identificación de los íconos y cómo cambiar el fondo de pantalla. "
+},
+{
+  "_id": 10,
+  "id_curso": 11,
+  "id_usuario": 12,
+  "nombre": "Interacción con el hardware",
+  "informacion": "Identificación de las teclas principales y cómo usarlas para escribir. "
+},
+{
+  "_id": 11,
+  "id_curso": 11,
+  "id_usuario": 12,
+  "nombre": "Encendido y apagado",
+  "informacion": "Aprender la secuencia correcta para encender y apagar la computadora y los dispositivos asociados."
+},
+{
+  "_id": 12,
+  "id_curso": 11,
+  "id_usuario": 12,
+  "nombre": "Uso responsable",
+  "informacion": "Reglas y consejos sobre qué hacer y qué no hacer al usar la computadora. "
+}]

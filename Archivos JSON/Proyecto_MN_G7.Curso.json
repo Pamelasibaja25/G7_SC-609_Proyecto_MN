@@ -1,0 +1,96 @@
+[{
+  "_id": 1,
+  "descripcion": "Inglés",
+  "grado": "Primero",
+  "detalle": "Explicación de Colores y Numeros",
+  "estado": "Matriculado",
+  "id_usuario": 1
+},
+{
+  "_id": 2,
+  "descripcion": "Español",
+  "grado": "Primero",
+  "detalle": "Explicación de Colores y Numeros",
+  "estado": "Matriculado",
+  "id_usuario": 2
+},
+{
+  "_id": 3,
+  "descripcion": "Matematicas",
+  "grado": "Primero",
+  "detalle": "Explicación de sumas y restas",
+  "estado": "Matriculado",
+  "id_usuario": 3
+},
+{
+  "_id": 4,
+  "descripcion": "Ciencias",
+  "grado": "Primero",
+  "detalle": "Nombres del cuerpo humano",
+  "estado": "Matriculado",
+  "id_usuario": 4
+},
+{
+  "_id": 5,
+  "descripcion": "Estudios Sociales",
+  "grado": "Primero",
+  "detalle": "Explicación de la Bandera",
+  "estado": "En Progreso",
+  "id_usuario": 5
+},
+{
+  "_id": 6,
+  "descripcion": "Mandarín",
+  "grado": "Primero",
+  "detalle": "Explicación de Colores y Numeros",
+  "estado": "En Progreso",
+  "id_usuario": 6
+},
+{
+  "_id": 7,
+  "descripcion": "Frances",
+  "grado": "Primero",
+  "detalle": "Explicación de Colores y Numeros",
+  "estado": "En Progreso",
+  "id_usuario": 7
+},
+{
+  "_id": 8,
+  "descripcion": "Agricultura",
+  "grado": "Primero",
+  "detalle": "Se promueve la creatividad para sembrar",
+  "estado": "En Progreso",
+  "id_usuario": 8
+},
+{
+  "_id": 9,
+  "descripcion": "Educación Fisica",
+  "grado": "Primero",
+  "detalle": "Se promueve la actividad física, la coordinación y las habilidades motoras.",
+  "estado": "En Progreso",
+  "id_usuario": 9
+},
+{
+  "_id": 10,
+  "descripcion": "Arte",
+  "grado": "Primero",
+  "detalle": "Se fomenta la creatividad a través de actividades de dibujo, pintura, canto o manualidades.",
+  "estado": "Finalizado",
+  "id_usuario": 10
+},
+{
+  "_id": 11,
+  "descripcion": "Computación",
+  "grado": "Primero",
+  "detalle": "Explicación de usos de herramientas tecnologicas",
+  "estado": "Finalizado",
+  "id_usuario": 11
+},
+{
+  "_id": 12,
+  "descripcion": "Civica",
+  "grado": "Primero",
+  "detalle": "Aborda valores como la honestidad, el respeto y la responsabilidad, además de la identidad y la promoción de la convivencia armoniosa.",
+  "estado": "Finalizado",
+  "id_usuario": 12
+}]

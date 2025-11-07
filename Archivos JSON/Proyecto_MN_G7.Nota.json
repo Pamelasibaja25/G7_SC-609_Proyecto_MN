@@ -1,0 +1,144 @@
+[{
+  "_id": 1,
+  "fecha_inicio": {
+    "$date": "2025-02-02T06:00:00.000Z"
+  },
+  "id_curso": 1,
+  "quater": "Q1",
+  "id_usuario": 1,
+  "resultado": "En Progreso"
+},
+{
+  "_id": 2,
+  "fecha_inicio": {
+    "$date": "2025-02-02T06:00:00.000Z"
+  },
+  "id_curso": 2,
+  "quater": "Q1",
+  "id_usuario": 2,
+  "resultado": "En Progreso"
+},
+{
+  "_id": 3,
+  "fecha_inicio": {
+    "$date": "2025-02-02T06:00:00.000Z"
+  },
+  "id_curso": 3,
+  "quater": "Q1",
+  "id_usuario": 3,
+  "resultado": "En Progreso"
+},
+{
+  "_id": 4,
+  "fecha_inicio": {
+    "$date": "2025-02-02T06:00:00.000Z"
+  },
+  "id_curso": 4,
+  "quater": "Q1",
+  "id_usuario": 4,
+  "resultado": "En Progreso"
+},
+{
+  "_id": 5,
+  "fecha_inicio": {
+    "$date": "2025-02-02T06:00:00.000Z"
+  },
+  "id_curso": 5,
+  "quater": "Q1",
+  "id_usuario": 5,
+  "resultado": "En Progreso"
+},
+{
+  "_id": 6,
+  "fecha_inicio": {
+    "$date": "2025-02-02T06:00:00.000Z"
+  },
+  "id_curso": 6,
+  "quater": "Q1",
+  "id_usuario": 6,
+  "resultado": "En Progreso"
+},
+{
+  "_id": 7,
+  "nota": 90,
+  "fecha_inicio": {
+    "$date": "2025-02-02T06:00:00.000Z"
+  },
+  "fecha_final": {
+    "$date": "2025-02-04T06:00:00.000Z"
+  },
+  "id_curso": 12,
+  "quater": "Q1",
+  "id_usuario": 7,
+  "resultado": "Aprobado"
+},
+{
+  "_id": 8,
+  "nota": 95,
+  "fecha_inicio": {
+    "$date": "2025-02-04T06:00:00.000Z"
+  },
+  "fecha_final": {
+    "$date": "2025-02-06T06:00:00.000Z"
+  },
+  "id_curso": 12,
+  "quater": "Q2",
+  "id_usuario": 8,
+  "resultado": "Aprobado"
+},
+{
+  "_id": 9,
+  "nota": 100,
+  "fecha_inicio": {
+    "$date": "2025-02-06T06:00:00.000Z"
+  },
+  "fecha_final": {
+    "$date": "2025-02-08T06:00:00.000Z"
+  },
+  "id_curso": 12,
+  "quater": "Q3",
+  "id_usuario": 9,
+  "resultado": "Aprobado"
+},
+{
+  "_id": 10,
+  "nota": 100,
+  "fecha_inicio": {
+    "$date": "2025-02-02T06:00:00.000Z"
+  },
+  "fecha_final": {
+    "$date": "2025-02-04T06:00:00.000Z"
+  },
+  "id_curso": 11,
+  "quater": "Q1",
+  "id_usuario": 10,
+  "resultado": "Aprobado"
+},
+{
+  "_id": 11,
+  "nota": 100,
+  "fecha_inicio": {
+    "$date": "2025-02-04T06:00:00.000Z"
+  },
+  "fecha_final": {
+    "$date": "2025-02-06T06:00:00.000Z"
+  },
+  "id_curso": 11,
+  "quater": "Q2",
+  "id_usuario": 11,
+  "resultado": "Aprobado"
+},
+{
+  "_id": 12,
+  "nota": 100,
+  "fecha_inicio": {
+    "$date": "2025-02-06T06:00:00.000Z"
+  },
+  "fecha_final": {
+    "$date": "2025-02-08T06:00:00.000Z"
+  },
+  "id_curso": 11,
+  "quater": "Q3",
+  "id_usuario": 12,
+  "resultado": "Aprobado"
+}]
