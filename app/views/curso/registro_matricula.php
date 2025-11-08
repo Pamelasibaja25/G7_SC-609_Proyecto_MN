@@ -1,5 +1,5 @@
 <?php
-include $_SERVER['DOCUMENT_ROOT'] . '/G1_SC-502_JN_Proyecto/app/controller/cursoController.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/app/controller/cursoController.php';
 $data = get_cursos_disponibles();
 $cursos = $data['cursos'];
 ?>
@@ -13,7 +13,7 @@ $cursos = $data['cursos'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link href="/G1_SC-502_JN_Proyecto/public/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="/G7_SC-609_Proyecto_MN/public/css/style.css" rel="stylesheet" type="text/css" />
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- Popper JS -->
@@ -34,7 +34,7 @@ $cursos = $data['cursos'];
     <?php endif; ?>
 
     <?php
-    include $_SERVER['DOCUMENT_ROOT'] . '/G1_SC-502_JN_Proyecto/app/views/nav_menu.php'
+    include $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/app/views/nav_menu.php'
         ?>
 
     <section class="bg-custom" id="estudiante">
@@ -69,7 +69,7 @@ $cursos = $data['cursos'];
                         <div class="card-header bg-body-custom text-white">Cursos Disponibles</div>
                         <div class="card-body">
 
-                            <form method="POST" action="/G1_SC-502_JN_Proyecto/app/controller/cursoController.php">
+                            <form method="POST" action="/G7_SC-609_Proyecto_MN/app/controller/cursoController.php">
                                 <table class="table table-bordered text-center" id="cursos">
                                     <thead class="bg-body-custom text-white">
                                         <tr>
@@ -129,7 +129,7 @@ $cursos = $data['cursos'];
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="modify-form" action="/G1_SC-502_JN_Proyecto/app/controller/estudianteController.php"
+                        <form id="modify-form" action="/G7_SC-609_Proyecto_MN/app/controller/estudianteController.php"
                             method="POST">
                             <div class="form-group">
                                 <label for="new-encargado">Encargado:</label>
@@ -140,7 +140,7 @@ $cursos = $data['cursos'];
                                 <label for="escuela">Escuela:</label>
                                 <select id="escuela" name="escuela" class="form-select" required>
                                     <?php
-                                    include $_SERVER['DOCUMENT_ROOT'] . '/G1_SC-502_JN_Proyecto/app/controller/escuelaController.php';
+                                    include $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/app/controller/escuelaController.php';
                                     get_escuelas();
                                     ?>
                                 </select>

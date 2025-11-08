@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link href="/G1_SC-502_JN_Proyecto/public/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="/G7_SC-609_Proyecto_MN/public/css/style.css" rel="stylesheet" type="text/css" />
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- Popper JS -->
@@ -27,7 +27,7 @@
         </div>
     <?php endif; ?>
     <?php
-    include $_SERVER['DOCUMENT_ROOT'] . '/G1_SC-502_JN_Proyecto/app/views/nav_menu.php'
+    include $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/app/views/nav_menu.php'
         ?>
 
     <section class="class bg-custom" id="estudiante">
@@ -39,7 +39,7 @@
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-header bg-body-custom text-white">Reportes</div>
-                        <form id="reportes-form" action="/G1_SC-502_JN_Proyecto/app/controller/cursoController.php"
+                        <form id="reportes-form" action="/G7_SC-609_Proyecto_MN/app/controller/cursoController.php"
                             method="POST">
                             <div class="card">
                                 <div class="card-body">
@@ -107,7 +107,7 @@
                             </div>
                             <div class="mt-3 text-center d-flex justify-content-between">
                                 <form id="imprimir-reporte"
-                                    action="/G1_SC-502_JN_Proyecto/app/controller/cursoController.php" method="POST">
+                                    action="/G7_SC-609_Proyecto_MN/app/controller/cursoController.php" method="POST">
                                     <input type="hidden" name="action" value="imprimir-reporte">
                                     <button type="submit" class="btn bg-body-custom text-white">Imprimir</button>
                                 </form>

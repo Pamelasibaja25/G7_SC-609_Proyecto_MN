@@ -102,13 +102,13 @@ try {
                 curso::guardarMatricula($cursoId); // Esta función la defines tú en el modelo
             }
             
-            header("Location: /G1_SC-502_JN_Proyecto/app/views/curso/registro_matricula.php?status=success&msg=" . urlencode("Matrícula realizada con éxito"));
+            header("Location: /G7_SC-609_Proyecto_MN/app/views/curso/registro_matricula.php?status=success&msg=" . urlencode("Matrícula realizada con éxito"));
             exit();
         }
         else if ($action === 'filtrar-reportes' && (!empty($_POST['reporteAnual']) || !empty($_POST['reporteMensual']) || !empty($_POST['reporteTrimestral']))) {
             $cursos = curso::get_reportes($_POST['reporteAnual'],$_POST['reporteTrimestral'],$_POST['reporteMensual'] ); 
             $_SESSION['reportes'] = $cursos;
-            header("Location: /G1_SC-502_JN_Proyecto/app/views/nota/reporte_trimestral.php?status=success&msg=" . urlencode("Reporte Generado con éxito"));
+            header("Location: /G7_SC-609_Proyecto_MN/app/views/nota/reporte_trimestral.php?status=success&msg=" . urlencode("Reporte Generado con éxito"));
             exit();
         } 
         else if ($action === 'imprimir-temas') {
@@ -118,16 +118,16 @@ try {
             curso::imprimir_reporte(); 
         }
         else if ($action === 'filtrar-reportes') {
-            header("Location: /G1_SC-502_JN_Proyecto/app/views/nota/reporte_trimestral.php?status=error&msg=" . urlencode("No seleccionaste ningún reporte"));
+            header("Location: /G7_SC-609_Proyecto_MN/app/views/nota/reporte_trimestral.php?status=error&msg=" . urlencode("No seleccionaste ningún reporte"));
             exit();
         }
         else if ($action === 'agregar_matricula') {
-            header("Location: /G1_SC-502_JN_Proyecto/app/views/curso/registro_matricula.php?status=error&msg=" . urlencode("No seleccionaste ningún curso"));
+            header("Location: /G7_SC-609_Proyecto_MN/app/views/curso/registro_matricula.php?status=error&msg=" . urlencode("No seleccionaste ningún curso"));
             exit();
         }
     }
 } catch (Exception $e) {
-    header("Location: /G1_SC-502_JN_Proyecto/app/views/layout.php?status=error&msg=" . urlencode("Error: " . $e->getMessage()));
+    header("Location: /G7_SC-609_Proyecto_MN/app/views/layout.php?status=error&msg=" . urlencode("Error: " . $e->getMessage()));
     exit();
 }
 

@@ -16,7 +16,7 @@
     <div id="main-content">
 
     <?php
-    include $_SERVER['DOCUMENT_ROOT'] . '/G1_SC-502_JN_Proyecto/app/views/nav_menu.php'
+    include $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/app/views/nav_menu.php'
     ?>
         <footer class="navbar-light bg-primary text-white mt-5 p-3">
             <div class="container">

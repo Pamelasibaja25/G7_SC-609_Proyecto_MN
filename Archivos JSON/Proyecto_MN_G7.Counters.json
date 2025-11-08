@@ -1,0 +1,8 @@
+[
+  { "_id": "Usuario", "seq": 12 },
+  { "_id": "Estudiante", "seq": 12 },
+  { "_id": "Curso", "seq": 12 },
+  { "_id": "Escuela", "seq": 12 },
+  { "_id": "Nota", "seq": 12 },
+  { "_id": "Tema", "seq": 12 }
+]

@@ -1,97 +1,106 @@
 <?php
 require_once '../../config/database.php';
 
-class usuario
+function getNextSequence($db, $name)
 {
-    public static function inicio($usuario, $password) 
+    $counters = $db->Counters;
+
+    $result = $counters->findOneAndUpdate(
+        ['_id' => $name],
+        ['$inc' => ['seq' => 1]],
+        [
+            'upsert' => true,
+            'returnDocument' => MongoDB\Operation\FindOneAndUpdate::RETURN_DOCUMENT_AFTER
+        ]
+    );
+
+    return $result['seq'];
+}
+
+class Usuario
+{
+    public static function inicio($usuario, $password)
     {
-        global $conn;
+        global $db;
         session_destroy();
 
-        // Buscar el usuario en la base de datos
-        $sql = "SELECT password, id_usuario,nombre,telefono FROM usuario WHERE username = '$usuario'";
-        $result = $conn->query($sql);
+        $collectionUsuarios = $db->Usuario;
+        $user = $collectionUsuarios->findOne(['username' => $usuario]);
 
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $password_hash = $row['password'];
-
-            // Verifica si la contraseña ingresada coincide con la almacenada (hash)
-            if (password_verify($password, $password_hash)) {
+        if ($user) {
+            // Verificar contraseña
+            if ($user['password'] == $password) {
                 session_start();
-                unset($_SESSION['reportes']);
-                unset($_SESSION['reportes-rendimiento']);
-                $_SESSION['usuario'] = $row['id_usuario'];
-                $_SESSION['nombre'] = $row['nombre'];
-                $_SESSION['telefono'] = $row['telefono'];
+                $_SESSION['usuario'] = (int)$user['_id'];
+                $_SESSION['nombre'] = $user['nombre'] ?? '';
+                $_SESSION['telefono'] = $user['telefono'] ?? '';
+                $_SESSION['rol'] = $user['role'] ?? 'ROLE_USER';
 
-                $sql = "SELECT nombre FROM rol WHERE id_usuario = " . $_SESSION['usuario'];
-                $result = $conn->query($sql);
-                if ($result->num_rows > 0) {
-                    $rowRol = $result->fetch_assoc();
-                    $_SESSION['rol'] = $rowRol['nombre'];
-                } else {
-                    $_SESSION['rol'] = 'ROLE_USER'; // Por si acaso no encuentra nada
+                // Buscar información del estudiante asociada al usuario
+                $collectionEstudiantes = $db->Estudiante;
+                $estudiante = $collectionEstudiantes->findOne(['id_usuario' => (int)$user['_id']]);
+                if ($estudiante) {
+                    $_SESSION['grado'] = $estudiante['grado'];
+                    $_SESSION['cedula'] = $estudiante['cedula'];
+                    $_SESSION['id_estudiante'] = (int)$estudiante['_id'];
+                    $_SESSION['fecha_nacimiento'] = $estudiante['fecha_nacimiento'];
+
+                    $collectionEscuelas = $db->Escuela;
+                    $escuela = $collectionEscuelas->findOne(['_id' => (int)$estudiante['id_escuela']]);
+                    if ($escuela) {
+                        $_SESSION['escuela'] = $escuela['nombre'];
+                        $_SESSION['id_escuela'] = (int)$escuela['_id'];
+                    }
                 }
 
-                //Extraer información Estudiante
-                $sql = "SELECT id_estudiante, grado,cedula,fecha_nacimiento,encargado_legal,id_escuela FROM estudiante WHERE id_usuario = " . $_SESSION['usuario'];
-                $result = $conn->query($sql);
-                if ($result->num_rows > 0) {
-                    $row = $result->fetch_assoc();
-                    $_SESSION['grado'] = $row['grado'];
-                    $_SESSION['cedula'] = $row['cedula'];
-                    $_SESSION['id_estudiante'] = $row['id_estudiante'];
-                    $_SESSION['fecha_nacimiento'] = $row['fecha_nacimiento'];
-                    $_SESSION['encargado_legal'] = $row['encargado_legal'];
-
-                    $sql = "SELECT id_escuela,descripcion  FROM escuela where id_escuela = " . $row['id_escuela'];
-                    $result = $conn->query($sql);
-                    $row = $result->fetch_assoc();
-                    $_SESSION['escuela'] = $row['descripcion'];
-                    $_SESSION['id_escuela'] = $row['id_escuela'];
-
-                }
-                return true; // Inicio de sesión exitoso
+                return true;
             }
         }
 
-        return false; // Usuario no encontrado o contraseña incorrecta
+        return false;
     }
 
-    public static function registro($new_username, $new_password, $new_nombre, $new_cedula, $new_fecha, $new_telefono, $new_encargado, $escuela, $grado)
+    public static function registro($new_username, $new_password, $new_nombre, $new_cedula, $new_fecha, $new_telefono, $escuela, $grado)
     {
-        global $conn;
+        global $db;
         session_destroy();
 
-        // Buscar el usuario en la base de datos
-        $sql = "SELECT username FROM usuario WHERE username = '$new_username'";
-        $result = $conn->query($sql);
+        $collectionUsuarios = $db->Usuario;
 
-        if ($result->num_rows > 0) {
+        // Verificar si ya existe el usuario
+        $existingUser = $collectionUsuarios->findOne(['username' => $new_username]);
+        if ($existingUser) {
             return false;
-        } else {
-            $new_password = password_hash($new_password, PASSWORD_BCRYPT);
-            $sql = "INSERT INTO usuario (username,password,nombre, telefono,ruta_imagen,activo) VALUES
-            ('$new_username','$new_password','$new_nombre','$new_telefono',NULL,true)";
-            $result = $conn->query($sql);
-
-            $sql = "SELECT id_usuario FROM usuario WHERE username = '$new_username'";
-            $result = $conn->query($sql);
-            $row = $result->fetch_assoc();
-            $new_username = $row['id_usuario'];
-
-            $sql = "INSERT INTO rol (nombre, id_usuario) values
-            ('ROLE_USER','$new_username')";
-            $result = $conn->query($sql);
-
-            $sql = "INSERT INTO estudiante (id_usuario, cedula,fecha_nacimiento, encargado_legal,grado, id_escuela) VALUES
-            ('$new_username','$new_cedula','$new_fecha','$new_encargado','$grado','$escuela')";
-            $result = $conn->query($sql);
-
-            return true;
         }
-    }
 
+        // Obtener el siguiente ID consecutivo para Usuario
+        $nextUserId = getNextSequence($db, 'Usuario');
+
+        // Insertar nuevo usuario con _id numérico
+        $collectionUsuarios->insertOne([
+            '_id' => $nextUserId,
+            'username' => $new_username,
+            'password' => $new_password,
+            'nombre' => $new_nombre,
+            'telefono' => $new_telefono,
+            'role' => 'user',
+            'activo' => true
+        ]);
+
+        // Obtener siguiente ID para Estudiante
+        $nextEstId = getNextSequence($db, 'Estudiante');
+
+        // Crear registro de estudiante
+        $db->Estudiante->insertOne([
+            '_id' => $nextEstId,
+            'id_usuario' => (int)$nextUserId,
+            'cedula' => $new_cedula,
+            'fecha_nacimiento' => $new_fecha,
+            'grado' => $grado,
+            'id_escuela' => (int)$escuela
+        ]);
+
+        return true;
+    }
 }
 ?>
