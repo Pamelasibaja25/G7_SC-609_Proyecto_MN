@@ -5,9 +5,9 @@ function get_estudiantes()
     try {
         $result = estudiante::get_estudiantes();
         
-        if ($result->num_rows > 0) {
+        if (count($result) > 0) {
 
-            while ($row = $result->fetch_assoc()) {
+            foreach ($result as $row)  {
                 echo ' <option value="' . $row['id_estudiante'] . '" text="' . $row['nombre'] . '">
                         ' . $row['nombre'] . '
                             </option>';

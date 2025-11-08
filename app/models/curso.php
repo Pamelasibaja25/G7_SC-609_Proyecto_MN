@@ -1,77 +1,93 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/config/database.php';
 
-class curso
+class Curso
 {
+    // 🔹 Obtener los cursos activos ("En Progreso") de un usuario
     public static function get_cursos()
     {
-        global $conn;
+        global $db;
+        //session_start();
 
-        $sql = "SELECT id_curso,descripcion,ruta_imagen  FROM curso WHERE estado = 'En Progreso' and id_usuario = " . $_SESSION['usuario'];
-        $result = $conn->query($sql);
+        $collection = $db->Curso;
+        $cursor = $collection->find([
+            'estado' => 'En Progreso',
+            'id_usuario' => (int)$_SESSION['usuario']
+        ]);
 
-        return $result;
+        $cursos = [];
+        foreach ($cursor as $doc) {
+            $cursos[] = [
+                'id_curso' => (int)$doc['_id'],
+                'descripcion' => $doc['descripcion'] ?? '',
+                'ruta_imagen' => $doc['ruta_imagen'] ?? ''
+            ];
+        }
+
+        return $cursos;
     }
+
+    // 🔹 Obtener un curso por su ID
     public static function get_curso($id_curso)
     {
-        global $conn;
+        global $db;
 
-        $sql = "SELECT descripcion FROM curso WHERE id_curso = " . $id_curso;
-        $result = $conn->query($sql);
+        $collection = $db->Curso;
+        $curso = $collection->findOne(['_id' => (int)$id_curso]);
 
-        if ($result->num_rows > 0) {
-            return $result->fetch_assoc();
+        if ($curso) {
+            return ['descripcion' => $curso['descripcion'] ?? ''];
         }
         return null;
     }
 
+    // 🔹 Obtener los temas de un curso
     public static function get_temas_por_curso($id_curso)
     {
-        global $conn;
+        global $db;
 
-        $sql = "SELECT nombre, informacion FROM tema WHERE id_curso = " . $id_curso;
-        $result = $conn->query($sql);
+        $collection = $db->Tema;
+        $cursor = $collection->find(['id_curso' => (int)$id_curso]);
 
         $temas = [];
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $temas[] = $row;
-            }
+        foreach ($cursor as $doc) {
+            $temas[] = [
+                'nombre' => $doc['nombre'] ?? '',
+                'informacion' => $doc['informacion'] ?? ''
+            ];
         }
+
         return $temas;
     }
 
+    // 🔹 Exportar los temas de un curso a CSV
     public static function imprimir_temas($id_curso)
     {
         header('Content-Type: text/csv; charset=utf-8');
         header('Content-Disposition: attachment; filename="Temas_Curso' . $id_curso . '.csv"');
-        global $conn;
 
+        $temas = self::get_temas_por_curso($id_curso);
         $output = fopen('php://output', 'w');
-        fputcsv($output, ['Tema', 'Informacion']);
+        fputcsv($output, ['Tema', 'Información']);
 
-        $sql = "SELECT nombre, informacion FROM tema WHERE id_curso = " . $id_curso;
-        $result = $conn->query($sql);
-
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                fputcsv($output, [$row["nombre"], $row["informacion"]]);
-            }
+        foreach ($temas as $tema) {
+            fputcsv($output, [$tema['nombre'], $tema['informacion']]);
         }
+
         fclose($output);
         exit;
     }
 
+    // 🔹 Exportar reporte trimestral
     public static function imprimir_reporte()
     {
         session_start();
         header('Content-Type: text/csv; charset=utf-8');
-        header('Content-Disposition: attachment; filename="Reporte Trimestral.csv"');
-    
+        header('Content-Disposition: attachment; filename="Reporte_Trimestral.csv"');
+
         $output = fopen('php://output', 'w');
-    
-        fputcsv($output, ['Fecha Inicio', 'Fecha Final', 'Curso','Estado','Nota']);
-    
+        fputcsv($output, ['Fecha Inicio', 'Fecha Final', 'Curso', 'Estado', 'Nota']);
+
         foreach ($_SESSION['reportes'] as $reporte) {
             fputcsv($output, [
                 $reporte["fecha_inicio_trimestre"],
@@ -81,141 +97,184 @@ class curso
                 $reporte["nota"]
             ]);
         }
-    
+
         fclose($output);
         exit;
     }
-    
 
+    // 🔹 Obtener cursos disponibles para el estudiante actual
     public static function get_cursos_disponibles()
     {
-        global $conn;
+        global $db;
         session_start();
 
-        $sql = "SELECT id_curso, descripcion, detalle 
-    FROM curso 
-    WHERE estado = 'Disponible' 
-      AND grado = '" . $_SESSION['grado'] . "' 
-      AND descripcion NOT IN (
-          SELECT descripcion 
-          FROM curso 
-          WHERE id_usuario = " . $_SESSION['usuario'] . "
-      )";
-        $result = $conn->query($sql);
-        $cursos = [];
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $cursos[] = $row;
-            }
+        $collection = $db->Curso;
+
+        // Cursos "En Progreso" del usuario actual
+        $cursosActuales = $collection->find(['id_usuario' => (int)$_SESSION['usuario']]);
+        $cursosUsuario = [];
+        foreach ($cursosActuales as $c) {
+            $cursosUsuario[] = $c['descripcion'];
         }
+
+        // Cursos "Disponibles" del mismo grado que no tenga ya
+        $cursor = $collection->find([
+            'estado' => 'Disponible',
+            'grado' => $_SESSION['grado'],
+            'descripcion' => ['$nin' => $cursosUsuario]
+        ]);
+
+        $cursos = [];
+        foreach ($cursor as $doc) {
+            $cursos[] = [
+                'id_curso' => (int)$doc['_id'],
+                'descripcion' => $doc['descripcion'] ?? '',
+                'detalle' => $doc['detalle'] ?? ''
+            ];
+        }
+
         return $cursos;
     }
 
+    // 🔹 Total de cursos distintos (por descripción)
     public static function get_total_cursos()
     {
-        global $conn;
-        session_start();
+        global $db;
 
-        $sql = "SELECT DISTINCT descripcion
-        FROM curso;";
-        $result = $conn->query($sql);
-        return $result;
+        $collection = $db->Curso;
+        $cursor = $collection->find([], ['projection' => ['descripcion' => 1]]);
+
+        $cursos = [];
+        foreach ($cursor as $doc) {
+            $cursos[] = $doc['descripcion'] ?? '';
+        }
+
+        return array_unique($cursos);
     }
 
+    // 🔹 Obtener notas del estudiante actual
     public static function get_notas()
     {
-        global $conn;
+        global $db;
         session_start();
 
+        $collectionNotas = $db->Nota;
+        $collectionCursos = $db->Curso;
 
-        $sql = "SELECT n.id_curso, n.nota, n.fecha_inicio_trimestre, n.fecha_final_trimestre, 
-        c.estado, c.descripcion
-        FROM nota n
-        JOIN curso c ON n.id_curso = c.id_curso
-        WHERE n.id_estudiante = " . $_SESSION['id_estudiante'] . " ";
-
-        $result = $conn->query($sql);
+        $cursor = $collectionNotas->find(['id_usuario' => (int)$_SESSION['usuario']]);
         $cursos = [];
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $cursos[] = $row;
-            }
+
+        foreach ($cursor as $nota) {
+            $curso = $collectionCursos->findOne(['_id' => (int)$nota['id_curso']]);
+
+            $cursos[] = [
+                'id_curso' => (int)$nota['id_curso'],
+                'nota' => $nota['nota'] ?? '',
+                'fecha_inicio_trimestre' => $nota['fecha_inicio_trimestre'] ?? '',
+                'fecha_final_trimestre' => $nota['fecha_final_trimestre'] ?? '',
+                'estado' => $curso['estado'] ?? '',
+                'descripcion' => $curso['descripcion'] ?? ''
+            ];
         }
+
         return $cursos;
     }
 
+    // 🔹 Guardar matrícula de un curso
     public static function guardarMatricula($cursoId)
     {
-        global $conn;
+        global $db;
         session_start();
 
-        $sql = "SELECT id_curso, descripcion, grado, detalle, ruta_imagen FROM curso WHERE id_curso = " . $cursoId;
-        $result = $conn->query($sql);
-        $row = $result->fetch_assoc();
+        $collectionCursos = $db->Curso;
+        $collectionNotas = $db->Nota;
 
-        $sql = "INSERT INTO curso (descripcion, grado, detalle, ruta_imagen, estado, id_usuario) VALUES
-            ('" . $row['descripcion'] . "','" . $row['grado'] . "','" . $row['detalle'] . "','" . $row['ruta_imagen'] . "','En Progreso'," . $_SESSION['usuario'] . ")";
-        $conn->query($sql);
+        // Buscar el curso base
+        $curso = $collectionCursos->findOne(['_id' => (int)$cursoId]);
+        if (!$curso) return false;
 
-        $nuevoCursoId = $conn->insert_id;
+        // Crear un nuevo curso para el usuario (simula "duplicar" curso disponible)
+        $nextId = self::getNextId($collectionCursos);
 
-        $fechaInicio = date("Y-m-d");
+        $collectionCursos->insertOne([
+            '_id' => $nextId,
+            'descripcion' => $curso['descripcion'],
+            'grado' => $curso['grado'],
+            'detalle' => $curso['detalle'],
+            'ruta_imagen' => $curso['ruta_imagen'] ?? '',
+            'estado' => 'En Progreso',
+            'id_usuario' => (int)$_SESSION['usuario']
+        ]);
 
-        $sql = "INSERT INTO nota (id_curso, fecha_inicio_trimestre, id_estudiante) VALUES
-            ($nuevoCursoId, '$fechaInicio', " . $_SESSION['id_estudiante'] . ")";
-        $conn->query($sql);
+        // Insertar una nueva nota
+        $collectionNotas->insertOne([
+            '_id' => self::getNextId($collectionNotas),
+            'id_curso' => $nextId,
+            'fecha_inicio_trimestre' => date("Y-m-d"),
+            'id_usuario' => (int)$_SESSION['usuario']
+        ]);
 
         return true;
     }
 
-
+    // 🔹 Obtener reportes (anual, trimestral, mensual)
     public static function get_reportes($reporte_anual, $reporte_trimestral, $reporte_mensual)
-    {
-        global $conn;
-        session_start();
+{
+    global $db;
+    session_start();
+
+    $collectionNotas = $db->Nota;
+    $collectionCursos = $db->Curso;
+
+    $cursor = $collectionNotas->find(['id_usuario' => (int)$_SESSION['usuario']]);
+    $cursos = [];
+
+    $anioActual = (int)date('Y');
+    $mesActual = (int)date('n');
+    $trimestreActual = ceil($mesActual / 3);
+
+    foreach ($cursor as $nota) {
+        $curso = $collectionCursos->findOne(['_id' => (int)$nota['id_curso']]);
+        if (!$curso) continue;
+
+        try {
+            $fechaInicio = isset($nota['fecha_inicio']) ? new DateTime($nota['fecha_inicio']) : null;
+        } catch (Exception $e) {
+            continue; // Si la fecha no es válida, saltar este registro
+        }
+
+        if ($fechaInicio === null) continue;
+
+        $anioNota = (int)$fechaInicio->format('Y');
+        $mesNota = (int)$fechaInicio->format('n');
+        $trimestreNota = ceil($mesNota / 3);
 
         if (!empty($reporte_anual)) {
-            $sql = "SELECT n.id_curso, n.nota, n.fecha_inicio_trimestre, n.fecha_final_trimestre, 
-            c.estado, c.descripcion
-        FROM nota n
-        JOIN curso c ON n.id_curso = c.id_curso
-        WHERE 
-            n.id_estudiante = " . $_SESSION['id_estudiante'] . " 
-            AND (YEAR(n.fecha_inicio_trimestre) = YEAR(CURDATE())
-            OR YEAR(n.fecha_final_trimestre) = YEAR(CURDATE()))";
-
-        } else if (!empty($reporte_trimestral)) {
-            $sql = "SELECT n.id_curso, n.nota, n.fecha_inicio_trimestre, n.fecha_final_trimestre, 
-               c.estado, c.descripcion
-        FROM nota n
-        JOIN curso c ON n.id_curso = c.id_curso
-        WHERE 
-            n.id_estudiante = " . $_SESSION['id_estudiante'] . " 
-            AND (QUARTER(n.fecha_inicio_trimestre) = QUARTER(CURDATE())
-            OR QUARTER(n.fecha_inicio_trimestre) = QUARTER(CURDATE()))
-            AND (YEAR(n.fecha_inicio_trimestre) = YEAR(CURDATE())
-            OR YEAR(n.fecha_final_trimestre) = YEAR(CURDATE()))";
-
-        } else if (!empty($reporte_mensual)) {
-            $sql = "SELECT n.id_curso, n.nota, n.fecha_inicio_trimestre, n.fecha_final_trimestre, 
-               c.estado, c.descripcion
-        FROM nota n
-        JOIN curso c ON n.id_curso = c.id_curso
-        WHERE 
-            n.id_estudiante = " . $_SESSION['id_estudiante'] . " 
-            AND (MONTH(n.fecha_inicio_trimestre) = MONTH(CURDATE())
-            OR MONTH(n.fecha_inicio_trimestre) = MONTH(CURDATE()))";
-
+            if ($anioNota !== $anioActual) continue;
+        } elseif (!empty($reporte_trimestral)) {
+            if ($trimestreNota !== $trimestreActual || $anioNota !== $anioActual) continue;
+        } elseif (!empty($reporte_mensual)) {
+            if ($mesNota !== $mesActual || $anioNota !== $anioActual) continue;
         }
 
-        $result = $conn->query($sql);
-        $cursos = [];
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $cursos[] = $row;
-            }
-        }
-        return $cursos;
+        $cursos[] = [
+            'id_curso' => (int)$nota['id_curso'],
+            'nota' => $nota['nota'] ?? '',
+            'fecha_inicio_trimestre' => $nota['fecha_inicio'] ?? '',
+            'fecha_final_trimestre' => $nota['fecha_final'] ?? '',
+            'estado' => $curso['estado'] ?? '',
+            'descripcion' => $curso['descripcion'] ?? ''
+        ];
+    }
+
+    return $cursos;
+}
+
+    // 🔹 Generar ID consecutivo sin Counters
+    private static function getNextId($collection)
+    {
+        $last = $collection->findOne([], ['sort' => ['_id' => -1], 'projection' => ['_id' => 1]]);
+        return $last ? (int)$last['_id'] + 1 : 1;
     }
 }
 ?>

@@ -6,12 +6,11 @@ function get_cursos()
     try {
         $result = curso::get_cursos();
         
-        if ($result->num_rows > 0) {
+        if (count($result) > 0) {
             echo '<div>';
             echo '<div id="contenedor-cursos" class="row text-center">';
 
-            $index = 0;
-            while ($row = $result->fetch_assoc()) {
+            foreach ($result as $row)  {
 
                 echo '<div class="card col-md-4">';
                 echo '<div class="card-body">';
@@ -74,9 +73,9 @@ function get_total_cursos() {
     try {
         $result = curso::get_total_cursos();
         
-        if ($result->num_rows > 0) {
+        if (count($result) > 0) {
 
-            while ($row = $result->fetch_assoc()) {
+            foreach ($result as $row)  {
                 echo ' <option value="' . $row['descripcion'] . '" text="' . $row['descripcion'] . '">
                         ' . $row['descripcion'] . '
                             </option>';

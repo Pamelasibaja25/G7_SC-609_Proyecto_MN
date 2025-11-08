@@ -4,6 +4,7 @@
   "grado": "Primero",
   "detalle": "Explicación de Colores y Numeros",
   "estado": "Matriculado",
+  "ruta_imagen":"",
   "id_usuario": 1
 },
 {
@@ -12,6 +13,7 @@
   "grado": "Primero",
   "detalle": "Explicación de Colores y Numeros",
   "estado": "Matriculado",
+  "ruta_imagen":"",
   "id_usuario": 2
 },
 {
@@ -20,6 +22,7 @@
   "grado": "Primero",
   "detalle": "Explicación de sumas y restas",
   "estado": "Matriculado",
+  "ruta_imagen":"",
   "id_usuario": 3
 },
 {
@@ -28,6 +31,7 @@
   "grado": "Primero",
   "detalle": "Nombres del cuerpo humano",
   "estado": "Matriculado",
+  "ruta_imagen":"",
   "id_usuario": 4
 },
 {
@@ -36,6 +40,7 @@
   "grado": "Primero",
   "detalle": "Explicación de la Bandera",
   "estado": "En Progreso",
+  "ruta_imagen":"",
   "id_usuario": 5
 },
 {
@@ -44,6 +49,7 @@
   "grado": "Primero",
   "detalle": "Explicación de Colores y Numeros",
   "estado": "En Progreso",
+  "ruta_imagen":"",
   "id_usuario": 6
 },
 {
@@ -52,6 +58,7 @@
   "grado": "Primero",
   "detalle": "Explicación de Colores y Numeros",
   "estado": "En Progreso",
+  "ruta_imagen":"",
   "id_usuario": 7
 },
 {
@@ -60,6 +67,7 @@
   "grado": "Primero",
   "detalle": "Se promueve la creatividad para sembrar",
   "estado": "En Progreso",
+  "ruta_imagen":"",
   "id_usuario": 8
 },
 {
@@ -68,6 +76,7 @@
   "grado": "Primero",
   "detalle": "Se promueve la actividad física, la coordinación y las habilidades motoras.",
   "estado": "En Progreso",
+  "ruta_imagen":"",
   "id_usuario": 9
 },
 {
@@ -76,6 +85,7 @@
   "grado": "Primero",
   "detalle": "Se fomenta la creatividad a través de actividades de dibujo, pintura, canto o manualidades.",
   "estado": "Finalizado",
+  "ruta_imagen":"",
   "id_usuario": 10
 },
 {
@@ -83,7 +93,8 @@
   "descripcion": "Computación",
   "grado": "Primero",
   "detalle": "Explicación de usos de herramientas tecnologicas",
-  "estado": "Finalizado",
+  "estado": "En Progreso",
+  "ruta_imagen":"https://img.freepik.com/vector-gratis/concepto-diseno-web-dibujado-mano_23-2147839737.jpg?semt=ais_hybrid&w=740&q=80",
   "id_usuario": 11
 },
 {
@@ -92,5 +103,6 @@
   "grado": "Primero",
   "detalle": "Aborda valores como la honestidad, el respeto y la responsabilidad, además de la identidad y la promoción de la convivencia armoniosa.",
   "estado": "Finalizado",
+  "ruta_imagen":"",
   "id_usuario": 12
 }]

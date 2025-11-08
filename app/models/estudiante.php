@@ -1,88 +1,117 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/config/database.php';
 
-class estudiante
+class Estudiante
 {
-    public static function modificar_info($new_encargado, $escuela)
+    // 🔹 Modificar información del estudiante (actualizar escuela)
+    public static function modificar_info($escuela)
     {
-        global $conn;
+        global $db;
         session_start();
 
-        // Buscar el estudiante en la base de datos
-        $sql = "UPDATE estudiante SET encargado_legal = '$new_encargado', id_escuela = '$escuela' WHERE id_usuario=" . $_SESSION['usuario'];
-        $conn->query($sql);
+        $collectionEstudiantes = $db->Estudiante;
+        $collectionEscuelas = $db->Escuela;
 
-        $sql = "UPDATE estudiante SET encargado_legal = '$new_encargado', id_escuela = '$escuela' WHERE id_usuario=" . $_SESSION['usuario'];
-        $conn->query($sql);
+        // Actualizar el campo id_escuela del estudiante actual
+        $collectionEstudiantes->updateOne(
+            ['id_usuario' => (int)$_SESSION['usuario']],
+            ['$set' => ['id_escuela' => (int)$escuela]]
+        );
 
-        $sql = "SELECT id_escuela,descripcion FROM escuela WHERE id_escuela = " . $escuela;
-        $result = $conn->query($sql);
-        $row = $result->fetch_assoc();
-        $_SESSION['id_escuela'] = $escuela;
-        $_SESSION['escuela'] = $row['descripcion'];
-        $_SESSION['encargado_legal'] = $new_encargado;
-        return false; // estudiante no encontrado o contraseña incorrecta
+        // Obtener los datos de la escuela seleccionada
+        $escuelaDoc = $collectionEscuelas->findOne(['_id' => (int)$escuela]);
+        if ($escuelaDoc) {
+            $_SESSION['id_escuela'] = (int)$escuelaDoc['_id'];
+            $_SESSION['escuela'] = $escuelaDoc['nombre'] ?? $escuelaDoc['descripcion'] ?? 'Sin nombre';
+        }
+
+        return true;
     }
+
+    // 🔹 Obtener todos los estudiantes con sus nombres (JOIN simulado)
     public static function get_estudiantes()
     {
-        global $conn;
+        global $db;
         session_start();
 
-        // Buscar el estudiante en la base de datos
-        $sql = "SELECT e.id_estudiante, e.id_usuario, u.nombre
-                FROM estudiante e
-                JOIN usuario u ON e.id_usuario = u.id_usuario;
-                ";
-        $result = $conn->query($sql);
+        $collectionEstudiantes = $db->Estudiante;
+        $collectionUsuarios = $db->Usuario;
 
-        return $result; // estudiante no encontrado o contraseña incorrecta
+        // Traer todos los estudiantes
+        $estudiantes = $collectionEstudiantes->find();
+        $resultado = [];
+
+        foreach ($estudiantes as $est) {
+            // Buscar el usuario correspondiente (simula JOIN)
+            $usuario = $collectionUsuarios->findOne(['_id' => (int)$est['id_usuario']]);
+
+            $resultado[] = [
+                'id_estudiante' => (int)$est['_id'],
+                'id_usuario' => (int)$est['id_usuario'],
+                'nombre' => $usuario['nombre'] ?? 'Sin nombre'
+            ];
+        }
+
+        return $resultado;
     }
 
+    // 🔹 Obtener reportes de notas filtrados
     public static function get_reportes($id_estudiante, $grado, $id_curso)
     {
-        global $conn;
+        global $db;
         session_start();
 
-        // Construir la base de la consulta
-        $sql = "SELECT n.id_curso, n.nota, n.fecha_inicio_trimestre, n.fecha_final_trimestre, 
-                   c.grado, c.estado, c.descripcion, u.nombre
-            FROM nota n
-            JOIN curso c ON n.id_curso = c.id_curso
-            JOIN estudiante e ON n.id_estudiante = e.id_estudiante
-            JOIN usuario u ON e.id_usuario = u.id_usuario
-            WHERE 1=1";
+        $collectionNotas = $db->Nota;
+        $collectionCursos = $db->Curso;
+        $collectionEstudiantes = $db->Estudiante;
+        $collectionUsuarios = $db->Usuario;
 
-        // Añadir condiciones según los parámetros
+        $filtros = [];
+
         if ($id_estudiante != "All") {
-            $sql .= " AND e.id_estudiante = '$id_estudiante'";
-        }
-        if ($grado != "All") {
-            $sql .= " AND c.grado = '$grado'";
-        }
-        if ($id_curso != "All") {
-            $sql .= " AND c.descripcion = '$id_curso'";
+            $filtros['id_estudiante'] = (int)$id_estudiante;
         }
 
-        $result = $conn->query($sql);
+        $notas = $collectionNotas->find($filtros);
         $cursos = [];
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $cursos[] = $row;
+
+        foreach ($notas as $nota) {
+            $curso = $collectionCursos->findOne(['_id' => (int)$nota['id_curso']]);
+            $estudiante = $collectionEstudiantes->findOne(['_id' => (int)$nota['id_estudiante']]);
+            $usuario = $collectionUsuarios->findOne(['_id' => (int)$estudiante['id_usuario']]);
+
+            // Aplicar filtros adicionales
+            if ($grado != "All" && isset($curso['grado']) && $curso['grado'] != $grado) {
+                continue;
             }
+            if ($id_curso != "All" && isset($curso['descripcion']) && $curso['descripcion'] != $id_curso) {
+                continue;
+            }
+
+            $cursos[] = [
+                'fecha_inicio_trimestre' => $nota['fecha_inicio_trimestre'] ?? '',
+                'fecha_final_trimestre' => $nota['fecha_final_trimestre'] ?? '',
+                'grado' => $curso['grado'] ?? '',
+                'descripcion' => $curso['descripcion'] ?? '',
+                'estado' => $curso['estado'] ?? '',
+                'nombre' => $usuario['nombre'] ?? '',
+                'nota' => $nota['nota'] ?? ''
+            ];
         }
+
         return $cursos;
     }
 
+    // 🔹 Exportar el reporte a CSV
     public static function imprimir_reporte()
     {
         session_start();
         header('Content-Type: text/csv; charset=utf-8');
-        header('Content-Disposition: attachment; filename="Reporte Rendimiento.csv"');
-    
+        header('Content-Disposition: attachment; filename="Reporte_Rendimiento.csv"');
+
         $output = fopen('php://output', 'w');
-    
-        fputcsv($output, ['Fecha Inicio', 'Fecha Final','Grado', 'Curso','Estado','Estudiante','Nota']);
-    
+        fputcsv($output, ['Fecha Inicio', 'Fecha Final', 'Grado', 'Curso', 'Estado', 'Estudiante', 'Nota']);
+
         foreach ($_SESSION['reportes-rendimiento'] as $reporte) {
             fputcsv($output, [
                 $reporte["fecha_inicio_trimestre"],
@@ -94,10 +123,9 @@ class estudiante
                 $reporte["nota"]
             ]);
         }
-    
+
         fclose($output);
         exit;
     }
-
 }
 ?>
