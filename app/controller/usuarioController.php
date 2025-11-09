@@ -18,8 +18,8 @@ try {
         } 
         else if ($action === 'registro' && !empty($_POST['new-username'])&& !empty($_POST['new-password']) && !empty($_POST['new-nombre'])
         && !empty($_POST['new-cedula']) && !empty($_POST['new-fecha']) && !empty($_POST['new-telefono'])
-        && !empty($_POST['new-encargado']) && !empty($_POST['escuela']) && !empty($_POST['grado'])) {
-            $resultado = usuario::registro($_POST['new-username'], $_POST['new-password'], $_POST['new-nombre'],$_POST['new-cedula'], $_POST['new-fecha'], $_POST['new-telefono'],$_POST['new-encargado'], $_POST['escuela'], $_POST['grado']);
+        && !empty($_POST['escuela']) && !empty($_POST['grado'])) {
+            $resultado = usuario::registro($_POST['new-username'], $_POST['new-password'], $_POST['new-nombre'],$_POST['new-cedula'], $_POST['new-fecha'], $_POST['new-telefono'], $_POST['escuela'], $_POST['grado']);
             
             if ($resultado) {
                 header("Location: ../../index.php?status=success&msg=Registro exitoso.");

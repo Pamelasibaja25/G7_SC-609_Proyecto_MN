@@ -3,9 +3,7 @@
   "id_escuela": 1,
   "id_usuario": 11,
   "cedula": 118377845,
-  "fecha_nacimiento": {
-    "$date": "2010-02-25T06:00:00.000Z"
-  },
+  "fecha_nacimiento": "2010-02-25",
   "grado": "Primero"
 },
 {
@@ -13,9 +11,7 @@
   "id_escuela": 2,
   "id_usuario": 11,
   "cedula": 118377845,
-  "fecha_nacimiento": {
-    "$date": "2010-02-25T06:00:00.000Z"
-  },
+  "fecha_nacimiento": "2010-02-25",
   "grado": "Segundo"
 },
 {
@@ -23,9 +19,7 @@
   "id_escuela": 3,
   "id_usuario": 11,
   "cedula": 118377845,
-  "fecha_nacimiento": {
-    "$date": "2010-02-25T06:00:00.000Z"
-  },
+  "fecha_nacimiento": "2010-02-25",
   "grado": "Tercero"
 },
 {
@@ -33,9 +27,7 @@
   "id_escuela": 4,
   "id_usuario": 11,
   "cedula": 118377845,
-  "fecha_nacimiento": {
-    "$date": "2010-02-25T06:00:00.000Z"
-  },
+  "fecha_nacimiento": "2010-02-25",
   "grado": "Cuarto"
 },
 {
@@ -43,9 +35,7 @@
   "id_escuela": 5,
   "id_usuario": 11,
   "cedula": 118377845,
-  "fecha_nacimiento": {
-    "$date": "2010-02-25T06:00:00.000Z"
-  },
+  "fecha_nacimiento": "2010-02-25",
   "grado": "Quinto"
 },
 {
@@ -53,9 +43,7 @@
   "id_escuela": 6,
   "id_usuario": 11,
   "cedula": 118377845,
-  "fecha_nacimiento": {
-    "$date": "2010-02-25T06:00:00.000Z"
-  },
+  "fecha_nacimiento": "2010-02-25",
   "grado": "Sexto"
 },
 {
@@ -63,9 +51,7 @@
   "id_escuela": 7,
   "id_usuario": 12,
   "cedula": 118748956,
-  "fecha_nacimiento": {
-    "$date": "2013-05-28T06:00:00.000Z"
-  },
+  "fecha_nacimiento": "2013-05-28",
   "grado": "Primero"
 },
 {
@@ -73,9 +59,7 @@
   "id_escuela": 8,
   "id_usuario": 12,
   "cedula": 118748956,
-  "fecha_nacimiento": {
-    "$date": "2013-05-28T06:00:00.000Z"
-  },
+  "fecha_nacimiento": "2013-05-28",
   "grado": "Segundo"
 },
 {
@@ -83,9 +67,7 @@
   "id_escuela": 9,
   "id_usuario": 12,
   "cedula": 118748956,
-  "fecha_nacimiento": {
-    "$date": "2013-05-28T06:00:00.000Z"
-  },
+  "fecha_nacimiento": "2013-05-28",
   "grado": "Tercero"
 },
 {
@@ -93,9 +75,7 @@
   "id_escuela": 10,
   "id_usuario": 12,
   "cedula": 118748956,
-  "fecha_nacimiento": {
-    "$date": "2013-05-28T06:00:00.000Z"
-  },
+  "fecha_nacimiento": "2013-05-28",
   "grado": "Cuarto"
 },
 {
@@ -103,9 +83,7 @@
   "id_escuela": 11,
   "id_usuario": 12,
   "cedula": 118748956,
-  "fecha_nacimiento": {
-    "$date": "2013-05-28T06:00:00.000Z"
-  },
+  "fecha_nacimiento": "2013-05-28",
   "grado": "Quinto"
 },
 {
@@ -113,8 +91,6 @@
   "id_escuela": 12,
   "id_usuario": 12,
   "cedula": 118748956,
-  "fecha_nacimiento": {
-    "$date": "2013-05-28T06:00:00.000Z"
-  },
+  "fecha_nacimiento": "2013-05-28",
   "grado": "Sexto"
 }]

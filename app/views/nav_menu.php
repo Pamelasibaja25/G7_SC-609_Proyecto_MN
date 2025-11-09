@@ -32,6 +32,7 @@ if (session_status() === PHP_SESSION_NONE) {
                             <li><a class="dropdown-item text-white" href="/G7_SC-609_Proyecto_MN/app/views/nota/reporte_rendimiento.php">Reporte Rendimiento</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item"><a class="nav-link text-white" href="/G7_SC-609_Proyecto_MN/app/views/metricas.php">Métricas</a></li>
                 <?php endif; ?>
             </ul>
         </div>

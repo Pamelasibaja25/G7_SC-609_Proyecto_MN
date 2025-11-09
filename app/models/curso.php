@@ -153,32 +153,46 @@ class Curso
     }
 
     // 🔹 Obtener notas del estudiante actual
-    public static function get_notas()
-    {
-        global $db;
-        session_start();
+public static function get_notas()
+{
+    global $db;
+    session_start();
 
-        $collectionNotas = $db->Nota;
-        $collectionCursos = $db->Curso;
+    $collectionNotas = $db->Nota;
+    $collectionCursos = $db->Curso;
 
-        $cursor = $collectionNotas->find(['id_usuario' => (int)$_SESSION['usuario']]);
-        $cursos = [];
+    $cursor = $collectionNotas->find(['id_usuario' => (int)$_SESSION['usuario']]);
+    $cursos = [];
 
-        foreach ($cursor as $nota) {
-            $curso = $collectionCursos->findOne(['_id' => (int)$nota['id_curso']]);
+    foreach ($cursor as $nota) {
+        $curso = $collectionCursos->findOne(['_id' => (int)$nota['id_curso']]);
 
-            $cursos[] = [
-                'id_curso' => (int)$nota['id_curso'],
-                'nota' => $nota['nota'] ?? '',
-                'fecha_inicio_trimestre' => $nota['fecha_inicio_trimestre'] ?? '',
-                'fecha_final_trimestre' => $nota['fecha_final_trimestre'] ?? '',
-                'estado' => $curso['estado'] ?? '',
-                'descripcion' => $curso['descripcion'] ?? ''
-            ];
+        //Conversión correcta de la fecha
+        if (isset($nota['fecha_inicio']) && $nota['fecha_inicio'] instanceof MongoDB\BSON\UTCDateTime) {
+            $fechaInicio = $nota['fecha_inicio']->toDateTime()->format('Y-m-d');
+        } else {
+            $fechaInicio = $nota['fecha_inicio'] ?? '';
         }
 
-        return $cursos;
+        if (isset($nota['fecha_final']) && $nota['fecha_final'] instanceof MongoDB\BSON\UTCDateTime) {
+            $fechaFinal = $nota['fecha_final']->toDateTime()->format('Y-m-d');
+        } else {
+            $fechaFinal = $nota['fecha_final'] ?? '';
+        }
+
+        $cursos[] = [
+            'id_curso' => (int)$nota['id_curso'],
+            'nota' => $nota['nota'] ?? '',
+            'fecha_inicio_trimestre' => $fechaInicio,
+            'fecha_final_trimestre' => $fechaFinal,
+            'estado' => $curso['estado'] ?? '',
+            'descripcion' => $curso['descripcion'] ?? ''
+        ];
     }
+
+    return $cursos;
+}
+
 
     // 🔹 Guardar matrícula de un curso
     public static function guardarMatricula($cursoId)
@@ -218,7 +232,7 @@ class Curso
     }
 
     // 🔹 Obtener reportes (anual, trimestral, mensual)
-    public static function get_reportes($reporte_anual, $reporte_trimestral, $reporte_mensual)
+public static function get_reportes($reporte_anual, $reporte_trimestral, $reporte_mensual)
 {
     global $db;
     session_start();
@@ -237,13 +251,18 @@ class Curso
         $curso = $collectionCursos->findOne(['_id' => (int)$nota['id_curso']]);
         if (!$curso) continue;
 
+        // ✅ Convertir correctamente el campo de fecha
         try {
-            $fechaInicio = isset($nota['fecha_inicio']) ? new DateTime($nota['fecha_inicio']) : null;
+            if (isset($nota['fecha_inicio']) && $nota['fecha_inicio'] instanceof MongoDB\BSON\UTCDateTime) {
+                $fechaInicio = $nota['fecha_inicio']->toDateTime();
+            } elseif (!empty($nota['fecha_inicio'])) {
+                $fechaInicio = new DateTime($nota['fecha_inicio']);
+            } else {
+                continue;
+            }
         } catch (Exception $e) {
-            continue; // Si la fecha no es válida, saltar este registro
+            continue; // Si no se puede convertir, se omite ese registro
         }
-
-        if ($fechaInicio === null) continue;
 
         $anioNota = (int)$fechaInicio->format('Y');
         $mesNota = (int)$fechaInicio->format('n');
@@ -260,8 +279,10 @@ class Curso
         $cursos[] = [
             'id_curso' => (int)$nota['id_curso'],
             'nota' => $nota['nota'] ?? '',
-            'fecha_inicio_trimestre' => $nota['fecha_inicio'] ?? '',
-            'fecha_final_trimestre' => $nota['fecha_final'] ?? '',
+            'fecha_inicio_trimestre' => $fechaInicio->format('Y-m-d'),
+            'fecha_final_trimestre' => isset($nota['fecha_final']) && $nota['fecha_final'] instanceof MongoDB\BSON\UTCDateTime
+                ? $nota['fecha_final']->toDateTime()->format('Y-m-d')
+                : ($nota['fecha_final'] ?? ''),
             'estado' => $curso['estado'] ?? '',
             'descripcion' => $curso['descripcion'] ?? ''
         ];
@@ -269,6 +290,7 @@ class Curso
 
     return $cursos;
 }
+
 
     // 🔹 Generar ID consecutivo sin Counters
     private static function getNextId($collection)

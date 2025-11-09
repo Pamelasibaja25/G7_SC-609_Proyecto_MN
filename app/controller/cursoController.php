@@ -75,11 +75,10 @@ function get_total_cursos() {
         
         if (count($result) > 0) {
 
-            foreach ($result as $row)  {
-                echo ' <option value="' . $row['descripcion'] . '" text="' . $row['descripcion'] . '">
-                        ' . $row['descripcion'] . '
-                            </option>';
-                
+            foreach ($result as $descripcion) {
+                echo ' <option value="' . htmlspecialchars($descripcion) . '" text="' . htmlspecialchars($descripcion) . '">
+                        ' . htmlspecialchars($descripcion) . '
+                    </option>';
             }
 
         } else {
@@ -90,6 +89,7 @@ function get_total_cursos() {
         exit();
     }
 }
+
 
 try {
     if (!empty($_POST)) {

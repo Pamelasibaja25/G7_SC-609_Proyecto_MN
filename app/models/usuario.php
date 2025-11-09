@@ -1,24 +1,19 @@
 <?php
 require_once '../../config/database.php';
 
-function getNextSequence($db, $name)
-{
-    $counters = $db->Counters;
-
-    $result = $counters->findOneAndUpdate(
-        ['_id' => $name],
-        ['$inc' => ['seq' => 1]],
-        [
-            'upsert' => true,
-            'returnDocument' => MongoDB\Operation\FindOneAndUpdate::RETURN_DOCUMENT_AFTER
-        ]
-    );
-
-    return $result['seq'];
-}
-
 class Usuario
 {
+    // 🔹 Obtener el siguiente ID consecutivo sin usar Counters
+    private static function getNextId($collection)
+    {
+        $last = $collection->findOne([], [
+            'sort' => ['_id' => -1],
+            'projection' => ['_id' => 1]
+        ]);
+        return $last ? (int)$last['_id'] + 1 : 1;
+    }
+
+    // 🔹 Inicio de sesión
     public static function inicio($usuario, $password)
     {
         global $db;
@@ -48,24 +43,26 @@ class Usuario
                     $collectionEscuelas = $db->Escuela;
                     $escuela = $collectionEscuelas->findOne(['_id' => (int)$estudiante['id_escuela']]);
                     if ($escuela) {
-                        $_SESSION['escuela'] = $escuela['nombre'];
+                        $_SESSION['escuela'] = $escuela['nombre'] ?? '';
                         $_SESSION['id_escuela'] = (int)$escuela['_id'];
                     }
                 }
 
-                return true;
+                return true; // Inicio de sesión exitoso
             }
         }
 
-        return false;
+        return false; // Usuario no encontrado o contraseña incorrecta
     }
 
+    // 🔹 Registro de nuevo usuario y estudiante
     public static function registro($new_username, $new_password, $new_nombre, $new_cedula, $new_fecha, $new_telefono, $escuela, $grado)
     {
         global $db;
         session_destroy();
 
         $collectionUsuarios = $db->Usuario;
+        $collectionEstudiantes = $db->Estudiante;
 
         // Verificar si ya existe el usuario
         $existingUser = $collectionUsuarios->findOne(['username' => $new_username]);
@@ -73,10 +70,10 @@ class Usuario
             return false;
         }
 
-        // Obtener el siguiente ID consecutivo para Usuario
-        $nextUserId = getNextSequence($db, 'Usuario');
+        // Obtener siguiente ID para Usuario
+        $nextUserId = self::getNextId($collectionUsuarios);
 
-        // Insertar nuevo usuario con _id numérico
+        // Insertar nuevo usuario
         $collectionUsuarios->insertOne([
             '_id' => $nextUserId,
             'username' => $new_username,
@@ -88,12 +85,12 @@ class Usuario
         ]);
 
         // Obtener siguiente ID para Estudiante
-        $nextEstId = getNextSequence($db, 'Estudiante');
+        $nextEstId = self::getNextId($collectionEstudiantes);
 
         // Crear registro de estudiante
-        $db->Estudiante->insertOne([
+        $collectionEstudiantes->insertOne([
             '_id' => $nextEstId,
-            'id_usuario' => (int)$nextUserId,
+            'id_usuario' => $nextUserId,
             'cedula' => $new_cedula,
             'fecha_nacimiento' => $new_fecha,
             'grado' => $grado,
