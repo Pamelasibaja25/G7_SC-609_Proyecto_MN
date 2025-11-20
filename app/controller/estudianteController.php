@@ -27,16 +27,16 @@ try {
     if (!empty($_POST)) {
         $action = $_POST['action'] ?? '';
         if (
-            $action === 'modificar' && !empty($_POST['new-encargado']) && !empty($_POST['escuela']))
+            $action === 'modificar' && !empty($_POST['escuela']))
         {
-            $resultado = estudiante::modificar_info( $_POST['new-encargado'], $_POST['escuela']);
+            $resultado = estudiante::modificar_info( $_POST['escuela']);
             header("Location: /G7_SC-609_Proyecto_MN/app/views/curso/registro_matricula.php?status=success&msg=Modificación exitosa.");
             exit();
         } 
         else if (
-            $action === 'modificar-nota' && !empty($_POST['new-encargado']) && !empty($_POST['escuela']))
+            $action === 'modificar-nota' && !empty($_POST['escuela']))
         {
-            $resultado = estudiante::modificar_info( $_POST['new-encargado'], $_POST['escuela']);
+            $resultado = estudiante::modificar_info(  $_POST['escuela']);
             header("Location: /G7_SC-609_Proyecto_MN/app/views/nota/listado.php?status=success&msg=Modificación exitosa.");
             exit();
         }

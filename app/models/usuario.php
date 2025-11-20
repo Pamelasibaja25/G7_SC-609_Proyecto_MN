@@ -3,7 +3,7 @@ require_once '../../config/database.php';
 
 class Usuario
 {
-    // 🔹 Obtener el siguiente ID consecutivo sin usar Counters
+
     private static function getNextId($collection)
     {
         $last = $collection->findOne([], [
@@ -13,7 +13,7 @@ class Usuario
         return $last ? (int)$last['_id'] + 1 : 1;
     }
 
-    // 🔹 Inicio de sesión
+ 
     public static function inicio($usuario, $password)
     {
         global $db;
@@ -55,7 +55,7 @@ class Usuario
         return false; // Usuario no encontrado o contraseña incorrecta
     }
 
-    // 🔹 Registro de nuevo usuario y estudiante
+
     public static function registro($new_username, $new_password, $new_nombre, $new_cedula, $new_fecha, $new_telefono, $escuela, $grado)
     {
         global $db;

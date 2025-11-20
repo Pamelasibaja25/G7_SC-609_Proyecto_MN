@@ -11,12 +11,30 @@ $(document).ready(function () {
         $("#modifyModal").modal("hide");
     });
     
+
+    $('#editar-profesor').on('show.bs.modal', function(event) {
+        let btn = $(event.relatedTarget);
+        $('#edit-id').val(btn.data('id'));
+        $('#edit-nombre').val(btn.data('nombre'));
+        $('#edit-cedula').val(btn.data('cedula'));
+        $('#edit-telefono').val(btn.data('telefono'));
+        $('#edit-correo').val(btn.data('correo'));
+        $('#edit-especialidad').val(btn.data('especialidad'));
+    });
+
+    $('#eliminar-profesor').on('show.bs.modal', function(event) {
+        let btn = $(event.relatedTarget);
+        $('#delete-id').val(btn.data('id'));
+        $('#delete-nombre').text(btn.data('nombre'));
+    });
+    
 });
 
 document.getElementById("btn-mostrar").addEventListener("click", function() {
     document.querySelectorAll(".extra-curso").forEach(el => el.classList.remove("d-none"));
     this.style.display = "none";
 });
+
 
 
 

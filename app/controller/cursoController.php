@@ -34,7 +34,7 @@ function get_cursos()
 
 function get_curso_contenido($id_curso) {
     try {
-        // Obtener los temas asociados a un curso.
+
         $temas = curso::get_temas_por_curso($id_curso);
         $curso = curso::get_curso($id_curso);
 
@@ -47,7 +47,7 @@ function get_curso_contenido($id_curso) {
 
 function get_cursos_disponibles() {
     try {
-        // Obtener los temas asociados a un curso.
+
         $cursos = curso::get_cursos_disponibles();
 
         return ['cursos' => $cursos];
@@ -59,7 +59,7 @@ function get_cursos_disponibles() {
 
 function get_notas() {
     try {
-        // Obtener los temas asociados a un curso.
+
         $cursos = curso::get_notas();
 
         return ['cursos' => $cursos];
@@ -98,7 +98,7 @@ try {
         if ($action === 'agregar_matricula' && !empty($_POST['curso'])) {
             $cursosSeleccionados = $_POST['curso'];
             foreach ($cursosSeleccionados as $cursoId) {
-                curso::guardarMatricula($cursoId); // Esta función la defines tú en el modelo
+                curso::guardarMatricula($cursoId);
             }
             
             header("Location: /G7_SC-609_Proyecto_MN/app/views/curso/registro_matricula.php?status=success&msg=" . urlencode("Matrícula realizada con éxito"));

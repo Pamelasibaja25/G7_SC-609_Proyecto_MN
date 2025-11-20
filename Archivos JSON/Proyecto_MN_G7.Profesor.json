@@ -1,0 +1,14 @@
+[
+  { "_id": 1, "nombre": "María López", "cedula": "1-234-567", "especialidad": "Matemáticas", "telefono": "8888-1111", "correo": "mlopez@escuela.com" },
+  { "_id": 2, "nombre": "Carlos Rodríguez", "cedula": "2-345-678", "especialidad": "Español", "telefono": "8888-2222", "correo": "crodriguez@escuela.com" },
+  { "_id": 3, "nombre": "Ana Torres", "cedula": "3-456-789", "especialidad": "Ciencias", "telefono": "8888-3333", "correo": "atorres@escuela.com" },
+  { "_id": 4, "nombre": "Luis Vargas", "cedula": "4-567-890", "especialidad": "Inglés", "telefono": "8888-4444", "correo": "lvargas@escuela.com" },
+  { "_id": 5, "nombre": "Laura Campos", "cedula": "5-678-901", "especialidad": "Sociales", "telefono": "8888-5555", "correo": "lcampos@escuela.com" },
+  { "_id": 6, "nombre": "Daniel Ruiz", "cedula": "6-789-012", "especialidad": "Música", "telefono": "8888-6666", "correo": "druiz@escuela.com" },
+  { "_id": 7, "nombre": "Andrea Solís", "cedula": "7-890-123", "especialidad": "Artes", "telefono": "8888-7777", "correo": "asolis@escuela.com" },
+  { "_id": 8, "nombre": "Pedro Chaves", "cedula": "8-901-234", "especialidad": "Educación Física", "telefono": "8888-8888", "correo": "pchaves@escuela.com" },
+  { "_id": 9, "nombre": "Carolina Mora", "cedula": "9-012-345", "especialidad": "Matemáticas", "telefono": "8888-9999", "correo": "cmora@escuela.com" },
+  { "_id": 10, "nombre": "Ricardo Soto", "cedula": "0-123-456", "especialidad": "Ciencias", "telefono": "8999-1111", "correo": "rsoto@escuela.com" },
+  { "_id": 11, "nombre": "Yesenia Bravo", "cedula": "1-987-654", "especialidad": "Español", "telefono": "8777-2222", "correo": "ybravo@escuela.com" },
+  { "_id": 12, "nombre": "Jorge Salas", "cedula": "2-876-543", "especialidad": "Sociales", "telefono": "8666-3333", "correo": "jsalas@escuela.com" }
+]

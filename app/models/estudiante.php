@@ -3,7 +3,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/config/database
 
 class Estudiante
 {
-    // 🔹 Modificar información del estudiante (actualizar escuela)
+
     public static function modificar_info($escuela)
     {
         global $db;
@@ -28,7 +28,7 @@ class Estudiante
         return true;
     }
 
-    // 🔹 Obtener todos los estudiantes con sus nombres (JOIN simulado)
+
     public static function get_estudiantes()
     {
         global $db;
@@ -62,7 +62,7 @@ class Estudiante
     }
 
 
-    // 🔹 Obtener reportes de notas filtrados
+
     public static function get_reportes($id_estudiante, $grado, $id_curso)
     {
         global $db;
@@ -117,7 +117,7 @@ class Estudiante
     }
 
 
-    // 🔹 Exportar el reporte a CSV
+
     public static function imprimir_reporte()
     {
         session_start();

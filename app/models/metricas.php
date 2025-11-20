@@ -3,14 +3,13 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/config/database
 
 class Metricas
 {
-    // 🔹 Cantidad de usuarios totales
+
     public static function get_total_usuarios()
     {
         global $db;
         return $db->Usuario->countDocuments();
     }
 
-    // 🔹 Cantidad de estudiantes únicos por nombre o usuario
     public static function get_total_estudiantes()
     {
         global $db;
@@ -29,28 +28,28 @@ class Metricas
         return iterator_count($estudiantes);
     }
 
-    // 🔹 Cantidad de escuelas
+
     public static function get_total_escuelas()
     {
         global $db;
         return $db->Escuela->countDocuments();
     }
 
-    // 🔹 Cantidad de cursos totales
+ 
     public static function get_total_cursos()
     {
         global $db;
         return $db->Curso->countDocuments();
     }
 
-    // 🔹 Cantidad de profesores
+
     public static function get_total_profesores()
     {
         global $db;
-        return $db->Usuario->countDocuments(['role' => 'profesor']);
+        return $db->Profesor->countDocuments();
     }
 
-    // 🔹 Cantidad de cursos matriculados en el año actual
+
     public static function get_cursos_matriculados_anio()
     {
         global $db;
@@ -67,7 +66,7 @@ class Metricas
         ]);
     }
 
-    // 🔹 Cursos por estado (por ejemplo En Progreso / Finalizado)
+
     public static function get_cursos_por_estado()
     {
         global $db;

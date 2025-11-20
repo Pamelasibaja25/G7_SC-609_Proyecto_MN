@@ -4,11 +4,10 @@ require_once __DIR__ . '/../models/escuela.php';
 function get_escuelas()
 {
     try {
-        $escuelas = Escuela::get_escuelas(); // ahora devuelve un array de documentos
+        $escuelas = Escuela::get_escuelas();
 
         if (!empty($escuelas)) {
             foreach ($escuelas as $row) {
-                // Si _id es un ObjectId, conviene convertirlo a string
                 $id = isset($row['_id']) ? (string)$row['_id'] : (isset($row['id_escuela']) ? $row['id_escuela'] : '');
                 $descripcion = $row['nombre'] ?? $row['descripcion'] ?? '';
 

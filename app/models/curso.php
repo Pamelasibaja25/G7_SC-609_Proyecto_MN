@@ -3,7 +3,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/config/database
 
 class Curso
 {
-    // 🔹 Obtener los cursos activos ("En Progreso") de un usuario
+
     public static function get_cursos()
     {
         global $db;
@@ -27,7 +27,7 @@ class Curso
         return $cursos;
     }
 
-    // 🔹 Obtener un curso por su ID
+
     public static function get_curso($id_curso)
     {
         global $db;
@@ -41,7 +41,7 @@ class Curso
         return null;
     }
 
-    // 🔹 Obtener los temas de un curso
+
     public static function get_temas_por_curso($id_curso)
     {
         global $db;
@@ -60,7 +60,7 @@ class Curso
         return $temas;
     }
 
-    // 🔹 Exportar los temas de un curso a CSV
+
     public static function imprimir_temas($id_curso)
     {
         header('Content-Type: text/csv; charset=utf-8');
@@ -78,7 +78,7 @@ class Curso
         exit;
     }
 
-    // 🔹 Exportar reporte trimestral
+
     public static function imprimir_reporte()
     {
         session_start();
@@ -102,7 +102,7 @@ class Curso
         exit;
     }
 
-    // 🔹 Obtener cursos disponibles para el estudiante actual
+
     public static function get_cursos_disponibles()
     {
         global $db;
@@ -136,7 +136,7 @@ class Curso
         return $cursos;
     }
 
-    // 🔹 Total de cursos distintos (por descripción)
+
     public static function get_total_cursos()
     {
         global $db;
@@ -152,7 +152,7 @@ class Curso
         return array_unique($cursos);
     }
 
-    // 🔹 Obtener notas del estudiante actual
+
 public static function get_notas()
 {
     global $db;
@@ -194,7 +194,7 @@ public static function get_notas()
 }
 
 
-    // 🔹 Guardar matrícula de un curso
+
     public static function guardarMatricula($cursoId)
     {
         global $db;
@@ -231,7 +231,7 @@ public static function get_notas()
         return true;
     }
 
-    // 🔹 Obtener reportes (anual, trimestral, mensual)
+
 public static function get_reportes($reporte_anual, $reporte_trimestral, $reporte_mensual)
 {
     global $db;
@@ -251,7 +251,7 @@ public static function get_reportes($reporte_anual, $reporte_trimestral, $report
         $curso = $collectionCursos->findOne(['_id' => (int)$nota['id_curso']]);
         if (!$curso) continue;
 
-        // ✅ Convertir correctamente el campo de fecha
+    
         try {
             if (isset($nota['fecha_inicio']) && $nota['fecha_inicio'] instanceof MongoDB\BSON\UTCDateTime) {
                 $fechaInicio = $nota['fecha_inicio']->toDateTime();
@@ -261,7 +261,7 @@ public static function get_reportes($reporte_anual, $reporte_trimestral, $report
                 continue;
             }
         } catch (Exception $e) {
-            continue; // Si no se puede convertir, se omite ese registro
+            continue; 
         }
 
         $anioNota = (int)$fechaInicio->format('Y');
@@ -292,7 +292,7 @@ public static function get_reportes($reporte_anual, $reporte_trimestral, $report
 }
 
 
-    // 🔹 Generar ID consecutivo sin Counters
+
     private static function getNextId($collection)
     {
         $last = $collection->findOne([], ['sort' => ['_id' => -1], 'projection' => ['_id' => 1]]);
