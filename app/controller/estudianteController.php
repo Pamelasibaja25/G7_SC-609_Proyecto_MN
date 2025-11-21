@@ -23,6 +23,48 @@ function get_estudiantes()
     }
 }
 
+function get_estudiantes_admin()
+{
+    return Estudiante::lista_estudiantes();
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    if ($_POST['action'] === 'editar-estudiante') {
+
+        try{
+        Estudiante::editar(
+            (int)$_POST['id_estudiante'],
+            $_POST['cedula'],
+            $_POST['fecha_nacimiento'],
+            $_POST['grado'],
+            $_POST['escuela']
+        );
+
+        header("Location: /G7_SC-609_Proyecto_MN/app/views/estudiante/listado.php?status=success&msg=Estudiante actualizado correctamente");
+        exit();
+    }
+    catch (Exception $e) {
+        header("Location: /G7_SC-609_Proyecto_MN/app/views/estudiante/listado.php?status=error&msg=" . urlencode($e->getMessage()));
+        exit();
+    }
+    }
+
+    if ($_POST['action'] === 'eliminar-estudiante') {
+
+        try{
+        Estudiante::eliminar((int)$_POST['id_estudiante']);
+
+        header("Location: /G7_SC-609_Proyecto_MN/app/views/estudiante/listado.php?status=success&msg=Estudiante eliminado correctamente");
+        exit();
+        }
+        catch (Exception $e) {
+        header("Location: /G7_SC-609_Proyecto_MN/app/views/estudiante/listado.php?status=error&msg=" . urlencode($e->getMessage()));
+        exit();
+    }
+    }
+}
+
 try {
     if (!empty($_POST)) {
         $action = $_POST['action'] ?? '';

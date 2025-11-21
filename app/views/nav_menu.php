@@ -15,36 +15,63 @@ if (session_status() === PHP_SESSION_NONE) {
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <?php if ($_SESSION['rol'] === 'user'): ?>
-                    <li class="nav-item"><a class="nav-link text-white" href="/G7_SC-609_Proyecto_MN/app/views/curso/listado.php">Listado de Cursos</a></li>
-                    <li class="nav-item"><a class="nav-link text-white" href="/G7_SC-609_Proyecto_MN/app/views/curso/registro_matricula.php">Registro de Matrícula</a></li>
+                    <li class="nav-item"><a class="nav-link text-white"
+                            href="/G7_SC-609_Proyecto_MN/app/views/curso/listado.php">Listado de Cursos</a></li>
+                    <li class="nav-item"><a class="nav-link text-white"
+                            href="/G7_SC-609_Proyecto_MN/app/views/curso/registro_matricula.php">Registro de Matrícula</a>
+                    </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Reportes</a>
+                        <a class="nav-link dropdown-toggle text-white" data-toggle="dropdown" href="#" role="button"
+                            aria-expanded="false">Reportes</a>
                         <ul class="dropdown-menu bg-primary">
-                            <li><a class="dropdown-item text-white" href="/G7_SC-609_Proyecto_MN/app/views/nota/reporte_trimestral.php">Reporte Trimestral</a></li>
+                            <li><a class="dropdown-item text-white"
+                                    href="/G7_SC-609_Proyecto_MN/app/views/nota/reporte_trimestral.php">Reporte
+                                    Trimestral</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item"><a class="nav-link text-white" href="/G7_SC-609_Proyecto_MN/app/views/nota/listado.php">Mi Perfil</a></li>
+                    <li class="nav-item"><a class="nav-link text-white"
+                            href="/G7_SC-609_Proyecto_MN/app/views/nota/listado.php">Mi Perfil</a></li>
 
                 <?php elseif ($_SESSION['rol'] === 'admin'): ?>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Reportes</a>
+                        <a class="nav-link dropdown-toggle text-white" data-toggle="dropdown" href="#" role="button"
+                            aria-expanded="false">Reportes</a>
                         <ul class="dropdown-menu bg-primary">
-                            <li><a class="dropdown-item text-white" href="/G7_SC-609_Proyecto_MN/app/views/nota/reporte_rendimiento.php">Reporte Rendimiento</a></li>
+                            <li><a class="dropdown-item text-white"
+                                    href="/G7_SC-609_Proyecto_MN/app/views/nota/reporte_rendimiento.php">Reporte
+                                    Rendimiento</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Registro</a>
+                        <a class="nav-link dropdown-toggle text-white" data-toggle="dropdown" href="#" role="button"
+                            aria-expanded="false">Registro</a>
                         <ul class="dropdown-menu bg-primary">
-                            <li><a class="dropdown-item text-white" href="/G7_SC-609_Proyecto_MN/app/views/profesor/registro.php">Registro de Profesores</a></li>
+                            <li><a class="dropdown-item text-white"
+                                    href="/G7_SC-609_Proyecto_MN/app/views/profesor/registro.php">Registro de Profesores</a>
+                            </li>
+                            <li><a class="dropdown-item text-white"
+                                    href="/G7_SC-609_Proyecto_MN/app/views/escuela/registro.php">Registro de Escuelas</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white" data-toggle="dropdown" href="#" role="button" aria-expanded="false">Mantenimiento</a>
+                        <a class="nav-link dropdown-toggle text-white" data-toggle="dropdown" href="#" role="button"
+                            aria-expanded="false">Mantenimiento</a>
                         <ul class="dropdown-menu bg-primary">
-                            <li><a class="dropdown-item text-white" href="/G7_SC-609_Proyecto_MN/app/views/profesor/listado.php">Lista de Profesores</a></li>
+                            <li><a class="dropdown-item text-white"
+                                    href="/G7_SC-609_Proyecto_MN/app/views/profesor/listado.php">Lista de Profesores</a>
+                            </li>
+                            <li><a class="dropdown-item text-white"
+                                    href="/G7_SC-609_Proyecto_MN/app/views/estudiante/listado.php">Lista de Estudiantes</a>
+                            </li>
+                            <li><a class="dropdown-item text-white"
+                                    href="/G7_SC-609_Proyecto_MN/app/views/escuela/listado.php">Lista de Escuelas</a>
+                            </li>
                         </ul>
                     </li>
-                    <li class="nav-item"><a class="nav-link text-white" href="/G7_SC-609_Proyecto_MN/app/views/metricas.php">Métricas</a></li>
+                    </li>
+                    <li class="nav-item"><a class="nav-link text-white"
+                            href="/G7_SC-609_Proyecto_MN/app/views/metricas.php">Métricas</a></li>
                 <?php endif; ?>
             </ul>
         </div>

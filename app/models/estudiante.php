@@ -41,7 +41,7 @@ class Estudiante
         $estudiantes = $collectionEstudiantes->find();
 
         $resultado = [];
-        $nombresUnicos = []; // Para evitar duplicados
+        $nombresUnicos = [];
 
         foreach ($estudiantes as $est) {
             $usuario = $collectionUsuarios->findOne(['_id' => (int) $est['id_usuario']]);
@@ -61,7 +61,31 @@ class Estudiante
         return $resultado;
     }
 
+    public static function lista_estudiantes()
+    {
+        global $db;
 
+        $cursor = $db->Estudiante->find();
+        $collectionEscuelas = $db->Escuela;
+        $collectionUsuarios = $db->Usuario;
+
+        $resultado = [];
+
+        foreach ($cursor as $p) {
+            $escuelaDoc = $collectionEscuelas->findOne(['_id' => (int) $p['id_escuela']]);
+            $usuario = $collectionUsuarios->findOne(['_id' => (int) $p['id_usuario']]);
+            $resultado[] = [
+                '_id' => (int)$p['_id'],
+                'nombre' => $usuario ['nombre'],
+                'cedula' => $p['cedula'],
+                'fecha_nacimiento' => $p['fecha_nacimiento'],
+                'grado' => $p['grado'],
+                'escuela' => $escuelaDoc['nombre']
+            ];
+        }
+
+        return $resultado;
+    }
 
     public static function get_reportes($id_estudiante, $grado, $id_curso)
     {
@@ -116,7 +140,26 @@ class Estudiante
         return $cursos;
     }
 
+    public static function editar($id,$cedula, $fecha_nacimiento, $grado, $escuela)
+    {
+        global $db;
 
+        $db->Estudiante->updateOne(
+            ['_id' => $id],
+            ['$set' => [
+                'cedula' => $cedula,
+                'fecha_nacimiento' => $fecha_nacimiento,
+                'grado' => $grado,
+                'id_escuela' => $escuela
+            ]]
+        );
+    }
+
+    public static function eliminar($id)
+    {
+        global $db;
+        $db->Estudiante->deleteOne(['_id' => $id]);
+    }
 
     public static function imprimir_reporte()
     {

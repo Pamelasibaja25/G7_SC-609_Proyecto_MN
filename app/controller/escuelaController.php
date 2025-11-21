@@ -23,4 +23,64 @@ function get_escuelas()
         exit();
     }
 }
+function get_escuela_resumen()
+{
+    return Escuela::resumen();
+}
+function get_escuelas_admin()
+{
+    return Escuela::lista_escuelas();
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    if ($_POST['action'] === 'registrar-escuela') {
+
+        try{
+        Escuela::registrar(
+            $_POST['nombre'],
+            $_POST['provincia']
+        );
+
+        header("Location: /G7_SC-609_Proyecto_MN/app/views/escuela/registro.php?status=success&msg=Escuela registrada correctamente");
+        exit();
+    }
+    catch (Exception $e) {
+        header("Location: /G7_SC-609_Proyecto_MN/app/views/escuela/registro.php?status=error&msg=" . urlencode($e->getMessage()));
+        exit();
+    }
+    }
+
+    if ($_POST['action'] === 'editar-escuela') {
+
+        try{
+        escuela::editar(
+            (int)$_POST['id_escuela'],
+            $_POST['nombre'],
+            $_POST['provincia']
+        );
+
+        header("Location: /G7_SC-609_Proyecto_MN/app/views/escuela/listado.php?status=success&msg=Escuela actualizada correctamente");
+        exit();
+    }
+    catch (Exception $e) {
+        header("Location: /G7_SC-609_Proyecto_MN/app/views/escuela/listado.php?status=error&msg=" . urlencode($e->getMessage()));
+        exit();
+    }
+    }
+
+    if ($_POST['action'] === 'eliminar-escuela') {
+
+        try{
+        escuela::eliminar((int)$_POST['id_escuela']);
+
+        header("Location: /G7_SC-609_Proyecto_MN/app/views/escuela/listado.php?status=success&msg=Escuela eliminada correctamente");
+        exit();
+        }
+        catch (Exception $e) {
+        header("Location: /G7_SC-609_Proyecto_MN/app/views/escuela/listado.php?status=error&msg=" . urlencode($e->getMessage()));
+        exit();
+    }
+    }
+}
 ?>

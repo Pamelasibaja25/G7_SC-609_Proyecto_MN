@@ -22,7 +22,23 @@ $(document).ready(function () {
         $('#edit-especialidad').val(btn.data('especialidad'));
     });
 
+        $('#editar-estudiante').on('show.bs.modal', function(event) {
+        let btn = $(event.relatedTarget);
+        $('#edit-id').val(btn.data('id'));
+        $('#edit-nombre').val(btn.data('nombre'));
+        $('#edit-cedula').val(btn.data('cedula'));
+        $('#edit-fecha_nacimiento').val(btn.data('fecha_nacimiento'));
+        $('#edit-grado').val(btn.data('grado'));
+        $('#edit-escuela').val(btn.data('escuela'));
+    });
+
     $('#eliminar-profesor').on('show.bs.modal', function(event) {
+        let btn = $(event.relatedTarget);
+        $('#delete-id').val(btn.data('id'));
+        $('#delete-nombre').text(btn.data('nombre'));
+    });
+
+        $('#eliminar-estudiante').on('show.bs.modal', function(event) {
         let btn = $(event.relatedTarget);
         $('#delete-id').val(btn.data('id'));
         $('#delete-nombre').text(btn.data('nombre'));
