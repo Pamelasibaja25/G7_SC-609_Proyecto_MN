@@ -1,0 +1,14 @@
+[
+  { "_id": 1, "id_curso": 1, "tipo": "Tarea", "titulo": "Ejercicios Unidad 1", "fecha_entrega": "2025-02-10" },
+  { "_id": 2, "id_curso": 1, "tipo": "Examen", "titulo": "Prueba Diagnóstica", "fecha_entrega": "2025-02-14" },
+  { "_id": 3, "id_curso": 1, "tipo": "Proyecto", "titulo": "Investigación Matemática", "fecha_entrega": "2025-02-21" },
+  { "_id": 4, "id_curso": 2, "tipo": "Tarea", "titulo": "Ensayo de Lectura", "fecha_entrega": "2025-03-10" },
+  { "_id": 5, "id_curso": 2, "tipo": "Examen", "titulo": "Prueba de Español", "fecha_entrega": "2025-03-14" },
+  { "_id": 6, "id_curso": 3, "tipo": "Tarea", "titulo": "Experimento Casero", "fecha_entrega": "2025-04-10" },
+  { "_id": 7, "id_curso": 3, "tipo": "Examen", "titulo": "Prueba de Ciencias", "fecha_entrega": "2025-04-17" },
+  { "_id": 8, "id_curso": 4, "tipo": "Tarea", "titulo": "Glosario de Inglés", "fecha_entrega": "2025-05-06" },
+  { "_id": 9, "id_curso": 5, "tipo": "Examen", "titulo": "Evaluación Bimestral", "fecha_entrega": "2025-06-11" },
+  { "_id": 10, "id_curso": 6, "tipo": "Tarea", "titulo": "Práctica de Música", "fecha_entrega": "2025-06-20" },
+  { "_id": 11, "id_curso": 7, "tipo": "Proyecto", "titulo": "Mapa Histórico", "fecha_entrega": "2025-07-01" },
+  { "_id": 12, "id_curso": 11, "tipo": "Examen", "titulo": "Prueba Final", "fecha_entrega": "2025-10-15" }
+]

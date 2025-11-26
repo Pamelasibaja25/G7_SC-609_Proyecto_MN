@@ -1,0 +1,14 @@
+[
+  { "_id": 1, "id_curso": 1, "grupo": "Grupo 1", "capacidad": 25 },
+  { "_id": 2, "id_curso": 1, "grupo": "Grupo 2", "capacidad": 25 },
+  { "_id": 3, "id_curso": 2, "grupo": "Grupo 1", "capacidad": 30 },
+  { "_id": 4, "id_curso": 3, "grupo": "Grupo 1", "capacidad": 20 },
+  { "_id": 5, "id_curso": 3, "grupo": "Grupo 2", "capacidad": 20 },
+  { "_id": 6, "id_curso": 4, "grupo": "Grupo 1", "capacidad": 28 },
+  { "_id": 7, "id_curso": 5, "grupo": "Grupo 1", "capacidad": 27 },
+  { "_id": 8, "id_curso": 6, "grupo": "Grupo 1", "capacidad": 32 },
+  { "_id": 9, "id_curso": 7, "grupo": "Grupo 1", "capacidad": 30 },
+  { "_id": 10, "id_curso": 7, "grupo": "Grupo 2", "capacidad": 30 },
+  { "_id": 11, "id_curso": 8, "grupo": "Grupo 1", "capacidad": 22 },
+  { "_id": 12, "id_curso": 11, "grupo": "Grupo 1", "capacidad": 25 }
+]
