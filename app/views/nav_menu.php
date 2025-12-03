@@ -3,199 +3,185 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// IMPORTANTE: base de la app respecto a htdocs
 $baseUrl = '/Proyecto_NoSQL/G7_SC-609_Proyecto_MN';
 ?>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
-        <a class="navbar-brand text-white" href="<?= $baseUrl ?>/app/views/layout.php">Escuela en Casa</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <!-- Marca / Inicio -->
+<a class="navbar-brand text-white" href="<?= $baseUrl ?>/app/views/layout.php">Escuela en Casa</a>
 
+
+        <!-- Contenido colapsable -->
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <?php if ($_SESSION['rol'] === 'user'): ?>
 
+            <!-- Navegación principal (izquierda) -->
+            <ul class="navbar-nav mr-auto">
+                <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'user'): ?>
+
+                    <!-- USER: navegación centrada en tareas -->
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="<?= $baseUrl ?>/app/views/curso/listado.php">
-                            Listado de Cursos
+                        <a class="nav-link" href="<?= $baseUrl ?>/app/views/curso/listado.php">
+                            Mis cursos
                         </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="<?= $baseUrl ?>/app/views/curso/registro_matricula.php">
-                            Registro de Matrícula
+                        <a class="nav-link" href="<?= $baseUrl ?>/app/views/curso/registro_matricula.php">
+                            Matrícula
                         </a>
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white" data-toggle="dropdown" href="#" role="button">
+                        <a class="nav-link dropdown-toggle"
+                           href="#" id="reportesUserDropdown"
+                           role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
                             Reportes
                         </a>
-                        <ul class="dropdown-menu bg-primary">
-                            <li>
-                                <a class="dropdown-item text-white"
-                                   href="<?= $baseUrl ?>/app/views/nota/reporte_trimestral.php">
-                                   Reporte Trimestral
-                                </a>
-                            </li>
-                        </ul>
+                        <div class="dropdown-menu" aria-labelledby="reportesUserDropdown">
+                            <a class="dropdown-item"
+                               href="<?= $baseUrl ?>/app/views/nota/reporte_trimestral.php">
+                                Reporte trimestral
+                            </a>
+                        </div>
                     </li>
 
+                <?php elseif (isset($_SESSION['rol']) && $_SESSION['rol'] === 'admin'): ?>
+
+                    <!-- ADMIN: navegación pensada como panel de gestión -->
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="<?= $baseUrl ?>/app/views/nota/listado.php">
-                            Mi Perfil
+                        <a class="nav-link" href="<?= $baseUrl ?>/app/views/metricas.php">
+                            Panel
                         </a>
                     </li>
 
-                <?php elseif ($_SESSION['rol'] === 'admin'): ?>
-
-                    <!-- REPORTES (ADMIN) -->
+                    <!-- Académico: registros y listados -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white" data-toggle="dropdown" href="#" role="button">
-                            Reportes
+                        <a class="nav-link dropdown-toggle"
+                           href="#" id="academicoDropdown"
+                           role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            Académico
                         </a>
-                        <ul class="dropdown-menu bg-primary">
-                            <li>
-                                <a class="dropdown-item text-white"
-                                   href="<?= $baseUrl ?>/app/views/nota/reporte_rendimiento.php">
-                                   Reporte Rendimiento
-                                </a>
-                            </li>
-                        </ul>
+                        <div class="dropdown-menu" aria-labelledby="academicoDropdown">
+
+                            <!-- Sección: Registro -->
+                            <h6 class="dropdown-header">Registro</h6>
+                            <a class="dropdown-item"
+                               href="<?= $baseUrl ?>/app/views/profesor/registro.php">
+                                Registrar profesor
+                            </a>
+                            <a class="dropdown-item"
+                               href="<?= $baseUrl ?>/app/views/escuela/registro.php">
+                                Registrar escuela
+                            </a>
+                            <a class="dropdown-item"
+                               href="<?= $baseUrl ?>/app/views/grupo/registro.php">
+                                Registrar grupo
+                            </a>
+                            <a class="dropdown-item"
+                               href="<?= $baseUrl ?>/app/views/calendario/registro.php">
+                                Registrar calendario
+                            </a>
+                            <a class="dropdown-item"
+                               href="<?= $baseUrl ?>/app/views/actividad/registro.php">
+                                Registrar actividad
+                            </a>
+                            <a class="dropdown-item"
+                               href="<?= $baseUrl ?>/app/views/asistencia/registro.php">
+                                Registrar asistencia
+                            </a>
+
+                            <div class="dropdown-divider"></div>
+
+                            <!-- Sección: Listados -->
+                            <h6 class="dropdown-header">Listados</h6>
+                            <a class="dropdown-item"
+                               href="<?= $baseUrl ?>/app/views/profesor/listado.php">
+                                Profesores
+                            </a>
+                            <a class="dropdown-item"
+                               href="<?= $baseUrl ?>/app/views/estudiante/listado.php">
+                                Estudiantes
+                            </a>
+                            <a class="dropdown-item"
+                               href="<?= $baseUrl ?>/app/views/escuela/listado.php">
+                                Escuelas
+                            </a>
+                            <a class="dropdown-item"
+                               href="<?= $baseUrl ?>/app/views/grupo/listado.php">
+                                Grupos
+                            </a>
+                            <a class="dropdown-item"
+                               href="<?= $baseUrl ?>/app/views/calendario/listado.php">
+                                Calendarios
+                            </a>
+                            <a class="dropdown-item"
+                               href="<?= $baseUrl ?>/app/views/actividad/listado.php">
+                                Actividades
+                            </a>
+                            <a class="dropdown-item"
+                               href="<?= $baseUrl ?>/app/views/asistencia/listado.php">
+                                Asistencias
+                            </a>
+                        </div>
                     </li>
 
-                    <!-- REGISTRO (ADMIN) -->
+                    <!-- Reportes admin -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white" data-toggle="dropdown" href="#" role="button">
-                            Registro
+                        <a class="nav-link dropdown-toggle"
+                           href="#" id="reportesAdminDropdown"
+                           role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                           Reportes
                         </a>
-                        <ul class="dropdown-menu bg-primary">
-                            <li>
-                                <a class="dropdown-item text-white"
-                                   href="<?= $baseUrl ?>/app/views/profesor/registro.php">
-                                   Registro de Profesores
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item text-white"
-                                   href="<?= $baseUrl ?>/app/views/escuela/registro.php">
-                                   Registro de Escuelas
-                                </a>
-                            </li>
-
-                            <!--  Registro Actividad -->
-                            <li>
-                                <a class="dropdown-item text-white"
-                                   href="<?= $baseUrl ?>/app/views/actividad/registro.php">
-                                   Registro Actividad
-                                </a>
-                            </li>
-
-                            <!--  Registro Asistencia -->
-                            <li>
-                                <a class="dropdown-item text-white"
-                                   href="<?= $baseUrl ?>/app/views/asistencia/registro.php">
-                                   Registro Asistencia
-                                </a>
-                            </li>
-
-                            <!--  Registro Calendario -->
-                            <li>
-                                <a class="dropdown-item text-white"
-                                   href="<?= $baseUrl ?>/app/views/calendario/registro.php">
-                                   Registro Calendario
-                                </a>
-                            </li>
-
-                            <!--  Registro Grupo -->
-                            <li>
-                                <a class="dropdown-item text-white"
-                                   href="<?= $baseUrl ?>/app/views/grupo/registro.php">
-                                   Registro Grupo
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <!-- MANTENIMIENTO (ADMIN) -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white" data-toggle="dropdown" href="#" role="button">
-                            Mantenimiento
-                        </a>
-                        <ul class="dropdown-menu bg-primary">
-                            <li>
-                                <a class="dropdown-item text-white"
-                                    href="<?= $baseUrl ?>/app/views/grupo/listado.php">Lista de Grupos</a></li>
-                                <a class="dropdown-item text-white"
-                                   href="<?= $baseUrl ?>/app/views/profesor/listado.php">
-                                   Lista de Profesores
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item text-white"
-                                   href="<?= $baseUrl ?>/app/views/estudiante/listado.php">
-                                   Lista de Estudiantes
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item text-white"
-                                   href="<?= $baseUrl ?>/app/views/escuela/listado.php">
-                                   Lista de Escuelas
-                                </a>
-                            </li>
-
-                            <!--  Listado Actividad -->
-                            <li>
-                                <a class="dropdown-item text-white"
-                                   href="<?= $baseUrl ?>/app/views/actividad/listado.php">
-                                   Lista de Actividades
-                                </a>
-                            </li>
-
-                            <!--  Listado Asistencia -->
-                            <li>
-                                <a class="dropdown-item text-white"
-                                   href="<?= $baseUrl ?>/app/views/asistencia/listado.php">
-                                   Lista de Asistencias
-                                </a>
-                            </li>
-
-                            <!--  Listado Calendario -->
-                            <li>
-                                <a class="dropdown-item text-white"
-                                   href="<?= $baseUrl ?>/app/views/calendario/listado.php">
-                                   Lista de Calendarios
-                                </a>
-                            </li>
-
-                            <!--  Listado Grupo -->
-                            <li>
-                                <a class="dropdown-item text-white"
-                                   href="<?= $baseUrl ?>/app/views/grupo/listado.php">
-                                   Lista de Grupos
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="<?= $baseUrl ?>/app/views/metricas.php">
-                            Métricas
-                        </a>
+                        <div class="dropdown-menu" aria-labelledby="reportesAdminDropdown">
+                            <a class="dropdown-item"
+                               href="<?= $baseUrl ?>/app/views/nota/reporte_rendimiento.php">
+                                Reporte de rendimiento
+                            </a>
+                        </div>
                     </li>
 
                 <?php endif; ?>
             </ul>
-        </div>
 
-        <ul class="navbar-nav">
-            <li class="nav-item my-auto">
-                <a class="btn btn-outline-light" href="<?= $baseUrl ?>/index.php">Salir</a>
-            </li>
-        </ul>
+            <!-- Zona de cuenta / sesión (derecha) -->
+            <ul class="navbar-nav">
+                <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'user'): ?>
+                    <!-- USER: menú de cuenta -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           href="#" id="cuentaDropdown"
+                           role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            Mi cuenta
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="cuentaDropdown">
+                            <a class="dropdown-item"
+                               href="<?= $baseUrl ?>/app/views/nota/listado.php">
+                                Mi perfil
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item text-danger"
+                               href="<?= $baseUrl ?>/index.php">
+                                Cerrar sesión
+                            </a>
+                        </div>
+                    </li>
+                <?php else: ?>
+                    <!-- ADMIN u otros: solo botón de salir (puedes luego unificar en "Mi cuenta" también) -->
+                    <li class="nav-item my-auto">
+                        <a class="btn btn-outline-light"
+                           href="<?= $baseUrl ?>/index.php">
+                            Salir
+                        </a>
+                    </li>
+                <?php endif; ?>
+            </ul>
+
+        </div>
     </div>
 </nav>
+

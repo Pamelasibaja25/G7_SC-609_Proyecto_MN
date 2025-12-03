@@ -1,8 +1,6 @@
 <?php
-include $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/app/controller/escuelaController.php';
-
-// Datos necesarios:
-$resumen = get_escuela_resumen();  
+require_once __DIR__ . '/../../controller/escuelaController.php';
+$escuelaResumen = get_escuela_resumen();
 ?>
 
 <!DOCTYPE html>
@@ -32,7 +30,7 @@ $resumen = get_escuela_resumen();
         </div>
     <?php endif; ?>
 
-     <?php include $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/app/views/nav_menu.php'; ?>
+<?php include __DIR__ . '/../nav_menu.php'; ?>
 
     <section class="bg-custom">
         <div class="container mt-5">

@@ -1,10 +1,8 @@
 <?php
-include $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/app/controller/profesorController.php';
-
-// Datos necesarios:
-$resumen = get_profesores_resumen();          // especialidad => cantidad
-$especialidades = get_especialidades_cursos(); // cursos únicos
+require_once __DIR__ . '/../../controller/profesorController.php';
+$profesoresResumen = get_profesores_resumen();
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -33,7 +31,7 @@ $especialidades = get_especialidades_cursos(); // cursos únicos
         </div>
     <?php endif; ?>
 
-     <?php include $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/app/views/nav_menu.php'; ?>
+<?php include __DIR__ . '/../nav_menu.php'; ?>
 
     <section class="bg-custom">
         <div class="container mt-5">

@@ -1,6 +1,7 @@
 section.bg-custom {
     background: rgba(1, 38, 71,0.8) !important;
 }
+
 .bg-body-custom {
     background: rgba(1, 38, 71);
 }
@@ -19,7 +20,6 @@ section.bg-custom {
     color: rgba(1, 38, 71) !important;
     background-color: transparent !important;
 }
-
 
 #login-container {
     max-width: 400px;

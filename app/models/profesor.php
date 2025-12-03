@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/config/database.php';
+require_once __DIR__ . '/../../config/database.php';
 
 class Profesor
 {
