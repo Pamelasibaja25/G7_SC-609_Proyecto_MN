@@ -1,185 +1,113 @@
 <?php
-include $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/app/controller/profesorController.php';
+require_once __DIR__ . '/../../controller/profesorController.php';
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 $profesores = get_profesores();
-$especialidades = get_especialidades_cursos();
-?>
 
+$status = $_GET['status'] ?? null;
+$msg    = $_GET['msg'] ?? null;
+?>
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
 <head>
-    <title>Escuela en Casa</title>
+    <title>Escuela en Casa - Lista de Profesores</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap 4 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link href="/G7_SC-609_Proyecto_MN/public/css/style.css" rel="stylesheet" type="text/css" />
+
+    <!-- CSS propio -->
+    <link href="/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/public/css/style.css" rel="stylesheet" type="text/css" />
+
+    <!-- JS (jQuery, Popper, Bootstrap JS) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <!-- JS propio -->
+    <script src="/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/public/js/scripts.js"></script>
 </head>
 
 <body>
 
-<?php if (isset($_GET['status']) && $_GET['status'] === 'success'): ?>
-    <div class="alert alert-success text-center" role="alert">
-        <?= htmlspecialchars($_GET['msg']); ?>
+<?php include __DIR__ . '/../nav_menu.php'; ?>
+
+<div class="container py-4">
+    <h1 class="mb-4">Listado de Profesores</h1>
+
+    <?php if ($status && $msg): ?>
+        <div class="alert alert-<?= $status === 'success' ? 'success' : 'danger' ?>" role="alert">
+            <?= htmlspecialchars($msg) ?>
+        </div>
+    <?php endif; ?>
+
+    <div class="mb-3">
+        <a href="registro.php" class="btn bg-body-custom text-white">Registrar nuevo profesor</a>
     </div>
-<?php elseif (isset($_GET['status']) && $_GET['status'] === 'error'): ?>
-    <div class="alert alert-danger text-center" role="alert">
-        <?= htmlspecialchars($_GET['msg']); ?>
-    </div>
-<?php endif; ?>
 
-<?php include $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/app/views/nav_menu.php'; ?>
-
-<section class="bg-custom">
-    <div class="container mt-5">
-        <h1 class="text-center text-white">Lista de Profesores</h1>
-
-        <!-- Tabla de profesores con botones editar/eliminar -->
-        <div class="card mt-3">
-            <div class="card-body table-responsive">
-                <table class="table table-bordered text-center">
-                    <thead class="bg-body-custom text-white">
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover">
+            <thead class="thead-light">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Cédula</th>
+                    <th>Especialidad</th>
+                    <th>Teléfono</th>
+                    <th>Correo</th>
+                    <th style="width: 180px;">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (empty($profesores)): ?>
+                    <tr>
+                        <td colspan="7" class="text-center">No hay profesores registrados.</td>
+                    </tr>
+                <?php else: ?>
+                    <?php foreach ($profesores as $p): ?>
                         <tr>
-                            <th>Nombre</th>
-                            <th>Cédula</th>
-                            <th>Teléfono</th>
-                            <th>Correo</th>
-                            <th>Especialidad</th>
-                            <th>Acciones</th>
+                            <td><?= htmlspecialchars($p['_id']) ?></td>
+                            <td><?= htmlspecialchars($p['nombre']) ?></td>
+                            <td><?= htmlspecialchars($p['cedula']) ?></td>
+                            <td><?= htmlspecialchars($p['especialidad']) ?></td>
+                            <td><?= htmlspecialchars($p['telefono']) ?></td>
+                            <td><?= htmlspecialchars($p['correo']) ?></td>
+                            <td>
+                                <a href="editar.php?id_profesor=<?= urlencode($p['_id']) ?>"
+                                   class="btn btn-sm btn-primary mb-1">
+                                    Editar
+                                </a>
+
+                                <form method="post"
+                                      action="../../controller/profesorController.php"
+                                      class="d-inline">
+                                    <input type="hidden" name="action" value="eliminar-profesor">
+                                    <input type="hidden" name="id_profesor" value="<?= htmlspecialchars($p['_id']) ?>">
+                                    <button type="submit"
+                                            class="btn btn-sm btn-danger mb-1"
+                                            onclick="return confirm('¿Eliminar este profesor?');">
+                                        Eliminar
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($profesores as $p): ?>
-                            <tr>
-                                <td><?= htmlspecialchars($p['nombre']) ?></td>
-                                <td><?= htmlspecialchars($p['cedula']) ?></td>
-                                <td><?= htmlspecialchars($p['telefono']) ?></td>
-                                <td><?= htmlspecialchars($p['correo']) ?></td>
-                                <td><?= htmlspecialchars($p['especialidad']) ?></td>
-                                <td>
-                                    <button 
-                                        class="btn bg-body-custom text-white btn-sm"
-                                        data-toggle="modal"
-                                        data-target="#editar-profesor"
-                                        data-id="<?= $p['_id'] ?>"
-                                        data-nombre="<?= $p['nombre'] ?>"
-                                        data-cedula="<?= $p['cedula'] ?>"
-                                        data-telefono="<?= $p['telefono'] ?>"
-                                        data-correo="<?= $p['correo'] ?>"
-                                        data-especialidad="<?= $p['especialidad'] ?>"
-                                    >Editar</button>
-
-                                    <button 
-                                        class="btn btn-danger btn-sm"
-                                        data-toggle="modal"
-                                        data-target="#eliminar-profesor"
-                                        data-id="<?= $p['_id'] ?>"
-                                        data-nombre="<?= $p['nombre'] ?>"
-                                    >Eliminar</button>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<!-- MODAL EDITAR -->
-<div class="modal fade" id="editar-profesor" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="card-header bg-body-custom text-white d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">Editar Profesor</h5>
-                <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
-            </div>
-
-            <form action="/G7_SC-609_Proyecto_MN/app/controller/profesorController.php" method="POST">
-                <div class="modal-body">
-
-                    <input type="hidden" name="action" value="editar-profesor">
-                    <input type="hidden" name="id_profesor" id="edit-id">
-
-                    <div class="form-group mb-3">
-                        <label>Nombre:</label>
-                        <input type="text" class="form-control" id="edit-nombre" name="nombre" required>
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label>Cédula:</label>
-                        <input type="text" class="form-control" id="edit-cedula" name="cedula" required>
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label>Teléfono:</label>
-                        <input type="text" class="form-control" id="edit-telefono" name="telefono" required>
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label>Correo:</label>
-                        <input type="email" class="form-control" id="edit-correo" name="correo" required>
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label>Especialidad:</label>
-                        <select class="form-select form-control" id="edit-especialidad" name="especialidad" required>
-                            <?php foreach ($especialidades as $esp): ?>
-                                <option value="<?= htmlspecialchars($esp) ?>"><?= htmlspecialchars($esp) ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-
-                </div>
-
-                <div class="card-footer text-center">
-                    <button type="submit" class="btn bg-body-custom text-white">Guardar Cambios</button>
-                </div>
-            </form>
-        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </tbody>
+        </table>
     </div>
 </div>
-
-<!-- MODAL ELIMINAR -->
-<div class="modal fade" id="eliminar-profesor" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="card-header bg-body-custom text-white d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">Eliminar Profesor</h5>
-                <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
-            </div>
-
-            <form action="/G7_SC-609_Proyecto_MN/app/controller/profesorController.php" method="POST">
-                <div class="modal-body">
-
-                    <input type="hidden" name="action" value="eliminar-profesor">
-                    <input type="hidden" name="id_profesor" id="delete-id">
-
-                    <p>¿Estás seguro que deseas eliminar a <strong id="delete-nombre"></strong>?</p>
-
-                </div>
-
-                <div class="card-footer text-center">
-                    <button type="submit" class="btn btn-danger">Eliminar</button>
-                </div>
-            </form>
-
-        </div>
-    </div>
-</div>
-
 
 <footer class="navbar-light bg-primary text-white mt-5 p-3">
     <div class="container">
-        <p class="text-center">Derechos Reservados - Escuela en Casa 2025</p>
+        <p class="text-center mb-0">Derechos Reservados - Escuela en Casa 2025</p>
     </div>
 </footer>
 
-<script src="/G7_SC-609_Proyecto_MN/public/js/scripts.js"></script>
 </body>
-
 </html>

@@ -81,10 +81,6 @@ $baseUrl = '/Proyecto_NoSQL/G7_SC-609_Proyecto_MN';
                                 Registrar grupo
                             </a>
                             <a class="dropdown-item"
-                               href="<?= $baseUrl ?>/app/views/calendario/registro.php">
-                                Registrar calendario
-                            </a>
-                            <a class="dropdown-item"
                                href="<?= $baseUrl ?>/app/views/actividad/registro.php">
                                 Registrar actividad
                             </a>
@@ -114,10 +110,6 @@ $baseUrl = '/Proyecto_NoSQL/G7_SC-609_Proyecto_MN';
                                 Grupos
                             </a>
                             <a class="dropdown-item"
-                               href="<?= $baseUrl ?>/app/views/calendario/listado.php">
-                                Calendarios
-                            </a>
-                            <a class="dropdown-item"
                                href="<?= $baseUrl ?>/app/views/actividad/listado.php">
                                 Actividades
                             </a>
@@ -127,7 +119,12 @@ $baseUrl = '/Proyecto_NoSQL/G7_SC-609_Proyecto_MN';
                             </a>
                         </div>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link text-white"
+                        href="<?= $baseUrl ?>/app/views/calendario/dashboard.php">
+                            Calendario Académico
+                        </a>
+                    </li>
                     <!-- Reportes admin -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle"
