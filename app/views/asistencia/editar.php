@@ -1,34 +1,41 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/app/controllers/AsistenciaController.php';
+require_once __DIR__ . '/../../controller/AsistenciaController.php';
 
-// Validar que venga el id
+// Validacion del id
 if (!isset($_GET['id_asistencia'])) {
-    // Si no viene ID, puedes redirigir al listado
-    header("Location: /G7_SC-609_Proyecto_MN/app/views/asistencia/listado.php?status=error&msg=" . urlencode("ID de asistencia no especificado"));
+    header("Location: listado.php?status=error&msg=" . urlencode("ID de asistencia no especificado"));
     exit();
 }
 
 $idAsistencia = (int)$_GET['id_asistencia'];
-$asistencia = get_asistencia($idAsistencia);
+$asistencia   = get_asistencia($idAsistencia);
 
 if (!$asistencia) {
-    header("Location: /G7_SC-609_Proyecto_MN/app/views/asistencia/listado.php?status=error&msg=" . urlencode("Registro de asistencia no encontrado"));
+    header("Location: listado.php?status=error&msg=" . urlencode("Registro de asistencia no encontrado"));
     exit();
 }
 
 $status = $_GET['status'] ?? null;
-$msg = $_GET['msg'] ?? null;
+$msg    = $_GET['msg'] ?? null;
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <title>Editar Asistencia</title>
-    <link rel="stylesheet" href="/G7_SC-609_Proyecto_MN/lib/bootstrap/dist/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap 4 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- CSS propio -->
+    <link href="/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/public/css/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<div class="container mt-4">
-    <h1>Editar Asistencia</h1>
+
+<?php include __DIR__ . '/../nav_menu.php'; ?>
+
+<div class="container py-4">
+    <h1 class="mb-4">Editar Asistencia</h1>
 
     <?php if ($status && $msg): ?>
         <div class="alert alert-<?= $status === 'success' ? 'success' : 'danger' ?>">
@@ -36,12 +43,12 @@ $msg = $_GET['msg'] ?? null;
         </div>
     <?php endif; ?>
 
-    <form method="post" action="/G7_SC-609_Proyecto_MN/app/controllers/AsistenciaController.php">
+    <form method="post" action="../../controller/AsistenciaController.php">
         <input type="hidden" name="action" value="editar-asistencia">
         <input type="hidden" name="id_asistencia" value="<?= htmlspecialchars($asistencia['_id']) ?>">
 
-        <div class="mb-3">
-            <label for="id_usuario" class="form-label">ID Usuario</label>
+        <div class="form-group">
+            <label for="id_usuario">ID Usuario</label>
             <input type="number"
                    class="form-control"
                    id="id_usuario"
@@ -50,8 +57,8 @@ $msg = $_GET['msg'] ?? null;
                    required>
         </div>
 
-        <div class="mb-3">
-            <label for="id_curso" class="form-label">ID Curso</label>
+        <div class="form-group">
+            <label for="id_curso">ID Curso</label>
             <input type="number"
                    class="form-control"
                    id="id_curso"
@@ -60,8 +67,8 @@ $msg = $_GET['msg'] ?? null;
                    required>
         </div>
 
-        <div class="mb-3">
-            <label for="semana" class="form-label">Semana</label>
+        <div class="form-group">
+            <label for="semana">Semana</label>
             <input type="text"
                    class="form-control"
                    id="semana"
@@ -70,17 +77,22 @@ $msg = $_GET['msg'] ?? null;
                    required>
         </div>
 
-        <div class="mb-3">
-            <label class="form-label" for="asistio">Asistió</label>
-            <select class="form-select" id="asistio" name="asistio" required>
-                <option value="1" <?= $asistencia['asistio'] ? 'selected' : '' ?>>Sí</option>
-                <option value="0" <?= !$asistencia['asistio'] ? 'selected' : '' ?>>No</option>
+        <div class="form-group">
+            <label for="asistio">Estado</label>
+            <select class="form-control" id="asistio" name="asistio" required>
+                <option value="1" <?= $asistencia['asistio'] ? 'selected' : '' ?>>Presente</option>
+                <option value="0" <?= !$asistencia['asistio'] ? 'selected' : '' ?>>Ausente</option>
             </select>
         </div>
 
         <button type="submit" class="btn btn-primary">Guardar cambios</button>
-        <a href="/G7_SC-609_Proyecto_MN/app/views/asistencia/listado.php" class="btn btn-secondary">Volver al listado</a>
+        <a href="listado.php" class="btn btn-secondary">Volver al listado</a>
     </form>
 </div>
+
+<!-- JS Bootstrap -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>

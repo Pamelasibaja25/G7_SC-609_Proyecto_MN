@@ -1,5 +1,4 @@
 <?php
-// Controller de Asistencia
 
 require_once __DIR__ . '/../models/Asistencia.php';
 
@@ -8,7 +7,7 @@ function get_asistencias()
     return Asistencia::lista_asistencias();
 }
 
-function get_asistencias_por_curso_y_semana($id_curso, $semana)
+function get_asistencias_por_curso_y_semana($id_curso, $semana = null)
 {
     return Asistencia::lista_por_curso_y_semana($id_curso, $semana);
 }
@@ -20,6 +19,7 @@ function get_asistencia($id)
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
+    // Registrar asistencia
     if ($_POST['action'] === 'registrar-asistencia') {
 
         try {
@@ -38,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         }
     }
 
+    // Editar asistencia
     if ($_POST['action'] === 'editar-asistencia') {
 
         try {
@@ -57,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         }
     }
 
+    // Eliminar asistencia
     if ($_POST['action'] === 'eliminar-asistencia') {
 
         try {
@@ -70,4 +72,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         }
     }
 }
-
