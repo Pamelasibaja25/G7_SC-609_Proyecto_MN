@@ -1,5 +1,5 @@
 <?php
-// Controller de Grupo
+// app/controller/grupoController.php
 
 require_once __DIR__ . '/../models/Grupo.php';
 
@@ -13,8 +13,14 @@ function get_grupos_por_curso($id_curso)
     return Grupo::lista_por_curso($id_curso);
 }
 
+function get_grupo($id)
+{
+    return Grupo::obtener_por_id($id);
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
+    // Registrar grupo
     if ($_POST['action'] === 'registrar-grupo') {
 
         try {
@@ -32,6 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         }
     }
 
+    // Editar grupo
     if ($_POST['action'] === 'editar-grupo') {
 
         try {
@@ -50,6 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         }
     }
 
+    // Eliminar grupo
     if ($_POST['action'] === 'eliminar-grupo') {
 
         try {

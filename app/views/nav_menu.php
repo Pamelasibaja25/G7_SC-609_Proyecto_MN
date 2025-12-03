@@ -129,6 +129,8 @@ $baseUrl = '/Proyecto_NoSQL/G7_SC-609_Proyecto_MN';
                         <ul class="dropdown-menu bg-primary">
                             <li>
                                 <a class="dropdown-item text-white"
+                                    href="<?= $baseUrl ?>/app/views/grupo/listado.php">Lista de Grupos</a></li>
+                                <a class="dropdown-item text-white"
                                    href="<?= $baseUrl ?>/app/views/profesor/listado.php">
                                    Lista de Profesores
                                 </a>
