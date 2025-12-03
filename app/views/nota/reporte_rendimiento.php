@@ -26,9 +26,10 @@
             <?php echo htmlspecialchars($_GET['msg']); ?>
         </div>
     <?php endif; ?>
-    <?php
-    include $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/app/views/nav_menu.php'
-        ?>
+
+<?php
+include __DIR__ . '/../nav_menu.php';
+?>
 
     <section class="bg-custom">
         <div class="container mt-5">

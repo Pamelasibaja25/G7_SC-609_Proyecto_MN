@@ -1,5 +1,7 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/app/models/Calendario.php';
+// Controller de Calendario
+
+require_once __DIR__ . '/../models/Calendario.php';
 
 function get_calendario()
 {
@@ -23,10 +25,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 $_POST['fecha_fin']
             );
 
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/calendario/registro.php?status=success&msg=Registro de calendario guardado correctamente");
+            header("Location: ../views/calendario/registro.php?status=success&msg=" . urlencode("Registro de calendario guardado correctamente"));
             exit();
         } catch (Exception $e) {
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/calendario/registro.php?status=error&msg=" . urlencode($e->getMessage()));
+            header("Location: ../views/calendario/registro.php?status=error&msg=" . urlencode($e->getMessage()));
             exit();
         }
     }
@@ -42,10 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 $_POST['fecha_fin']
             );
 
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/calendario/listado.php?status=success&msg=Calendario actualizado correctamente");
+            header("Location: ../views/calendario/listado.php?status=success&msg=" . urlencode("Calendario actualizado correctamente"));
             exit();
         } catch (Exception $e) {
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/calendario/listado.php?status=error&msg=" . urlencode($e->getMessage()));
+            header("Location: ../views/calendario/listado.php?status=error&msg=" . urlencode($e->getMessage()));
             exit();
         }
     }
@@ -55,11 +57,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         try {
             Calendario::eliminar((int)$_POST['id_calendario']);
 
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/calendario/listado.php?status=success&msg=Registro de calendario eliminado correctamente");
+            header("Location: ../views/calendario/listado.php?status=success&msg=" . urlencode("Registro de calendario eliminado correctamente"));
             exit();
         } catch (Exception $e) {
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/calendario/listado.php?status=error&msg=" . urlencode($e->getMessage()));
+            header("Location: ../views/calendario/listado.php?status=error&msg=" . urlencode($e->getMessage()));
             exit();
         }
     }
 }
+

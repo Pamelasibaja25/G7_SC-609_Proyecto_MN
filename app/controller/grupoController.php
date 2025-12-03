@@ -1,5 +1,7 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/app/models/Grupo.php';
+// Controller de Grupo
+
+require_once __DIR__ . '/../models/Grupo.php';
 
 function get_grupos()
 {
@@ -22,10 +24,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 $_POST['capacidad']
             );
 
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/grupo/registro.php?status=success&msg=Grupo registrado correctamente");
+            header("Location: ../views/grupo/registro.php?status=success&msg=" . urlencode("Grupo registrado correctamente"));
             exit();
         } catch (Exception $e) {
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/grupo/registro.php?status=error&msg=" . urlencode($e->getMessage()));
+            header("Location: ../views/grupo/registro.php?status=error&msg=" . urlencode($e->getMessage()));
             exit();
         }
     }
@@ -40,10 +42,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 $_POST['capacidad']
             );
 
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/grupo/listado.php?status=success&msg=Grupo actualizado correctamente");
+            header("Location: ../views/grupo/listado.php?status=success&msg=" . urlencode("Grupo actualizado correctamente"));
             exit();
         } catch (Exception $e) {
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/grupo/listado.php?status=error&msg=" . urlencode($e->getMessage()));
+            header("Location: ../views/grupo/listado.php?status=error&msg=" . urlencode($e->getMessage()));
             exit();
         }
     }
@@ -53,10 +55,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         try {
             Grupo::eliminar((int)$_POST['id_grupo']);
 
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/grupo/listado.php?status=success&msg=Grupo eliminado correctamente");
+            header("Location: ../views/grupo/listado.php?status=success&msg=" . urlencode("Grupo eliminado correctamente"));
             exit();
         } catch (Exception $e) {
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/grupo/listado.php?status=error&msg=" . urlencode($e->getMessage()));
+            header("Location: ../views/grupo/listado.php?status=error&msg=" . urlencode($e->getMessage()));
             exit();
         }
     }

@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/config/database.php';
+require_once __DIR__ . '/../../config/database.php';
 
 class Actividad
 {
@@ -9,9 +9,9 @@ class Actividad
 
         $collection = $db->Actividad;
 
-        // Generar ID consecutivo similar a Profesor
+        // Generar ID
         $last = $collection->findOne([], ['sort' => ['_id' => -1]]);
-        $nextId = $last ? ((int)$last['_id'] + 1) : 1;
+        $nextId = $last ? ($last['_id'] + 1) : 1;
 
         $collection->insertOne([
             '_id' => $nextId,
@@ -50,7 +50,7 @@ class Actividad
     {
         global $db;
 
-        $cursor = $db->Actividad->find([], ['sort' => ['fecha_entrega' => 1]]);
+        $cursor = $db->Actividad->find();
         $resultado = [];
 
         foreach ($cursor as $a) {
@@ -70,12 +70,9 @@ class Actividad
     {
         global $db;
 
-        $cursor = $db->Actividad->find(
-            ['id_curso' => (int)$id_curso],
-            ['sort' => ['fecha_entrega' => 1]]
-        );
-
+        $cursor = $db->Actividad->find(['id_curso' => (int)$id_curso]);
         $resultado = [];
+
         foreach ($cursor as $a) {
             $resultado[] = [
                 '_id' => (int)$a['_id'],

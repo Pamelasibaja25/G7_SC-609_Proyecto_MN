@@ -1,5 +1,7 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/app/models/Asistencia.php';
+// Controller de Asistencia
+
+require_once __DIR__ . '/../models/Asistencia.php';
 
 function get_asistencias()
 {
@@ -16,7 +18,6 @@ function get_asistencia($id)
     return Asistencia::obtener_por_id($id);
 }
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
     if ($_POST['action'] === 'registrar-asistencia') {
@@ -29,10 +30,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 $_POST['asistio']
             );
 
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/asistencia/registro.php?status=success&msg=Asistencia registrada correctamente");
+            header("Location: ../views/asistencia/registro.php?status=success&msg=" . urlencode("Asistencia registrada correctamente"));
             exit();
         } catch (Exception $e) {
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/asistencia/registro.php?status=error&msg=" . urlencode($e->getMessage()));
+            header("Location: ../views/asistencia/registro.php?status=error&msg=" . urlencode($e->getMessage()));
             exit();
         }
     }
@@ -48,10 +49,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 $_POST['asistio']
             );
 
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/asistencia/listado.php?status=success&msg=Asistencia actualizada correctamente");
+            header("Location: ../views/asistencia/listado.php?status=success&msg=" . urlencode("Asistencia actualizada correctamente"));
             exit();
         } catch (Exception $e) {
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/asistencia/listado.php?status=error&msg=" . urlencode($e->getMessage()));
+            header("Location: ../views/asistencia/listado.php?status=error&msg=" . urlencode($e->getMessage()));
             exit();
         }
     }
@@ -61,11 +62,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         try {
             Asistencia::eliminar((int)$_POST['id_asistencia']);
 
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/asistencia/listado.php?status=success&msg=Asistencia eliminada correctamente");
+            header("Location: ../views/asistencia/listado.php?status=success&msg=" . urlencode("Asistencia eliminada correctamente"));
             exit();
         } catch (Exception $e) {
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/asistencia/listado.php?status=error&msg=" . urlencode($e->getMessage()));
+            header("Location: ../views/asistencia/listado.php?status=error&msg=" . urlencode($e->getMessage()));
             exit();
         }
     }
 }
+

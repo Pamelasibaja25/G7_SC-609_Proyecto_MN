@@ -1,5 +1,7 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/app/models/Actividad.php';
+// Controller de Actividad
+
+require_once __DIR__ . '/../models/Actividad.php';
 
 function get_actividades()
 {
@@ -23,10 +25,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 $_POST['fecha_entrega']
             );
 
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/actividad/registro.php?status=success&msg=Actividad registrada correctamente");
+            header("Location: ../views/actividad/registro.php?status=success&msg=" . urlencode("Actividad registrada correctamente"));
             exit();
         } catch (Exception $e) {
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/actividad/registro.php?status=error&msg=" . urlencode($e->getMessage()));
+            header("Location: ../views/actividad/registro.php?status=error&msg=" . urlencode($e->getMessage()));
             exit();
         }
     }
@@ -42,10 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 $_POST['fecha_entrega']
             );
 
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/actividad/listado.php?status=success&msg=Actividad actualizada correctamente");
+            header("Location: ../views/actividad/listado.php?status=success&msg=" . urlencode("Actividad actualizada correctamente"));
             exit();
         } catch (Exception $e) {
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/actividad/listado.php?status=error&msg=" . urlencode($e->getMessage()));
+            header("Location: ../views/actividad/listado.php?status=error&msg=" . urlencode($e->getMessage()));
             exit();
         }
     }
@@ -55,10 +57,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         try {
             Actividad::eliminar((int)$_POST['id_actividad']);
 
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/actividad/listado.php?status=success&msg=Actividad eliminada correctamente");
+            header("Location: ../views/actividad/listado.php?status=success&msg=" . urlencode("Actividad eliminada correctamente"));
             exit();
         } catch (Exception $e) {
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/actividad/listado.php?status=error&msg=" . urlencode($e->getMessage()));
+            header("Location: ../views/actividad/listado.php?status=error&msg=" . urlencode($e->getMessage()));
             exit();
         }
     }
