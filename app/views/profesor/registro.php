@@ -49,8 +49,8 @@ $especialidades = get_especialidades_cursos();
     </div>
 <?php endif; ?>
 
-<section class="bg-custom py-5">
-    <div class="container">
+<section class="bg-custom">
+    <div class="container mt-5">
         <h1 class="text-center text-white mb-4">Profesores registrados</h1>
 
         <!-- Tarjetas de resumen por especialidad -->

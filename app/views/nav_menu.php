@@ -138,6 +138,10 @@ $baseUrl = '/Proyecto_NoSQL/G7_SC-609_Proyecto_MN';
                                href="<?= $baseUrl ?>/app/views/nota/reporte_rendimiento.php">
                                 Reporte de rendimiento
                             </a>
+                            <a class="dropdown-item"
+                               href="<?= $baseUrl ?>/app/views/asistencia/reporte_asistencia.php">
+                                Reporte de Asistencia
+                            </a>
                         </div>
                     </li>
 

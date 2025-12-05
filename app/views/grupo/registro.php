@@ -3,6 +3,7 @@ require_once __DIR__ . '/../../controller/grupoController.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Registrar Grupo</title>
@@ -13,50 +14,63 @@ require_once __DIR__ . '/../../controller/grupoController.php';
     <!-- CSS propio -->
     <link href="/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/public/css/style.css" rel="stylesheet" type="text/css" />
 </head>
+
 <body>
 
-<?php include __DIR__ . '/../nav_menu.php'; ?>
+    <?php include __DIR__ . '/../nav_menu.php'; ?>
+    <section class="bg-custom">
+        <div class="container mt-5">
+            <h1 class="text-center text-white mb-4">Registrar Grupo</h1>
 
-<div class="container py-4">
-    <h1 class="mb-4">Registrar Grupo</h1>
+            <?php
+            $status = $_GET['status'] ?? null;
+            $msg = $_GET['msg'] ?? null;
+            ?>
 
-    <?php
-    $status = $_GET['status'] ?? null;
-    $msg    = $_GET['msg'] ?? null;
-    ?>
+            <?php if ($status && $msg): ?>
+                <div class="alert alert-<?= $status === 'success' ? 'success' : 'danger' ?>">
+                    <?= htmlspecialchars($msg) ?>
+                </div>
+            <?php endif; ?>
 
-    <?php if ($status && $msg): ?>
-        <div class="alert alert-<?= $status === 'success' ? 'success' : 'danger' ?>">
-            <?= htmlspecialchars($msg) ?>
+            <form method="post" action="../../controller/grupoController.php">
+                <input type="hidden" name="action" value="registrar-grupo">
+
+                <div class="form-group">
+                    <label for="id_curso" class="text-white">ID Curso</label>
+                    <input type="number" class="form-control" id="id_curso" name="id_curso" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="grupo" class="text-white">Nombre del Grupo</label>
+                    <input type="text" class="form-control" id="grupo" name="grupo" placeholder="Ej: Grupo 1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="capacidad" class="text-white">Capacidad</label>
+                    <input type="number" class="form-control" id="capacidad" name="capacidad" required>
+                </div>
+
+                <div class="text-center d-flex justify-content-between">
+                <button type="submit" class=" text-white btn bg-body-custom">Guardar</button>
+                <a href="listado.php" class="btn btn-secondary">Ver listado</a>
+                </div>
+            </form>
         </div>
-    <?php endif; ?>
+    </section>
 
-    <form method="post" action="../../controller/grupoController.php">
-        <input type="hidden" name="action" value="registrar-grupo">
-
-        <div class="form-group">
-            <label for="id_curso">ID Curso</label>
-            <input type="number" class="form-control" id="id_curso" name="id_curso" required>
+    <!-- JS Bootstrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <footer class="bg-primary text-white py-3 mt-5">
+        <div class="container">
+            <p class="mb-0 text-center">
+                Derechos Reservados &mdash; Escuela en Casa 2025
+            </p>
         </div>
+    </footer>
 
-        <div class="form-group">
-            <label for="grupo">Nombre del Grupo</label>
-            <input type="text" class="form-control" id="grupo" name="grupo" placeholder="Ej: Grupo 1" required>
-        </div>
-
-        <div class="form-group">
-            <label for="capacidad">Capacidad</label>
-            <input type="number" class="form-control" id="capacidad" name="capacidad" required>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Guardar</button>
-        <a href="listado.php" class="btn btn-secondary">Ver listado</a>
-    </form>
-</div>
-
-<!-- JS Bootstrap -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
+
 </html>

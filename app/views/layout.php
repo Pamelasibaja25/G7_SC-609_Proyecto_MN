@@ -50,67 +50,7 @@
                     </div>
                 </div>
 
-                <!-- Atajos rápidos / Acciones principales -->
-<!--                 <div class="row mb-4">
-
-                    <div class="col-md-4 mb-3">
-                        <div class="card shadow-sm h-100">
-                            <div class="card-body">
-                                <h2 class="h5 card-title">
-                                    <i class="bi bi-journal-bookmark mr-2"></i>
-                                    Mis cursos
-                                </h2>
-                                <p class="card-text text-muted">
-                                    Consulta los cursos activos, revisa el detalle y accede al contenido
-                                    relacionado con cada grupo.
-                                </p>
-                                <a href="/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/views/curso/listado.php"
-                                   class="btn btn-primary btn-sm">
-                                    Ver cursos
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 mb-3">
-                        <div class="card shadow-sm h-100">
-                            <div class="card-body">
-                                <h2 class="h5 card-title">
-                                    <i class="bi bi-card-checklist mr-2"></i>
-                                    Matrícula
-                                </h2>
-                                <p class="card-text text-muted">
-                                    Registra la matrícula de los estudiantes en los cursos disponibles
-                                    y verifica el estado de sus inscripciones.
-                                </p>
-                                <a href="/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/views/curso/registro_matricula.php"
-                                   class="btn btn-outline-primary btn-sm">
-                                    Gestionar matrícula
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 mb-3">
-                        <div class="card shadow-sm h-100">
-                            <div class="card-body">
-                                <h2 class="h5 card-title">
-                                    <i class="bi bi-bar-chart-line mr-2"></i>
-                                    Reportes
-                                </h2>
-                                <p class="card-text text-muted">
-                                    Consulta reportes de rendimiento y avance académico
-                                    para tomar mejores decisiones pedagógicas.
-                                </p>
-                                <a href="/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/views/nota/reporte_trimestral.php"
-                                   class="btn btn-outline-primary btn-sm">
-                                    Ver reportes
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div> -->
+                <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'admin'): ?>
 
                 <!-- Sección informativa / ayuda rápida -->
                 <div class="row">
@@ -166,6 +106,7 @@
                         </div>
                     </div>
                 </div>
+                <?php endif; ?>
 
             </div>
         </main>

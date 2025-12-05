@@ -19,7 +19,7 @@
 <body>
 
     <?php
-    include $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/app/views/nav_menu.php'
+    include $_SERVER['DOCUMENT_ROOT'] . '/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/views/nav_menu.php'
     ?>
     <section class="bg-custom" id="cursos">
         <div class="container mt-5">
@@ -27,7 +27,7 @@
             <h3 class="text-center mb-4 text-white">Cursos En Progreso</h3>
             <?php
             // Incluir el archivo de conexión
-            include $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/app/controller/cursoController.php';
+            include $_SERVER['DOCUMENT_ROOT'] . '/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/controller/cursoController.php';
             get_cursos();
             ?>
         </div>

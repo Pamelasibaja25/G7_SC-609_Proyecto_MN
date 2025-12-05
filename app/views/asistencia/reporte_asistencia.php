@@ -30,76 +30,90 @@
     include $_SERVER['DOCUMENT_ROOT'] . '/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/views/nav_menu.php'
         ?>
 
-    <section class="class bg-custom" id="estudiante">
+    <section class="bg-custom">
         <div class="container mt-5">
-            <h1 class="text-center text-white">Reportes de los Cursos Lectivos del Año</h1>
+            <h1 class="text-center text-white">Reporte Asistencia de Estudiantes</h1>
 
-            <div class="row mt-4">
+            <div class="row mt-6">
                 <!-- Filtro -->
-                <div class="col-md-6">
+                <div class="col-md-9">
                     <div class="card">
-                        <div class="card-header bg-body-custom text-white">Reportes</div>
-                        <form id="reportes-form" action="/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/controller/cursoController.php"
-                            method="POST">
+                        <div class="card-header bg-body-custom text-white">Filtros</div>
+                        <form id="reporte_rendimiento-form"
+                            action="/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/controller/asistenciaController.php" method="POST">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="p-2 mb-1 d-flex justify-content-between">
-                                        <label for="Reportes Trimestral">Reporte Trimestral</label>
-                                        <input type="checkbox" id="reporteTrimestral" name="reporteTrimestral"
-                                            class="form-check-input" />
+                                    <div class="mb-3">
+                                        <label for="Estudiante">Estudiante:</label>
+                                        <select id="id_estudiante" name="id_estudiante" class="form-select" required>
+                                            <option value="All">
+                                                All
+                                            </option>
+                                            <?php
+                                            include $_SERVER['DOCUMENT_ROOT'] . '/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/controller/estudianteController.php';
+                                            get_estudiantes();
+                                            ?>
+                                        </select>
                                     </div>
-                                    <div class="p-2 mb-1 d-flex justify-content-between">
-                                        <label for="Reportes Mensual">Reporte Mensual</label>
-                                        <input type="checkbox" id="reporteMensual" name="reporteMensual"
-                                            class="form-check-input" />
+                                    <div class="mb-3">
+                                        <label for="Curso">Cursos:</label>
+                                        <select class="form-select" id="id_curso" name="id_curso"
+                                            aria-label="Default select example" required="true">
+                                            <option value="All">
+                                                All
+                                            </option>
+                                            <?php
+                                            include $_SERVER['DOCUMENT_ROOT'] . '/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/controller/cursoController.php';
+                                            get_total_cursos();
+                                            ?>
+                                        </select>
                                     </div>
-                                    <div class="p-2 mb-1 d-flex justify-content-between">
-                                        <label for="Reportes Anual">Reporte Anual</label>
-                                        <input type="checkbox" id="reporteAnual" name="reporteAnual"
-                                            class="form-check-input" />
-                                    </div>
-                                    <input type="hidden" name="action" value="filtrar-reportes">
+                                    <input type="hidden" name="action" value="filtrar-asistencia">
                                     <div class="mt-3 text-center d-flex justify-content-between">
                                         <button type="submit" class="btn bg-body-custom text-white">Filtrar</button>
-                                        <button id="limpiar-reportes" type="reset"
-                                            class="btn bg-body-custom text-white">Limpiar</button>
+                                        <a href="" class="btn bg-body-custom text-white">Limpiar</a>
                                     </div>
                                 </div>
-                            </div>
                         </form>
                     </div>
                 </div>
-                <!-- Información Personal -->
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header bg-body-custom text-white" id="notas">Datos Disponibles</div>
+                <!-- Información Filtrada -->
+                <div class="col-md-25">
+                    <div class="card" id="notas">
+                        <div class="card-header bg-body-custom text-white">Datos de Estudiantes</div>
                         <div class="card-body">
-                            <div class="mb-3">
-                                <p for="cedula">Nombre: <?= htmlspecialchars($_SESSION['nombre']); ?></p>
+                            <div class="mb-3 table-responsive">
                                 <table class="table table-bordered text-center">
                                     <thead class="bg-body-custom text-white">
                                         <tr>
                                             <th>Fecha Inicio</th>
                                             <th>Fecha Finalización</th>
                                             <th>Curso</th>
-                                            <th>Estado</th>
-                                            <th>Nota</th>
+                                            <th>Estudiante</th>
+                                            <th>Semana</th>
+                                            <th>Asistencia</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php if (!empty($_SESSION['reportes'])): ?>
-                                            <?php foreach ($_SESSION['reportes'] as $reporte): ?>
+                                        <?php if (!empty($_SESSION['reporte_asistencia'])): ?>
+                                            <?php foreach ($_SESSION['reporte_asistencia'] as $reporte): ?>
                                                 <tr>
                                                     <td><?= htmlspecialchars($reporte['fecha_inicio_trimestre']) ?></td>
                                                     <td><?= htmlspecialchars($reporte['fecha_final_trimestre']) ?></td>
                                                     <td><?= htmlspecialchars($reporte['descripcion']) ?></td>
-                                                    <td><?= htmlspecialchars($reporte['estado']) ?></td>
-                                                    <td><?= htmlspecialchars($reporte['nota']) ?></td>
+                                                    <td><?= htmlspecialchars($reporte['nombre']) ?></td>
+                                                    <td><?= htmlspecialchars($reporte['semana']) ?></td>
+                                                    <td>
+                                                        <input type="checkbox" <?= $reporte['asistencia'] ? 'checked' : '' ?>
+                                                            disabled>
+
+                                                    </td>
+
                                                 </tr>
                                             <?php endforeach; ?>
                                         <?php else: ?>
                                             <tr>
-                                                <td colspan="5">No hay datos disponibles</td>
+                                                <td colspan="6">No hay datos disponibles</td>
                                             </tr>
                                         <?php endif; ?>
                                     </tbody>
@@ -107,7 +121,8 @@
                             </div>
                             <div class="mt-3 text-center d-flex justify-content-between">
                                 <form id="imprimir-reporte"
-                                    action="/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/controller/cursoController.php" method="POST">
+                                    action="/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/controller/asistenciaController.php"
+                                    method="POST">
                                     <input type="hidden" name="action" value="imprimir-reporte">
                                     <button type="submit" class="btn bg-body-custom text-white">Imprimir</button>
                                 </form>

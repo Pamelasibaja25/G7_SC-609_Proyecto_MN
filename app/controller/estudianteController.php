@@ -41,11 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_POST['escuela']
         );
 
-        header("Location: /G7_SC-609_Proyecto_MN/app/views/estudiante/listado.php?status=success&msg=Estudiante actualizado correctamente");
+        header("Location: /Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/views/estudiante/listado.php?status=success&msg=Estudiante actualizado correctamente");
         exit();
     }
     catch (Exception $e) {
-        header("Location: /G7_SC-609_Proyecto_MN/app/views/estudiante/listado.php?status=error&msg=" . urlencode($e->getMessage()));
+        header("Location: /Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/views/estudiante/listado.php?status=error&msg=" . urlencode($e->getMessage()));
         exit();
     }
     }
@@ -55,11 +55,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try{
         Estudiante::eliminar((int)$_POST['id_estudiante']);
 
-        header("Location: /G7_SC-609_Proyecto_MN/app/views/estudiante/listado.php?status=success&msg=Estudiante eliminado correctamente");
+        header("Location: /Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/views/estudiante/listado.php?status=success&msg=Estudiante eliminado correctamente");
         exit();
         }
         catch (Exception $e) {
-        header("Location: /G7_SC-609_Proyecto_MN/app/views/estudiante/listado.php?status=error&msg=" . urlencode($e->getMessage()));
+        header("Location: /Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/views/estudiante/listado.php?status=error&msg=" . urlencode($e->getMessage()));
         exit();
     }
     }
@@ -72,14 +72,14 @@ try {
             $action === 'modificar' && !empty($_POST['escuela']))
         {
             $resultado = estudiante::modificar_info( $_POST['escuela']);
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/curso/registro_matricula.php?status=success&msg=Modificación exitosa.");
+            header("Location: /Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/views/curso/registro_matricula.php?status=success&msg=Modificación exitosa.");
             exit();
         } 
         else if (
             $action === 'modificar-nota' && !empty($_POST['escuela']))
         {
             $resultado = estudiante::modificar_info(  $_POST['escuela']);
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/nota/listado.php?status=success&msg=Modificación exitosa.");
+            header("Location: /Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/views/nota/listado.php?status=success&msg=Modificación exitosa.");
             exit();
         }
         else if (
@@ -87,7 +87,7 @@ try {
         {
             $cursos = estudiante::get_reportes($_POST['id_estudiante'],$_POST['grado'],$_POST['id_curso']); 
             $_SESSION['reportes-rendimiento'] = $cursos;
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/nota/reporte_rendimiento.php?status=success&msg=Reporte Generado con éxito.");
+            header("Location: /Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/views/nota/reporte_rendimiento.php?status=success&msg=Reporte Generado con éxito.");
             exit();
         }
         else if ($action === 'imprimir-reporte') {
@@ -96,23 +96,23 @@ try {
         else if (
             $action === 'filtrar-rendimiento')
         {
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/nota/reporte_rendimiento.php?status=error&msg=Campos incompletos.");
+            header("Location: /Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/views/nota/reporte_rendimiento.php?status=error&msg=Campos incompletos.");
             exit();
         } 
         else if (
             $action === 'modificar-nota')
         {
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/nota/listado.php?status=error&msg=Campos incompletos.");
+            header("Location: /Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/views/nota/listado.php?status=error&msg=Campos incompletos.");
             exit();
         } 
         else if (
             $action === 'modificar') {
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/curso/registro_matricula.php?status=error&msg=Campos incompletos.");
+            header("Location: /Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/views/curso/registro_matricula.php?status=error&msg=Campos incompletos.");
             exit();
         }
     }
 } catch (Exception $e) {
-    header("Location: /G7_SC-609_Proyecto_MN/app/views/curso/registro_matricula.php?status=error&msg=" . urlencode($e->getMessage()));
+    header("Location: /Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/views/curso/registro_matricula.php?status=error&msg=" . urlencode($e->getMessage()));
     exit();
 }
 

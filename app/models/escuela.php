@@ -97,17 +97,6 @@ class Escuela
 
         return $resultado;
     }
-    
-    public static function resumen_escuelas()
-{
-    global $db;
-
-    $total = $db->Escuela->countDocuments();
-
-    return [
-        'total_escuelas' => $total
-    ];
-}
 
 }
 ?>

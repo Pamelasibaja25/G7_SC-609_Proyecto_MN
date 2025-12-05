@@ -134,4 +134,78 @@ class Asistencia
             'asistio'    => isset($doc['asistio']) ? (bool)$doc['asistio'] : false
         ];
     }
+
+    public static function imprimir_reporte()
+    {
+        session_start();
+        header('Content-Type: text/csv; charset=utf-8');
+        header('Content-Disposition: attachment; filename="Reporte_Assitencia.csv"');
+
+        $output = fopen('php://output', 'w');
+        fputcsv($output, ['Fecha Inicio', 'Fecha Final', 'Curso', 'Estudiante', 'Semana', 'Asistencia']);
+
+        foreach ($_SESSION['reporte_asistencia'] as $reporte) {
+            fputcsv($output, [
+                $reporte["fecha_inicio_trimestre"],
+                $reporte["fecha_final_trimestre"],
+                $reporte["descripcion"],
+                $reporte["nombre"],
+                $reporte["semana"],
+                $reporte["asistencia"]
+            ]);
+        }
+
+        fclose($output);
+        exit;
+    }
+
+    public static function get_reportes($id_estudiante,$id_curso)
+    {
+        global $db;
+        session_start();
+
+        $collectionCursos = $db->Curso;
+        $collectionUsuarios = $db->Usuario;
+        $collectionAsistencia = $db->Asistencia;
+        $collectionCalendario = $db->Calendario;
+
+        $filtros = [];
+
+        if ($id_estudiante != "All") {
+            $filtros['id_usuario'] = (int) $id_estudiante;
+        }
+
+        $asistencia = $collectionAsistencia->find($filtros);
+        $cursos = [];
+
+        foreach ($asistencia as $line) {
+            $curso = $collectionCursos->findOne(['_id' => (int) $line['id_curso']]);
+            $usuario = $collectionUsuarios->findOne(['_id' => (int) $line['id_usuario']]);
+            $calendario = $collectionCalendario->findOne(['_id' => (int) $line['id_semana']]);
+
+
+            if ($id_curso != "All" && isset($curso['descripcion']) && $curso['descripcion'] != $id_curso)
+                continue;
+
+            // Conversión de fechas MongoDB -> string
+            $fechaInicio = isset($calendario['fecha_inicio']) && $calendario['fecha_inicio'] instanceof MongoDB\BSON\UTCDateTime
+                ? $calendario['fecha_inicio']->toDateTime()->format('Y-m-d')
+                : ($calendario['fecha_inicio'] ?? '');
+
+            $fechaFinal = isset($calendario['fecha_fin']) && $calendario['fecha_fin'] instanceof MongoDB\BSON\UTCDateTime
+                ? $calendario['fecha_fin']->toDateTime()->format('Y-m-d')
+                : ($calendario['fecha_fin'] ?? '');
+
+            $cursos[] = [
+                'fecha_inicio_trimestre' => $fechaInicio,
+                'fecha_final_trimestre' => $fechaFinal,
+                'descripcion' => $curso['descripcion'] ?? '',
+                'nombre' => $usuario['nombre'] ?? 'Sin nombre',
+                'semana' => $calendario['semana'] ?? '',
+                'asistencia' => $line['asistio'] ?? false
+            ];
+        }
+
+        return $cursos;
+    }
 }

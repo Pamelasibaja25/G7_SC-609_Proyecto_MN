@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
 
         try {
             Asistencia::editar(
-                (int)$_POST['id_asistencia'],
+                (int) $_POST['id_asistencia'],
                 $_POST['id_usuario'],
                 $_POST['id_curso'],
                 $_POST['semana'],
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     if ($_POST['action'] === 'eliminar-asistencia') {
 
         try {
-            Asistencia::eliminar((int)$_POST['id_asistencia']);
+            Asistencia::eliminar((int) $_POST['id_asistencia']);
 
             header("Location: ../views/asistencia/listado.php?status=success&msg=" . urlencode("Asistencia eliminada correctamente"));
             exit();
@@ -70,5 +70,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             header("Location: ../views/asistencia/listado.php?status=error&msg=" . urlencode($e->getMessage()));
             exit();
         }
+    }
+
+    try {
+        if (!empty($_POST)) {
+            $action = $_POST['action'] ?? '';
+
+            if (
+                $action === 'filtrar-asistencia' && !empty($_POST['id_estudiante']) && !empty($_POST['id_curso'])
+            ) {
+                $cursos = Asistencia::get_reportes($_POST['id_estudiante'], $_POST['id_curso']);
+                $_SESSION['reporte_asistencia'] = $cursos;
+                header("Location: /Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/views/asistencia/reporte_asistencia.php?status=success&msg=Reporte Generado con éxito.");
+                exit();
+            } else if ($action === 'imprimir-reporte') {
+                Asistencia::imprimir_reporte();
+            }
+
+        }
+    } catch (Exception $e) {
+        header("Location: /Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/views/asistencia/reporte_asistencia.php?status=error&msg=" . urlencode($e->getMessage()));
+        exit();
     }
 }

@@ -1,5 +1,5 @@
 <?php
-include $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/app/controller/cursoController.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/controller/cursoController.php';
 $data = get_cursos_disponibles();
 $cursos = $data['cursos'];
 ?>
@@ -34,7 +34,7 @@ $cursos = $data['cursos'];
     <?php endif; ?>
 
     <?php
-    include $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/app/views/nav_menu.php'
+    include $_SERVER['DOCUMENT_ROOT'] . '/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/views/nav_menu.php'
         ?>
 
     <section class="bg-custom" id="estudiante">
@@ -69,7 +69,7 @@ $cursos = $data['cursos'];
                         <div class="card-header bg-body-custom text-white">Cursos Disponibles</div>
                         <div class="card-body">
 
-                            <form method="POST" action="/G7_SC-609_Proyecto_MN/app/controller/cursoController.php">
+                            <form method="POST" action="/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/controller/cursoController.php">
                                 <table class="table table-bordered text-center" id="cursos">
                                     <thead class="bg-body-custom text-white">
                                         <tr>
@@ -129,19 +129,14 @@ $cursos = $data['cursos'];
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="modify-form" action="/G7_SC-609_Proyecto_MN/app/controller/estudianteController.php"
+                        <form id="modify-form" action="/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/controller/estudianteController.php"
                             method="POST">
-                            <div class="form-group">
-                                <label for="new-encargado">Encargado:</label>
-                                <input type="text" class="form-control" id="new-encargado" name="new-encargado"
-                                    required>
-                            </div>
                             <div class="form-group mb-3">
                                 <label for="escuela">Escuela:</label>
                                 <select id="escuela" name="escuela" class="form-select" required>
                                     <?php
-                                    include $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/app/controller/escuelaController.php';
-                                    get_escuelas();
+                                    include $_SERVER['DOCUMENT_ROOT'] . '/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/controller/escuelaController.php';
+                                    get_escuelas_option();
                                     ?>
                                 </select>
                             </div>

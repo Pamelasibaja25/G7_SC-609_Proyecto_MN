@@ -44,8 +44,8 @@ if (session_status() === PHP_SESSION_NONE) {
     </div>
 <?php endif; ?>
 
-<section class="bg-custom py-5">
-    <div class="container">
+<section class="bg-custom">
+    <div class="container mt-5">
         <h1 class="text-center text-white mb-4">Escuelas registradas</h1>
 
         <!-- Tarjetas de resumen por provincia -->

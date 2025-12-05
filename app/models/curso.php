@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/G7_SC-609_Proyecto_MN/config/database.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/config/database.php';
 
 class Curso
 {
@@ -102,6 +102,41 @@ class Curso
         exit;
     }
 
+            public static function get_actividades_por_curso($id_curso)
+    {
+        global $db;
+
+        $collection = $db->Actividad;
+        $cursor = $collection->find(['id_curso' => (int)$id_curso]);
+
+        $actividades = [];
+        foreach ($cursor as $doc) {
+            $actividades[] = [
+                'titulo' => $doc['titulo'] ?? '',
+                'tipo' => $doc['tipo'] ?? '',
+                'fecha_entrega' => $doc['fecha_entrega'] ?? ''
+            ];
+        }
+
+        return $actividades;
+    }
+
+            public static function imprimir_actividades($id_curso)
+    {
+        header('Content-Type: text/csv; charset=utf-8');
+        header('Content-Disposition: attachment; filename="Actividades_Curso' . $id_curso . '.csv"');
+
+        $actividades = self::get_actividades_por_curso($id_curso);
+        $output = fopen('php://output', 'w');
+        fputcsv($output, ['Tipo', 'Titulo', 'Fecha de Entrega']);
+
+        foreach ($actividades as $actividad) {
+            fputcsv($output, [$actividad['tipo'], $actividad['titulo'],$actividad['fecha_entrega']]);
+        }
+
+        fclose($output);
+        exit;
+    }
 
     public static function get_cursos_disponibles()
     {

@@ -5,18 +5,21 @@ function get_cursos()
 {
     try {
         $result = curso::get_cursos();
-        
+
         if (count($result) > 0) {
             echo '<div>';
             echo '<div id="contenedor-cursos" class="row text-center">';
 
-            foreach ($result as $row)  {
+            foreach ($result as $row) {
 
                 echo '<div class="card col-md-4">';
                 echo '<div class="card-body">';
                 echo '<img src="' . $row['ruta_imagen'] . '" alt="Imagen del curso" height="100" width="100" />';
                 echo '<h5 class="card-title">' . $row['descripcion'] . '</h5>';
+                echo '<div class="container mt-3 d-flex justify-content-between" style="gap: 3px;">';
                 echo '<a href="mostrar_materia.php?id=' . $row['id_curso'] . '" class="btn bg-body-custom text-white">Revisar Materia</a>';
+                echo '<a href="mostrar_actividad.php?id=' . $row['id_curso'] . '" class="btn bg-body-custom text-white">Revisar Actividades</a>';
+                echo '</div>';
                 echo '</div>';
                 echo '</div>';
             }
@@ -31,7 +34,19 @@ function get_cursos()
         exit();
     }
 }
+function get_curso_actividades($id_curso)
+{
+    try {
 
+        $actividades = curso::get_actividades_por_curso($id_curso);
+        $curso = curso::get_curso($id_curso);
+
+        return ['actividades' => $actividades, 'curso' => $curso];
+    } catch (Exception $e) {
+        header("Location: ../../layout.php?status=error&msg=" . urlencode($e->getMessage()));
+        exit();
+    }
+}
 function get_curso_contenido($id_curso) {
     try {
 
@@ -101,32 +116,35 @@ try {
                 curso::guardarMatricula($cursoId);
             }
             
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/curso/registro_matricula.php?status=success&msg=" . urlencode("Matrícula realizada con éxito"));
+            header("Location: /Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/views/curso/registro_matricula.php?status=success&msg=" . urlencode("Matrícula realizada con éxito"));
             exit();
         }
         else if ($action === 'filtrar-reportes' && (!empty($_POST['reporteAnual']) || !empty($_POST['reporteMensual']) || !empty($_POST['reporteTrimestral']))) {
             $cursos = curso::get_reportes($_POST['reporteAnual'],$_POST['reporteTrimestral'],$_POST['reporteMensual'] ); 
             $_SESSION['reportes'] = $cursos;
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/nota/reporte_trimestral.php?status=success&msg=" . urlencode("Reporte Generado con éxito"));
+            header("Location: /Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/views/nota/reporte_trimestral.php?status=success&msg=" . urlencode("Reporte Generado con éxito"));
             exit();
         } 
         else if ($action === 'imprimir-temas') {
             curso::imprimir_temas($_POST['id_curso']); 
         }
+        else if ($action === 'imprimir-actividades') {
+            curso::imprimir_actividades($_POST['id_curso']);
+        }
         else if ($action === 'imprimir-reporte') {
             curso::imprimir_reporte(); 
         }
         else if ($action === 'filtrar-reportes') {
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/nota/reporte_trimestral.php?status=error&msg=" . urlencode("No seleccionaste ningún reporte"));
+            header("Location: /Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/views/nota/reporte_trimestral.php?status=error&msg=" . urlencode("No seleccionaste ningún reporte"));
             exit();
         }
         else if ($action === 'agregar_matricula') {
-            header("Location: /G7_SC-609_Proyecto_MN/app/views/curso/registro_matricula.php?status=error&msg=" . urlencode("No seleccionaste ningún curso"));
+            header("Location: /Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/views/curso/registro_matricula.php?status=error&msg=" . urlencode("No seleccionaste ningún curso"));
             exit();
         }
     }
 } catch (Exception $e) {
-    header("Location: /G7_SC-609_Proyecto_MN/app/views/layout.php?status=error&msg=" . urlencode("Error: " . $e->getMessage()));
+    header("Location: /Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/views/layout.php?status=error&msg=" . urlencode("Error: " . $e->getMessage()));
     exit();
 }
 

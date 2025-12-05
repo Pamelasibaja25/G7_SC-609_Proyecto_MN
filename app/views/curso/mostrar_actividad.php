@@ -5,8 +5,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/c
 $id_curso = isset($_GET['id']) ? $_GET['id'] : null;
 
 if ($id_curso) {
-    $data = get_curso_contenido($id_curso);
-    $temas = $data['temas'];
+    $data = get_curso_actividades($id_curso);
+    $actividades = $data['actividades'];
     $curso = $data['curso'];
 } else {
     header("Location: ../layout.php?status=error&msg=" . urlencode("ID del curso no proporcionado."));
@@ -37,26 +37,43 @@ if ($id_curso) {
     include $_SERVER['DOCUMENT_ROOT'] . '/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/views/nav_menu.php'
         ?>
 
-    <section class="class bg-custom" id="temas">
+    <section class="class bg-custom" id="actividades">
         <div class="container mt-5">
-            <h1 class="text-center text-white" id="curso">Contenido del Curso
+            <h1 class="text-center text-white" id="curso">Actividades del Curso
                 <?= htmlspecialchars($curso['descripcion']); ?></h1>
-            <?php if (!empty($temas)): ?>
+            <?php if (!empty($actividades)): ?>
                 <div class="card row text-center">
-                    <?php foreach ($temas as $tema): ?>
-                        <div class="card-header">
-                            <h4 class="card-title text-center"><?= htmlspecialchars($tema['nombre']); ?></h4>
+                        <div class="card-body">
+                            <div class="mb-3 table-responsive">
+                                <table class="table table-bordered text-center">
+                                    <thead class="bg-body-custom text-white">
+                                        <tr>
+                                            <th>Tipo</th>
+                                            <th>Titulo</th>
+                                            <th>Fecha Entrega</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                            <?php foreach ($actividades as $reporte): ?>
+                                                <tr>
+                                                    <td><?= htmlspecialchars($reporte['tipo']) ?></td>
+                                                    <td><?= htmlspecialchars($reporte['titulo']) ?></td>
+                                                    <td><?= htmlspecialchars($reporte['fecha_entrega']) ?></td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    <?php endforeach; ?>
                 </div>
             <?php else: ?>
-                <p class="text-white text-center">No hay temas disponibles para este curso.</p>
+                <p class="text-white text-center">No hay actividades disponibles para este curso.</p>
             <?php endif; ?>
         </div>
         <div class="container mt-3 text-center d-flex justify-content-between">
-        <form id="imprimir-temas" action="/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/controller/cursoController.php"
+        <form id="imprimir-actividades" action="/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/controller/cursoController.php"
                             method="POST">
-                            <input type="hidden" name="action" value="imprimir-temas">
+                            <input type="hidden" name="action" value="imprimir-actividades">
                             <input type="hidden" name="id_curso" value="<?= htmlspecialchars($id_curso) ?>">
                             <button type="submit" class="btn bg-body-custom text-white">Imprimir</button>
                         </form>
