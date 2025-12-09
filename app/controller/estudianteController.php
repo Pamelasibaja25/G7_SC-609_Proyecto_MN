@@ -29,6 +29,20 @@ function get_estudiantes_admin()
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($_POST['action'] === 'registrar-estudiante') {
+        Estudiante::registrar(
+            $_POST['nombre'],
+            $_POST['cedula'],
+            $_POST['fecha_nacimiento'],
+            $_POST['grado'],
+            $_POST['escuela']
+        );
+        header("Location: /Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/views/estudiante/registro.php?status=success&msg=Estudiante agregado correctamente");
+        exit();    
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($_POST['action'] === 'editar-estudiante') {
 

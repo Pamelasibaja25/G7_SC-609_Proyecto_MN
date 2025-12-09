@@ -73,6 +73,9 @@ $baseUrl = '/Proyecto_NoSQL/G7_SC-609_Proyecto_MN';
                                 Registrar profesor
                             </a>
                             <a class="dropdown-item"
+       href="<?= $baseUrl ?>/app/views/estudiante/registro.php">Registro de Estudiantes</a>
+
+                            <a class="dropdown-item"
                                href="<?= $baseUrl ?>/app/views/escuela/registro.php">
                                 Registrar escuela
                             </a>
