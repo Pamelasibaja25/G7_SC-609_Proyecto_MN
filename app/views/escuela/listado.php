@@ -61,7 +61,7 @@ $msg = $_GET['msg'] ?? null;
                                     <td><?= htmlspecialchars($p['nombre']) ?></td>
                                     <td><?= htmlspecialchars($p['provincia']) ?></td>
                                     <td>
-                                        <button class="btn bg-body-custom text-white btn-sm" data-toggle="modal"
+                                        <button class="btn btn-primary text-white btn-sm" data-toggle="modal"
                                             data-target="#editar-profesor" data-id="<?= $p['_id'] ?>"
                                             data-nombre="<?= $p['nombre'] ?>"
                                             data-provincia="<?= $p['provincia'] ?>">Editar</button>
@@ -81,7 +81,7 @@ $msg = $_GET['msg'] ?? null;
     </section>
 
     <!-- MODAL EDITAR -->
-    <div class="modal fade" id="editar-escuela" tabindex="-1" role="dialog">
+    <div class="modal fade" id="editar-profesor" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="card-header bg-body-custom text-white d-flex justify-content-between align-items-center">

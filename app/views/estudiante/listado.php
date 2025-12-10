@@ -150,7 +150,7 @@ $msg = $_GET['msg'] ?? null;
                             <select class="form-control" id="edit-escuela" name="escuela" required>
                                 <?php if (!empty($escuelas)): ?>
                                     <?php foreach ($escuelas as $e): ?>
-                                        <option value="<?= htmlspecialchars($e['nombre']) ?>">
+                                        <option value="<?= htmlspecialchars($e['_id']) ?>">
                                             <?= htmlspecialchars($e['nombre']) ?>
                                         </option>
                                     <?php endforeach; ?>

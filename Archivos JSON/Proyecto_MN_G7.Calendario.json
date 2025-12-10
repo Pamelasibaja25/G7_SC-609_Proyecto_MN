@@ -2,13 +2,13 @@
   { "_id": 1, "id_curso": 1, "semana": "Semana 1", "fecha_inicio": "2025-02-03", "fecha_fin": "2025-02-07" },
   { "_id": 2, "id_curso": 1, "semana": "Semana 2", "fecha_inicio": "2025-02-10", "fecha_fin": "2025-02-14" },
   { "_id": 3, "id_curso": 1, "semana": "Semana 3", "fecha_inicio": "2025-02-17", "fecha_fin": "2025-02-21" },
-  { "_id": 4, "id_curso": 2, "semana": "Semana 1", "fecha_inicio": "2025-03-03", "fecha_fin": "2025-03-07" },
-  { "_id": 5, "id_curso": 2, "semana": "Semana 2", "fecha_inicio": "2025-03-10", "fecha_fin": "2025-03-14" },
-  { "_id": 6, "id_curso": 3, "semana": "Semana 1", "fecha_inicio": "2025-04-01", "fecha_fin": "2025-04-05" },
-  { "_id": 7, "id_curso": 3, "semana": "Semana 2", "fecha_inicio": "2025-04-08", "fecha_fin": "2025-04-12" },
-  { "_id": 8, "id_curso": 3, "semana": "Semana 3", "fecha_inicio": "2025-04-15", "fecha_fin": "2025-04-19" },
-  { "_id": 9, "id_curso": 4, "semana": "Semana 1", "fecha_inicio": "2025-05-05", "fecha_fin": "2025-05-09" },
-  { "_id": 10, "id_curso": 4, "semana": "Semana 2", "fecha_inicio": "2025-05-12", "fecha_fin": "2025-05-16" },
-  { "_id": 11, "id_curso": 5, "semana": "Semana 1", "fecha_inicio": "2025-06-02", "fecha_fin": "2025-06-06" },
-  { "_id": 12, "id_curso": 11, "semana": "Semana 2", "fecha_inicio": "2025-06-09", "fecha_fin": "2025-06-13" }
+  { "_id": 4, "id_curso": 2, "semana": "Semana 4", "fecha_inicio": "2025-03-03", "fecha_fin": "2025-03-07" },
+  { "_id": 5, "id_curso": 2, "semana": "Semana 5", "fecha_inicio": "2025-03-10", "fecha_fin": "2025-03-14" },
+  { "_id": 6, "id_curso": 3, "semana": "Semana 6", "fecha_inicio": "2025-04-01", "fecha_fin": "2025-04-05" },
+  { "_id": 7, "id_curso": 3, "semana": "Semana 7", "fecha_inicio": "2025-04-08", "fecha_fin": "2025-04-12" },
+  { "_id": 8, "id_curso": 3, "semana": "Semana 8", "fecha_inicio": "2025-04-15", "fecha_fin": "2025-04-19" },
+  { "_id": 9, "id_curso": 4, "semana": "Semana 9", "fecha_inicio": "2025-05-05", "fecha_fin": "2025-05-09" },
+  { "_id": 10, "id_curso": 4, "semana": "Semana 10", "fecha_inicio": "2025-05-12", "fecha_fin": "2025-05-16" },
+  { "_id": 11, "id_curso": 5, "semana": "Semana 11", "fecha_inicio": "2025-06-02", "fecha_fin": "2025-06-06" },
+  { "_id": 12, "id_curso": 11, "semana": "Semana 12", "fecha_inicio": "2025-06-09", "fecha_fin": "2025-06-13" }
 ]

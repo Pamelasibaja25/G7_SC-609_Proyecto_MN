@@ -1,14 +1,14 @@
 [
-  { "_id": 1, "id_usuario": 11, "id_curso": 1, "semana": "Semana 1", "asistio": true },
-  { "_id": 2, "id_usuario": 1, "id_curso": 1, "semana": "Semana 2", "asistio": false },
-  { "_id": 3, "id_usuario": 2, "id_curso": 1, "semana": "Semana 1", "asistio": true },
-  { "_id": 4, "id_usuario": 11, "id_curso": 1, "semana": "Semana 2", "asistio": true },
-  { "_id": 5, "id_usuario": 3, "id_curso": 2, "semana": "Semana 1", "asistio": true },
-  { "_id": 6, "id_usuario": 3, "id_curso": 2, "semana": "Semana 2", "asistio": false },
-  { "_id": 7, "id_usuario": 4, "id_curso": 3, "semana": "Semana 1", "asistio": true },
-  { "_id": 8, "id_usuario": 4, "id_curso": 3, "semana": "Semana 2", "asistio": true },
-  { "_id": 9, "id_usuario": 5, "id_curso": 4, "semana": "Semana 1", "asistio": true },
-  { "_id": 10, "id_usuario": 6, "id_curso": 5, "semana": "Semana 1", "asistio": false },
-  { "_id": 11, "id_usuario": 6, "id_curso": 5, "semana": "Semana 2", "asistio": true },
-  { "_id": 12, "id_usuario": 7, "id_curso": 6, "semana": "Semana 1", "asistio": true }
+  { "_id": 1, "id_usuario": 11, "id_curso": 1, "id_semana": 1, "asistio": true },
+  { "_id": 2, "id_usuario": 1, "id_curso": 1, "id_semana": 2, "asistio": false },
+  { "_id": 3, "id_usuario": 2, "id_curso": 1, "id_semana": 3, "asistio": true },
+  { "_id": 4, "id_usuario": 11, "id_curso": 1, "id_semana": 4, "asistio": true },
+  { "_id": 5, "id_usuario": 3, "id_curso": 2, "id_semana": 3, "asistio": true },
+  { "_id": 6, "id_usuario": 3, "id_curso": 2, "id_semana": 4, "asistio": false },
+  { "_id": 7, "id_usuario": 4, "id_curso": 3, "id_semana": 3, "asistio": true },
+  { "_id": 8, "id_usuario": 4, "id_curso": 3, "id_semana": 4, "asistio": true },
+  { "_id": 9, "id_usuario": 5, "id_curso": 4, "id_semana": 3, "asistio": true },
+  { "_id": 10, "id_usuario": 6, "id_curso": 5, "id_semana": 3, "asistio": false },
+  { "_id": 11, "id_usuario": 6, "id_curso": 5, "id_semana": 4, "asistio": true },
+  { "_id": 12, "id_usuario": 7, "id_curso": 6, "id_semana": 3, "asistio": true }
 ]

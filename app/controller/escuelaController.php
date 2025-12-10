@@ -62,9 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
             Escuela::editar(
                 (int)$_POST['id_escuela'],
                 $_POST['nombre'],
-                $_POST['direccion'],
-                $_POST['telefono'],
-                $_POST['correo']
+                $_POST['provincia'],
             );
 
             header("Location: ../views/escuela/listado.php?status=success&msg=" . urlencode("Escuela actualizada correctamente"));

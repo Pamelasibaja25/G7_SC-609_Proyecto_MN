@@ -6,6 +6,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 $profesores = get_profesores();
+$especialidades = get_especialidades_cursos();
 
 $status = $_GET['status'] ?? null;
 $msg = $_GET['msg'] ?? null;
@@ -39,72 +40,139 @@ $msg = $_GET['msg'] ?? null;
 
     <section class="bg-custom">
         <div class="container mt-5">
-            <h1 class="text-center text-white mb-4">Listado de Profesores</h1>
-
-            <?php if ($status && $msg): ?>
-                <div class="alert alert-<?= $status === 'success' ? 'success' : 'danger' ?>" role="alert">
-                    <?= htmlspecialchars($msg) ?>
-                </div>
-            <?php endif; ?>
+            <h1 class="text-center text-white">Lista de Profesores</h1>
 
             <div class="mb-3">
                 <a href="registro.php" class="btn bg-body-custom text-white">Registrar nuevo profesor</a>
             </div>
 
+            <!-- Tabla de profesores con botones editar/eliminar -->
             <div class="card mt-3">
                 <div class="card-body table-responsive">
-                    <table class="table table-bordered table-hover text-center mb-0">
+                    <table class="table table-bordered text-center">
                         <thead class="bg-body-custom text-white">
-
                             <tr>
-                                <th>ID</th>
                                 <th>Nombre</th>
                                 <th>Cédula</th>
-                                <th>Especialidad</th>
                                 <th>Teléfono</th>
                                 <th>Correo</th>
-                                <th style="width: 180px;">Acciones</th>
+                                <th>Especialidad</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php if (empty($profesores)): ?>
+                            <?php foreach ($profesores as $p): ?>
                                 <tr>
-                                    <td colspan="7" class="text-center">No hay profesores registrados.</td>
-                                </tr>
-                            <?php else: ?>
-                                <?php foreach ($profesores as $p): ?>
-                                    <tr>
-                                        <td><?= htmlspecialchars($p['_id']) ?></td>
-                                        <td><?= htmlspecialchars($p['nombre']) ?></td>
-                                        <td><?= htmlspecialchars($p['cedula']) ?></td>
-                                        <td><?= htmlspecialchars($p['especialidad']) ?></td>
-                                        <td><?= htmlspecialchars($p['telefono']) ?></td>
-                                        <td><?= htmlspecialchars($p['correo']) ?></td>
-                                        <td>
-                                            <a href="editar.php?id_profesor=<?= urlencode($p['_id']) ?>"
-                                                class="btn btn-sm btn-primary mb-1">
-                                                Editar
-                                            </a>
+                                    <td><?= htmlspecialchars($p['nombre']) ?></td>
+                                    <td><?= htmlspecialchars($p['cedula']) ?></td>
+                                    <td><?= htmlspecialchars($p['telefono']) ?></td>
+                                    <td><?= htmlspecialchars($p['correo']) ?></td>
+                                    <td><?= htmlspecialchars($p['especialidad']) ?></td>
+                                    <td>
+                                        <button class="btn btn-primary text-white btn-sm" data-toggle="modal"
+                                            data-target="#editar-profesor" data-id="<?= $p['_id'] ?>"
+                                            data-nombre="<?= $p['nombre'] ?>" data-cedula="<?= $p['cedula'] ?>"
+                                            data-telefono="<?= $p['telefono'] ?>" data-correo="<?= $p['correo'] ?>"
+                                            data-especialidad="<?= $p['especialidad'] ?>">Editar</button>
 
-                                            <form method="post" action="../../controller/profesorController.php"
-                                                class="d-inline">
-                                                <input type="hidden" name="action" value="eliminar-profesor">
-                                                <input type="hidden" name="id_profesor"
-                                                    value="<?= htmlspecialchars($p['_id']) ?>">
-                                                <button type="submit" class="btn btn-sm btn-danger mb-1"
-                                                    onclick="return confirm('¿Eliminar este profesor?');">
-                                                    Eliminar
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
+                                        <button class="btn btn-danger btn-sm" data-toggle="modal"
+                                            data-target="#eliminar-profesor" data-id="<?= $p['_id'] ?>"
+                                            data-nombre="<?= $p['nombre'] ?>">Eliminar</button>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
             </div>
+
+        </div>
     </section>
+
+    <!-- MODAL EDITAR -->
+    <div class="modal fade" id="editar-profesor" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="card-header bg-body-custom text-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Editar Profesor</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+                </div>
+
+                <form action="/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/controller/profesorController.php" method="POST">
+                    <div class="modal-body">
+
+                        <input type="hidden" name="action" value="editar-profesor">
+                        <input type="hidden" name="id_profesor" id="edit-id">
+
+                        <div class="form-group mb-3">
+                            <label>Nombre:</label>
+                            <input type="text" class="form-control" id="edit-nombre" name="nombre" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label>Cédula:</label>
+                            <input type="text" class="form-control" id="edit-cedula" name="cedula" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label>Teléfono:</label>
+                            <input type="text" class="form-control" id="edit-telefono" name="telefono" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label>Correo:</label>
+                            <input type="email" class="form-control" id="edit-correo" name="correo" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label>Especialidad:</label>
+                            <select class="form-select form-control" id="edit-especialidad" name="especialidad"
+                                required>
+                                <?php foreach ($especialidades as $esp): ?>
+                                    <option value="<?= htmlspecialchars($esp) ?>"><?= htmlspecialchars($esp) ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="card-footer text-center">
+                        <button type="submit" class="btn bg-body-custom text-white">Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ELIMINAR -->
+    <div class="modal fade" id="eliminar-profesor" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="card-header bg-body-custom text-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Eliminar Profesor</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+                </div>
+
+                <form action="/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/controller/profesorController.php" method="POST">
+                    <div class="modal-body">
+
+                        <input type="hidden" name="action" value="eliminar-profesor">
+                        <input type="hidden" name="id_profesor" id="delete-id">
+
+                        <p>¿Estás seguro que deseas eliminar a <strong id="delete-nombre"></strong>?</p>
+
+                    </div>
+
+                    <div class="card-footer text-center">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
 
     <footer class="navbar-light bg-primary text-white mt-5 p-3">
         <div class="container">
@@ -114,4 +182,4 @@ $msg = $_GET['msg'] ?? null;
 
 </body>
 
-</html>
+</html>tton>

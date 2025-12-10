@@ -31,9 +31,9 @@ if (session_status() === PHP_SESSION_NONE) {
         <div class="container mt-5">
             <h1 class="text-center text-white">Reporte Rendimiento de Estudiantes</h1>
 
-            <div class="row mt-9">
+            <div class="row mt-4">
                 <!-- Filtro -->
-                <div class="col-md-9">
+                <div class="col-md-6">
                     <div class="card">
                         <div class="card-header bg-body-custom text-white">Filtros</div>
                         <form id="reporte_rendimiento-form" action="/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/app/controller/estudianteController.php"

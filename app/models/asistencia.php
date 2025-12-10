@@ -11,13 +11,13 @@ class Asistencia
             return $asistio;
         }
 
-        $val = strtolower(trim((string)$asistio));
+        $val = strtolower(trim((string) $asistio));
 
         if (is_numeric($val)) {
-            return ((int)$val) === 1;
+            return ((int) $val) === 1;
         }
 
-    
+
         $presentes = ['1', 'true', 'sí', 'si', 'presente', 'present'];
         return in_array($val, $presentes, true);
     }
@@ -30,16 +30,40 @@ class Asistencia
 
         // Generar ID consecutivo
         $last = $collection->findOne([], ['sort' => ['_id' => -1]]);
-        $nextId = $last ? ((int)$last['_id'] + 1) : 1;
+        $nextId = $last ? ((int) $last['_id'] + 1) : 1;
 
         $asistioBool = self::parseAsistio($asistio);
+        $collection_semana = $db->Calendario;
+
+        $last_calendario = $collection->findOne([], ['sort' => ['_id' => -1]]);
+        $nextId_Calendario = $last_calendario ? ($last_calendario['_id'] + 1) : 1;
+
+        $hoy = new DateTime();
+
+        // Clonar para no modificar el original
+        $inicioSemana = clone $hoy;
+        $finSemana = clone $hoy;
+
+        // Ajustar al inicio de la semana (lunes)
+        $inicioSemana->modify('monday this week');
+
+        // Ajustar al final de la semana (domingo)
+        $finSemana->modify('sunday this week');
+
+        $collection_semana->insertOne([
+            '_id' => $nextId_Calendario,
+            'id_curso' => (int) $id_curso,
+            'semana' => $semana,
+            'fecha_inicio' => $inicioSemana->format('Y-m-d'),
+            'fecha_fin' => $finSemana->format('Y-m-d'),
+        ]);
 
         $collection->insertOne([
-            '_id'        => $nextId,
-            'id_usuario' => (int)$id_usuario,
-            'id_curso'   => (int)$id_curso,
-            'semana'     => $semana,
-            'asistio'    => $asistioBool
+            '_id' => $nextId,
+            'id_usuario' => (int) $id_usuario,
+            'id_curso' => (int) $id_curso,
+            'id_semana' => $nextId_Calendario,
+            'asistio' => $asistioBool
         ]);
 
         return true;
@@ -52,13 +76,13 @@ class Asistencia
         $asistioBool = self::parseAsistio($asistio);
 
         $db->Asistencia->updateOne(
-            ['_id' => (int)$id],
+            ['_id' => (int) $id],
             [
                 '$set' => [
-                    'id_usuario' => (int)$id_usuario,
-                    'id_curso'   => (int)$id_curso,
-                    'semana'     => $semana,
-                    'asistio'    => $asistioBool
+                    'id_usuario' => (int) $id_usuario,
+                    'id_curso' => (int) $id_curso,
+                    'semana' => $semana,
+                    'asistio' => $asistioBool
                 ]
             ]
         );
@@ -67,7 +91,7 @@ class Asistencia
     public static function eliminar($id)
     {
         global $db;
-        $db->Asistencia->deleteOne(['_id' => (int)$id]);
+        $db->Asistencia->deleteOne(['_id' => (int) $id]);
     }
 
     public static function lista_asistencias()
@@ -76,14 +100,17 @@ class Asistencia
 
         $cursor = $db->Asistencia->find([], ['sort' => ['_id' => 1]]);
         $resultado = [];
+        $collectionCalendario = $db->Calendario;
 
         foreach ($cursor as $doc) {
+            $calendario = $collectionCalendario->findOne(['_id' => (int) $doc['id_semana']]);
+
             $resultado[] = [
-                '_id'        => (int)$doc['_id'],
-                'id_usuario' => isset($doc['id_usuario']) ? (int)$doc['id_usuario'] : 0,
-                'id_curso'   => isset($doc['id_curso']) ? (int)$doc['id_curso'] : 0,
-                'semana'     => isset($doc['semana']) ? $doc['semana'] : '',
-                'asistio'    => isset($doc['asistio']) ? (bool)$doc['asistio'] : false
+                '_id' => (int) $doc['_id'],
+                'id_usuario' => isset($doc['id_usuario']) ? (int) $doc['id_usuario'] : 0,
+                'id_curso' => isset($doc['id_curso']) ? (int) $doc['id_curso'] : 0,
+                'semana' => $calendario['semana'],
+                'asistio' => isset($doc['asistio']) ? (bool) $doc['asistio'] : false
             ];
         }
 
@@ -94,7 +121,7 @@ class Asistencia
     {
         global $db;
 
-        $filtro = ['id_curso' => (int)$id_curso];
+        $filtro = ['id_curso' => (int) $id_curso];
 
         if ($semana !== null && $semana !== '') {
             $filtro['semana'] = $semana;
@@ -105,11 +132,11 @@ class Asistencia
 
         foreach ($cursor as $doc) {
             $resultado[] = [
-                '_id'        => (int)$doc['_id'],
-                'id_usuario' => isset($doc['id_usuario']) ? (int)$doc['id_usuario'] : 0,
-                'id_curso'   => isset($doc['id_curso']) ? (int)$doc['id_curso'] : 0,
-                'semana'     => isset($doc['semana']) ? $doc['semana'] : '',
-                'asistio'    => isset($doc['asistio']) ? (bool)$doc['asistio'] : false
+                '_id' => (int) $doc['_id'],
+                'id_usuario' => isset($doc['id_usuario']) ? (int) $doc['id_usuario'] : 0,
+                'id_curso' => isset($doc['id_curso']) ? (int) $doc['id_curso'] : 0,
+                'semana' => isset($doc['semana']) ? $doc['semana'] : '',
+                'asistio' => isset($doc['asistio']) ? (bool) $doc['asistio'] : false
             ];
         }
 
@@ -120,18 +147,18 @@ class Asistencia
     {
         global $db;
 
-        $doc = $db->Asistencia->findOne(['_id' => (int)$id]);
+        $doc = $db->Asistencia->findOne(['_id' => (int) $id]);
 
         if (!$doc) {
             return null;
         }
 
         return [
-            '_id'        => (int)$doc['_id'],
-            'id_usuario' => isset($doc['id_usuario']) ? (int)$doc['id_usuario'] : 0,
-            'id_curso'   => isset($doc['id_curso']) ? (int)$doc['id_curso'] : 0,
-            'semana'     => isset($doc['semana']) ? $doc['semana'] : '',
-            'asistio'    => isset($doc['asistio']) ? (bool)$doc['asistio'] : false
+            '_id' => (int) $doc['_id'],
+            'id_usuario' => isset($doc['id_usuario']) ? (int) $doc['id_usuario'] : 0,
+            'id_curso' => isset($doc['id_curso']) ? (int) $doc['id_curso'] : 0,
+            'semana' => isset($doc['semana']) ? $doc['semana'] : '',
+            'asistio' => isset($doc['asistio']) ? (bool) $doc['asistio'] : false
         ];
     }
 
@@ -159,7 +186,7 @@ class Asistencia
         exit;
     }
 
-    public static function get_reportes($id_estudiante,$id_curso)
+    public static function get_reportes($id_estudiante, $id_curso)
     {
         global $db;
         session_start();
