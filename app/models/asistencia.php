@@ -40,7 +40,6 @@ class Asistencia
 
         $hoy = new DateTime();
 
-        // Clonar para no modificar el original
         $inicioSemana = clone $hoy;
         $finSemana = clone $hoy;
 

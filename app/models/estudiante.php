@@ -1,5 +1,4 @@
 <?php
-// Ruta correcta a la conexión de MongoDB
 require_once __DIR__ . '/../../config/database.php';
 
 class Estudiante
@@ -8,10 +7,8 @@ class Estudiante
     {
         global $db;
 
-        // Si en Mongo la colección se llama "Estudiante"
         $collection = $db->Estudiante;
 
-        // Generar ID consecutivo como en Profesor
         $last = $collection->findOne([], ['sort' => ['_id' => -1]]);
         $nextId = $last ? ((int) $last['_id'] + 1) : 1;
 
@@ -27,9 +24,8 @@ class Estudiante
         return true;
     }
 
-
     /**
-     * Editar datos de un estudiante
+     * Editar estudiante
      */
     public static function editar($id, $cedula, $fecha_nacimiento, $grado, $escuela)
     {
@@ -37,7 +33,6 @@ class Estudiante
 
         $collection = $db->Estudiante;
 
-        // Verificar que exista
         $estudiante = $collection->findOne(['_id' => (int) $id]);
         if (!$estudiante) {
             throw new Exception("El estudiante con ID $id no existe.");
@@ -70,7 +65,7 @@ class Estudiante
     }
 
     /**
-     * Obtener un estudiante por ID (útil si lo necesitas en algún editar.php)
+     * Obtener un estudiante por ID
      */
     public static function obtener_por_id($id)
     {
@@ -88,7 +83,6 @@ class Estudiante
             return null;
         }
 
-        // Normalizamos a array simple
         return [
             '_id' => (int) $estudiante['_id'],
             'nombre' => $estudiante['nombre'] ?? '',
@@ -100,7 +94,7 @@ class Estudiante
     }
 
     /**
-     * Lista general de estudiantes (para admin)
+     * Lista general de estudiantes
      */
     public static function lista_estudiantes()
     {
@@ -205,7 +199,7 @@ class Estudiante
             if ($id_curso != "All" && isset($curso['descripcion']) && $curso['descripcion'] != $id_curso)
                 continue;
 
-            // Conversión de fechas MongoDB -> string
+            // Conversión de fechas MongoDB
             $fechaInicio = isset($nota['fecha_inicio']) && $nota['fecha_inicio'] instanceof MongoDB\BSON\UTCDateTime
                 ? $nota['fecha_inicio']->toDateTime()->format('Y-m-d')
                 : ($nota['fecha_inicio'] ?? '');

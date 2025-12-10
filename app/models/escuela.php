@@ -8,10 +8,8 @@ class Escuela
         global $db;
         session_start();
 
-        // Obtener la colección "Escuela"
         $collection = $db->Escuela;
 
-        // Buscar todas las escuelas
         $cursor = $collection->find([], [
             'projection' => [
                 '_id' => 1,
@@ -20,7 +18,6 @@ class Escuela
             ]
         ]);
 
-        // Convertir resultados a un arreglo
         $escuelas = iterator_to_array($cursor);
 
         return $escuelas;

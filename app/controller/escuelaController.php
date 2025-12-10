@@ -5,7 +5,6 @@ require_once __DIR__ . '/../models/Escuela.php';
 
 function get_escuela_resumen()
 {
-    // Ajusta el nombre del método si tu modelo usa otro (por ejemplo, resumen_escuelas)
     return Escuela::resumen();
 }
 function get_escuelas_option()

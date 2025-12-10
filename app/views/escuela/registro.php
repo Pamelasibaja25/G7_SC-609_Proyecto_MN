@@ -95,7 +95,6 @@ if (session_status() === PHP_SESSION_NONE) {
             </div>
 
             <div class="modal-body">
-                <!-- IMPORTANTE: ruta relativa correcta desde app/views/escuela/ -->
                 <form action="../../controller/escuelaController.php" method="POST">
 
                     <div class="form-group mb-3">
@@ -105,7 +104,6 @@ if (session_status() === PHP_SESSION_NONE) {
 
                     <div class="form-group mb-3">
                         <label for="provincia">Provincia:</label>
-                        <!-- Usamos form-control (Bootstrap 4) -->
                         <select id="provincia" name="provincia" class="form-control" required>
                             <option value="" disabled selected>Seleccione una provincia</option>
                             <option value="San José">San José</option>

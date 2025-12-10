@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../vendor/autoload.php'; // Carga automática del driver de MongoDB
+require __DIR__ . '/../vendor/autoload.php'; 
 
 try {
     $uri = "mongodb+srv://admin:12345@proyectomng7.wwikke6.mongodb.net/Proyecto_MN_G7?retryWrites=true&w=majority";

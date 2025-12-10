@@ -5,10 +5,8 @@ if (session_status() === PHP_SESSION_NONE) {
 
 require_once __DIR__ . '/../../controller/calendarioController.php';
 
-// Filtro opcional por curso
 $idCursoFiltro = $_GET['id_curso'] ?? '';
 
-// Datos para el tablero
 $calendario = get_calendario($idCursoFiltro !== '' ? (int) $idCursoFiltro : null);
 $semanaActual = get_semana_actual($idCursoFiltro !== '' ? (int) $idCursoFiltro : null);
 ?>
@@ -145,7 +143,6 @@ $semanaActual = get_semana_actual($idCursoFiltro !== '' ? (int) $idCursoFiltro :
                             </table>
                         </div>
                         <p class="text-center text-muted mt-2">
-                            La fila resaltada en verde (si la hay) corresponde a la semana actual según la fecha de hoy.
                         </p>
                     </div>
                 </div>

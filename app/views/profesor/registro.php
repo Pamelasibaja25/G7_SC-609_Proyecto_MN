@@ -5,10 +5,8 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Resumen de profesores por especialidad
 $profesoresResumen = get_profesores_resumen();
 
-// Lista de especialidades/cursos para el combo
 $especialidades = get_especialidades_cursos();
 ?>
 <!DOCTYPE html>
@@ -100,7 +98,6 @@ $especialidades = get_especialidades_cursos();
             </div>
 
             <div class="modal-body">
-                <!-- IMPORTANTE: ruta relativa correcta hacia el controller -->
                 <form action="../../controller/profesorController.php" method="POST">
 
                     <div class="form-group mb-3">

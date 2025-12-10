@@ -20,7 +20,7 @@ $escuelas = get_escuelas();
     <!-- Bootstrap 4 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
-    <!-- CSS propio -->
+    <!-- CSS -->
     <link href="/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/public/css/style.css" rel="stylesheet" type="text/css" />
 
     <!-- JS (jQuery, Popper, Bootstrap JS) -->
@@ -28,7 +28,7 @@ $escuelas = get_escuelas();
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-    <!-- JS propio -->
+    <!-- JS -->
     <script src="/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/public/js/scripts.js"></script>
 </head>
 
@@ -51,7 +51,6 @@ $escuelas = get_escuelas();
     <div class="container mt-5">
         <h1 class="text-center text-white mb-4">Estudiantes registrados</h1>
 
-        <!-- Aquí podrías en el futuro poner tarjetas de resumen por grado, escuela, etc. -->
         <div class="row">
             <div class="col-12">
                 <p class="text-center text-white-50 mb-0">

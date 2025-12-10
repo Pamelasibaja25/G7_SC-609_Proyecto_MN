@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
                 $_POST['especialidad']
             );
 
-            // Redirección RELATIVA desde /app/controller/ al view
+            
             header("Location: ../views/profesor/registro.php?status=success&msg=" . urlencode("Profesor registrado correctamente"));
             exit();
         } catch (Exception $e) {

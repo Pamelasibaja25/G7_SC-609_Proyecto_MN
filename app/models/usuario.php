@@ -31,7 +31,6 @@ class Usuario
                 $_SESSION['telefono'] = $user['telefono'] ?? '';
                 $_SESSION['rol'] = $user['role'] ?? 'ROLE_USER';
 
-                // Buscar información del estudiante asociada al usuario
                 $collectionEstudiantes = $db->Estudiante;
                 $estudiante = $collectionEstudiantes->findOne(['id_usuario' => (int)$user['_id']]);
                 if ($estudiante) {
@@ -64,16 +63,13 @@ class Usuario
         $collectionUsuarios = $db->Usuario;
         $collectionEstudiantes = $db->Estudiante;
 
-        // Verificar si ya existe el usuario
         $existingUser = $collectionUsuarios->findOne(['username' => $new_username]);
         if ($existingUser) {
             return false;
         }
 
-        // Obtener siguiente ID para Usuario
         $nextUserId = self::getNextId($collectionUsuarios);
 
-        // Insertar nuevo usuario
         $collectionUsuarios->insertOne([
             '_id' => $nextUserId,
             'username' => $new_username,
@@ -84,10 +80,8 @@ class Usuario
             'activo' => true
         ]);
 
-        // Obtener siguiente ID para Estudiante
         $nextEstId = self::getNextId($collectionEstudiantes);
 
-        // Crear registro de estudiante
         $collectionEstudiantes->insertOne([
             '_id' => $nextEstId,
             'id_usuario' => $nextUserId,

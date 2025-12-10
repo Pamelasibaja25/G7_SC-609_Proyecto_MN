@@ -12,14 +12,14 @@ $baseUrl = '/Proyecto_NoSQL/G7_SC-609_Proyecto_MN';
 <a class="navbar-brand text-white" href="<?= $baseUrl ?>/app/views/layout.php">Escuela en Casa</a>
 
 
-        <!-- Contenido colapsable -->
+        <!-- Contenido  -->
         <div class="collapse navbar-collapse" id="navbarNav">
 
             <!-- Navegación principal (izquierda) -->
             <ul class="navbar-nav mr-auto">
                 <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'user'): ?>
 
-                    <!-- USER: navegación centrada en tareas -->
+                    <!-- USER -->
                     <li class="nav-item">
                         <a class="nav-link" href="<?= $baseUrl ?>/app/views/curso/listado.php">
                             Mis cursos
@@ -49,7 +49,7 @@ $baseUrl = '/Proyecto_NoSQL/G7_SC-609_Proyecto_MN';
 
                 <?php elseif (isset($_SESSION['rol']) && $_SESSION['rol'] === 'admin'): ?>
 
-                    <!-- ADMIN: navegación pensada como panel de gestión -->
+                    <!-- ADMIN -->
                     <li class="nav-item">
                         <a class="nav-link" href="<?= $baseUrl ?>/app/views/metricas.php">
                             Panel
@@ -175,7 +175,7 @@ $baseUrl = '/Proyecto_NoSQL/G7_SC-609_Proyecto_MN';
                         </div>
                     </li>
                 <?php else: ?>
-                    <!-- ADMIN u otros: solo botón de salir (puedes luego unificar en "Mi cuenta" también) -->
+                    <!-- ADMIN u otros: botón de salir -->
                     <li class="nav-item my-auto">
                         <a class="btn btn-outline-light"
                            href="<?= $baseUrl ?>/index.php">

@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/../../controller/grupoController.php';
 
-// Validar que venga el id
 if (!isset($_GET['id_grupo'])) {
     header("Location: listado.php?status=error&msg=" . urlencode("ID de grupo no especificado"));
     exit();

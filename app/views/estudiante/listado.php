@@ -23,7 +23,7 @@ $msg = $_GET['msg'] ?? null;
     <!-- Bootstrap 4 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
-    <!-- CSS propio -->
+    <!-- CSS -->
     <link href="/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/public/css/style.css" rel="stylesheet" type="text/css" />
 
     <!-- JS (jQuery, Popper, Bootstrap JS) -->
@@ -31,7 +31,7 @@ $msg = $_GET['msg'] ?? null;
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-    <!-- JS propio -->
+    <!-- JS -->
     <script src="/Proyecto_NoSQL/G7_SC-609_Proyecto_MN/public/js/scripts.js"></script>
 </head>
 

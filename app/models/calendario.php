@@ -46,7 +46,7 @@ class Calendario
         global $db;
 
         if ($fecha === null) {
-            // Formato igual al JSON: YYYY-MM-DD
+            // Formato: YYYY-MM-DD
             $fecha = date('Y-m-d');
         }
 

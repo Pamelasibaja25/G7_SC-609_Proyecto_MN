@@ -145,14 +145,12 @@ class Curso
 
         $collection = $db->Curso;
 
-        // Cursos "En Progreso" del usuario actual
         $cursosActuales = $collection->find(['id_usuario' => (int)$_SESSION['usuario']]);
         $cursosUsuario = [];
         foreach ($cursosActuales as $c) {
             $cursosUsuario[] = $c['descripcion'];
         }
 
-        // Cursos "Disponibles" del mismo grado que no tenga ya
         $cursor = $collection->find([
             'estado' => 'Disponible',
             'grado' => $_SESSION['grado'],
@@ -238,11 +236,9 @@ public static function get_notas()
         $collectionCursos = $db->Curso;
         $collectionNotas = $db->Nota;
 
-        // Buscar el curso base
         $curso = $collectionCursos->findOne(['_id' => (int)$cursoId]);
         if (!$curso) return false;
 
-        // Crear un nuevo curso para el usuario (simula "duplicar" curso disponible)
         $nextId = self::getNextId($collectionCursos);
 
         $collectionCursos->insertOne([
@@ -255,7 +251,6 @@ public static function get_notas()
             'id_usuario' => (int)$_SESSION['usuario']
         ]);
 
-        // Insertar una nueva nota
         $collectionNotas->insertOne([
             '_id' => self::getNextId($collectionNotas),
             'id_curso' => $nextId,

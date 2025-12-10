@@ -23,7 +23,7 @@
 
 <body class="d-flex flex-column min-vh-100 bg-light">
 
-    <!-- Wrapper principal: crece para empujar el footer -->
+    <!-- Wrapper principal -->
     <div id="page-wrapper" class="d-flex flex-column flex-fill">
 
         <?php
